@@ -19,11 +19,11 @@ public abstract class DaoFactory {
                 dbProps.load(inputStream);
                 String factoryClass = dbProps.getProperty(DB_FACTORY_CLASS);
                 instance = (DaoFactory) Class.forName(factoryClass).newInstance();
-
             } catch (IOException | IllegalAccessException | InstantiationException | ClassNotFoundException e) {
                 throw new RuntimeException(e);
             }
         }
         return instance;
     }
+
 }
