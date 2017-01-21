@@ -3,7 +3,8 @@ package model.dao.jdbc;
 import com.mysql.jdbc.Driver;
 
 import model.dao.DaoFactory;
-import model.dao.PersonDao;
+import model.dao.PatientDao;
+import model.dao.StaffDao;
 
 import java.io.InputStream;
 
@@ -31,8 +32,12 @@ public class JdbcDaoFactory extends DaoFactory {
     }
 
     @Override
-    public PersonDao createPersonDao() {
-        return new JdbcPersonDao(connection);
+    public StaffDao createStaffDao() {
+        return new JdbcStaffDao(connection);
     }
 
+    @Override
+    public PatientDao createPatientDao() {
+        return new JdbcPatientDao(connection);
+    }
 }

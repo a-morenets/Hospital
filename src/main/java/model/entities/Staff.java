@@ -3,12 +3,11 @@ package model.entities;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 
-public class Person {
+public class Staff {
 	private int id;
 	private String firstName;
 	private String lastName;
 	private String surName;
-	private LocalDate birthDate;
 	private Role role;
 	private String email;
 	private String password;
@@ -22,7 +21,6 @@ public class Person {
 		private String firstName;
 		private String lastName;
 		private String surName;
-		private LocalDate birthDate;
 		private Role role;
 		private String email;
 		private String password;
@@ -46,12 +44,7 @@ public class Person {
 			this.surName = surNname;
 			return this;
 		}
-		
-		public Builder setBirthDate(Timestamp birthDate) {
-			this.birthDate = birthDate.toLocalDateTime().toLocalDate();
-			return this;
-		}
-		
+
 		public Builder setRole(Role role) {
 			this.role = role;
 			return this;
@@ -67,17 +60,16 @@ public class Person {
 			return this;
 		}
 		
-		public Person build(){
-			Person person = new Person();
-			person.setId(id);
-			person.setFirstName(firstName);
-			person.setLastName(lastName);
-			person.setSurName(surName);
-			person.setBirthDate(birthDate);
-			person.setRole(role);
-			person.setEmail(email);
-			person.setPassword(password);
-			return person;
+		public Staff build(){
+			Staff staff = new Staff();
+			staff.setId(id);
+			staff.setFirstName(firstName);
+			staff.setLastName(lastName);
+			staff.setSurName(surName);
+			staff.setRole(role);
+			staff.setEmail(email);
+			staff.setPassword(password);
+			return staff;
 		}
 	}
 	
@@ -113,14 +105,6 @@ public class Person {
 		this.surName = surName;
 	}
 
-	public LocalDate getBirthDate() {
-		return birthDate;
-	}
-
-	public void setBirthDate(LocalDate birthDate) {
-		this.birthDate = birthDate;
-	}
-
 	public Role getRole() {
 		return role;
 	}
@@ -147,8 +131,8 @@ public class Person {
 
 	@Override
 	public String toString() {
-		return "Person [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", surName=" + surName
-				+ ", birthDate=" + birthDate + ", role=" + role + ", email=" + email + ", password=" + password + "]";
+		return "Staff [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", surName=" + surName
+				+ ", role=" + role + ", email=" + email + ", password=" + password + "]";
 	}
 
 }
