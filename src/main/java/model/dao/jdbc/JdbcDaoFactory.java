@@ -3,6 +3,7 @@ package model.dao.jdbc;
 import com.mysql.jdbc.Driver;
 
 import model.dao.DaoFactory;
+import model.dao.DiagnosisHistoryDao;
 import model.dao.PatientDao;
 import model.dao.StaffDao;
 
@@ -39,5 +40,10 @@ public class JdbcDaoFactory extends DaoFactory {
     @Override
     public PatientDao createPatientDao() {
         return new JdbcPatientDao(connection);
+    }
+
+    @Override
+    public DiagnosisHistoryDao createDiagnosisHistoryDao() {
+        return new JdbcDiagnosisHistoryDao();
     }
 }

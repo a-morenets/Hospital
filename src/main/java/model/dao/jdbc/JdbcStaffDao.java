@@ -14,7 +14,18 @@ import model.entities.Staff.Role;
 
 public class JdbcStaffDao implements StaffDao {
 
+    /* SELECT */
     private static final String SELECT_STAFF_BY_LOGIN = "SELECT * FROM staff WHERE lower(email) = ?";
+
+    /* Fields */
+    private static final String ID = "id";
+    private static final String FIRSTNAME = "firstname";
+    private static final String LASTNAME = "lastname";
+    private static final String SURNAME = "surname";
+    private static final String ROLE = "role";
+    private static final String EMAIL = "email";
+    private static final String PASSWORD = "password";
+
     private Connection connection;
 
     JdbcStaffDao(Connection connection) {
@@ -23,22 +34,22 @@ public class JdbcStaffDao implements StaffDao {
     }
 
     @Override
-    public StaffDao find(int id) {
+    public Staff find(int id) {
         return null;
     }
 
     @Override
-    public List<StaffDao> findAll() {
+    public List<Staff> findAll() {
         return null;
     }
 
     @Override
-    public void create(StaffDao staffDao) {
+    public void create(Staff staff) {
 
     }
 
     @Override
-    public void update(StaffDao staffDao) {
+    public void update(Staff staff) {
 
     }
 
@@ -64,18 +75,17 @@ public class JdbcStaffDao implements StaffDao {
         }
 
         return result;
-
     }
 
     private Staff getStaffFromResultSet(ResultSet rs) throws SQLException {
         Staff person = new Staff.Builder()
-                .setId(rs.getInt("id"))
-                .setFirstName(rs.getString("firstname"))
-                .setLastName(rs.getString("lastname"))
-                .setSurName(rs.getString("surname"))
-                .setRole(Role.valueOf(rs.getString("role")))
-                .setEmail(rs.getString("email"))
-                .setPassword(rs.getString("password"))
+                .setId(rs.getInt(ID))
+                .setFirstName(rs.getString(FIRSTNAME))
+                .setLastName(rs.getString(LASTNAME))
+                .setSurName(rs.getString(SURNAME))
+                .setRole(Role.valueOf(rs.getString(ROLE)))
+                .setEmail(rs.getString(EMAIL))
+                .setPassword(rs.getString(PASSWORD))
                 .build();
         return person;
     }

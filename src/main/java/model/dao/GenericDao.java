@@ -3,15 +3,15 @@ package model.dao;
 import java.util.List;
 
 
-public interface GenericDao<E> {
+public interface GenericDao<T> {
 	
-    E find(int id);
+    T find(int id);
 
-    List<E> findAll();
+    List<T> findAll();
 
-    void create(E e);
+    void create(T t);
 
-    void update(E e);
+    void update(T t);
 
     void delete(int id);
 }

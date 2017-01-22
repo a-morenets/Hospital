@@ -4,6 +4,7 @@ package model.entities;
  * Created by alexey.morenets@gmail.com on 21.01.2017.
  */
 public class Patient {
+
     private int id;
     private String firstName;
     private String lastName;

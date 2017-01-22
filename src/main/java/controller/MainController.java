@@ -11,10 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import controller.commands.Command;
-import controller.commands.ShowPatientInfoCommand;
-import controller.commands.ShowPatientsCommand;
-import controller.commands.LoginCommand;
+import controller.commands.*;
+import view.GlobalConstants;
 
 /**
  * Servlet implementation class MainController
@@ -24,6 +22,9 @@ public class MainController extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
+    public static final String POST = "POST:";
+    public static final String GET = "GET:";
+
     private Map<String, Command> commands = new HashMap<>();
 
     public MainController() {
@@ -31,10 +32,12 @@ public class MainController extends HttpServlet {
     }
 
     public void init(ServletConfig config) throws ServletException {
-        commands.put("POST:/login", new LoginCommand());
-        commands.put("POST:/show_patients", new ShowPatientsCommand());
+        commands.put(POST + GlobalConstants.LOGIN, new LoginCommand());
+        commands.put(POST + GlobalConstants.SHOW_PATIENTS, new ShowPatientsCommand());
+        commands.put(POST + GlobalConstants.ADD_PATIENT, new AddPatientCommand());
 
-        commands.put("GET:/show_patient", new ShowPatientInfoCommand());
+        commands.put(GET + GlobalConstants.ADD_PATIENT_FORM, new AddPatientFormCommand());
+        commands.put(GET + GlobalConstants.SHOW_PATIENT_INFO, new ShowPatientInfoCommand());
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -52,10 +55,7 @@ public class MainController extends HttpServlet {
         String path = request.getRequestURI();
         path = path.replaceAll(".*/rest", "");
         String key = method + ":" + path;
-
-        System.out.println(key);
-
-        Command command = commands.getOrDefault(key, (req, resp) -> "/index.jsp");
+        Command command = commands.getOrDefault(key, (req, resp) -> GlobalConstants.INDEX_JSP);
         String viewPage = command.execute(request, response);
         request.getRequestDispatcher(viewPage).forward(request, response);
     }

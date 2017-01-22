@@ -18,6 +18,8 @@ public class StaffService {
         return Holder.INSTANCE;
     }
 
+    /* Service methods */
+
     public Optional<Staff> login(String email, String password) {
         StaffDao dao = daoFactory.createStaffDao();
         return dao.getStaffByEmail(email).filter(staff -> password.equals(staff.getPassword()));

@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 
 public class Staff {
+
 	private int id;
 	private String firstName;
 	private String lastName;
@@ -12,7 +13,7 @@ public class Staff {
 	private String email;
 	private String password;
 	
-	public enum Role{
+	public enum Role {
 		DOCTOR, NURSE
 	}
 
@@ -127,12 +128,6 @@ public class Staff {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	@Override
-	public String toString() {
-		return "Staff [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", surName=" + surName
-				+ ", role=" + role + ", email=" + email + ", password=" + password + "]";
 	}
 
 }

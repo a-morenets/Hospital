@@ -21,11 +21,17 @@ public class PatientService {
         return Holder.INSTANCE;
     }
 
-    void setCityDao(PatientDao patientDao) {
-        this.patientDao = patientDao;
-    }
+    /* Service methods */
 
     public List<Patient> getAllPatients(){
         return patientDao.findAll();
+    }
+
+    public void createPatient(Patient patient) {
+        patientDao.create(patient);
+    }
+
+    public Patient getPatientById(int id) {
+        return patientDao.find(id);
     }
 }

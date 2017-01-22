@@ -2,6 +2,7 @@ package controller.commands;
 
 import model.entities.Patient;
 import model.services.PatientService;
+import view.GlobalConstants;
 
 import java.io.IOException;
 import java.util.List;
@@ -12,6 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 
 public class ShowPatientsCommand implements Command {
 
+    /* Parameters & Attributes */
+    public static final String ATTR_PATIENTS_LIST = "patientsList";
+
     private PatientService patientService = PatientService.getInstance();
 
 	@Override
@@ -19,9 +23,9 @@ public class ShowPatientsCommand implements Command {
 			throws ServletException, IOException {
 
         List<Patient> patients = patientService.getAllPatients();
-        request.setAttribute("patientsList", patients);
+        request.setAttribute(ATTR_PATIENTS_LIST, patients);
 
-		return "/WEB-INF/view/patients.jsp";
+		return GlobalConstants.PATIENTS_JSP;
 	}
 
 }
