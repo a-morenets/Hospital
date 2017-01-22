@@ -14,10 +14,10 @@ public class DiagnosisHistoryService {
     private DaoFactory daoFactory = DaoFactory.getInstance();
 
     private static class Holder {
-        static final StaffService INSTANCE = new StaffService();
+        static final DiagnosisHistoryService INSTANCE = new DiagnosisHistoryService();
     }
 
-    public static StaffService getInstance() {
+    public static DiagnosisHistoryService getInstance() {
         return Holder.INSTANCE;
     }
 

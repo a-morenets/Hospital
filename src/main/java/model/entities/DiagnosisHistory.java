@@ -15,6 +15,8 @@ public class DiagnosisHistory {
     private int diagnosisId;
     private Type type;
 
+
+
     public enum Type {
         PRIMARY, FINAL
     }

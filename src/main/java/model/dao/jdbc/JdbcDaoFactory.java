@@ -44,6 +44,6 @@ public class JdbcDaoFactory extends DaoFactory {
 
     @Override
     public DiagnosisHistoryDao createDiagnosisHistoryDao() {
-        return new JdbcDiagnosisHistoryDao();
+        return new JdbcDiagnosisHistoryDao(connection);
     }
 }

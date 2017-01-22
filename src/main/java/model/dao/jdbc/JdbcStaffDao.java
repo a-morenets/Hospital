@@ -64,9 +64,9 @@ public class JdbcStaffDao implements StaffDao {
 
         try (PreparedStatement query = connection.prepareStatement(SELECT_STAFF_BY_LOGIN)) {
             query.setString(1, email.toLowerCase());
-            ResultSet rs = query.executeQuery();
-            if (rs.next()) {
-                Staff staff = getStaffFromResultSet(rs);
+            ResultSet resultSet = query.executeQuery();
+            if (resultSet.next()) {
+                Staff staff = getStaffFromResultSet(resultSet);
                 result = Optional.of(staff);
             }
 
@@ -77,15 +77,15 @@ public class JdbcStaffDao implements StaffDao {
         return result;
     }
 
-    private Staff getStaffFromResultSet(ResultSet rs) throws SQLException {
+    private Staff getStaffFromResultSet(ResultSet resultSet) throws SQLException {
         Staff person = new Staff.Builder()
-                .setId(rs.getInt(ID))
-                .setFirstName(rs.getString(FIRSTNAME))
-                .setLastName(rs.getString(LASTNAME))
-                .setSurName(rs.getString(SURNAME))
-                .setRole(Role.valueOf(rs.getString(ROLE)))
-                .setEmail(rs.getString(EMAIL))
-                .setPassword(rs.getString(PASSWORD))
+                .setId(resultSet.getInt(ID))
+                .setFirstName(resultSet.getString(FIRSTNAME))
+                .setLastName(resultSet.getString(LASTNAME))
+                .setSurName(resultSet.getString(SURNAME))
+                .setRole(Role.valueOf(resultSet.getString(ROLE)))
+                .setEmail(resultSet.getString(EMAIL))
+                .setPassword(resultSet.getString(PASSWORD))
                 .build();
         return person;
     }

@@ -12,11 +12,11 @@
     <h3>Diagnosis history</h3>
 
     <c:forEach  var="i" items="${diagnosisHistoryList}">
-        <c:if test="${i.type == PRIMARY}">
+        <c:if test="${i.type == 'PRIMARY'}">
             <a href="./show_assignation?id=${i.id}">
         </c:if>
-            ${i.date} ${i.diagnosisName} (${i.staffFirstName} ${i.staffLastName} ${i.staffSurName})
-        <c:if test="${i.type == PRIMARY}">
+            ${i.date} ${i.diagnosisId} (${i.staffId} ${i.staffId} ${i.staffId})"
+        <c:if test="${i.type == 'PRIMARY'}">
             </a>
         </c:if>
 

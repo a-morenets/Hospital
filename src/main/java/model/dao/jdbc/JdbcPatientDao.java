@@ -41,9 +41,9 @@ public class JdbcPatientDao implements PatientDao {
 
         try (PreparedStatement query = connection.prepareStatement(SELECT_PATIENT_BY_ID)) {
             query.setString(1, String.valueOf(id));
-            ResultSet rs = query.executeQuery();
-            if (rs.next()) {
-                patient = getPatientFromResultSet(rs);
+            ResultSet resultSet = query.executeQuery();
+            if (resultSet.next()) {
+                patient = getPatientFromResultSet(resultSet);
             }
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
@@ -52,12 +52,12 @@ public class JdbcPatientDao implements PatientDao {
         return patient;
     }
 
-    private Patient getPatientFromResultSet(ResultSet rs) throws SQLException {
+    private Patient getPatientFromResultSet(ResultSet resultSet) throws SQLException {
         Patient patient = new Patient.Builder()
-                .setId(rs.getInt(ID))
-                .setFirstName(rs.getString(FIRSTNAME))
-                .setLastName(rs.getString(LASTNAME))
-                .setSurName(rs.getString(SURNAME))
+                .setId(resultSet.getInt(ID))
+                .setFirstName(resultSet.getString(FIRSTNAME))
+                .setLastName(resultSet.getString(LASTNAME))
+                .setSurName(resultSet.getString(SURNAME))
                 .build();
         return patient;
     }
