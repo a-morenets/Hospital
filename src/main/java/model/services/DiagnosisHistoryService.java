@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class DiagnosisHistoryService {
 
-    private DaoFactory daoFactory = DaoFactory.getInstance();
+    private DiagnosisHistoryDao diagnosisHistoryDao = DaoFactory.getInstance().createDiagnosisHistoryDao();
 
     private static class Holder {
         static final DiagnosisHistoryService INSTANCE = new DiagnosisHistoryService();
@@ -21,8 +21,9 @@ public class DiagnosisHistoryService {
         return Holder.INSTANCE;
     }
 
-    public List<DiagnosisHistory> getDiagnosesByPatient(int id) {
-        DiagnosisHistoryDao dao = daoFactory.createDiagnosisHistoryDao();
-        return dao.getDiagnosisHistoryByPatientIdList(id);
+    /* Service methods */
+
+    public List<DiagnosisHistory> getDiagnosisHistoryByPatient(int id) {
+        return diagnosisHistoryDao.getDiagnosisHistoryByPatientIdList(id);
     }
 }

@@ -8,7 +8,7 @@ import model.entities.Staff;
 
 public class StaffService {
 
-    private DaoFactory daoFactory = DaoFactory.getInstance();
+    private StaffDao staffDao = DaoFactory.getInstance().createStaffDao();
 
     private static class Holder {
         static final StaffService INSTANCE = new StaffService();
@@ -21,8 +21,10 @@ public class StaffService {
     /* Service methods */
 
     public Optional<Staff> login(String email, String password) {
-        StaffDao dao = daoFactory.createStaffDao();
-        return dao.getStaffByEmail(email).filter(staff -> password.equals(staff.getPassword()));
+        return staffDao.getStaffByEmail(email).filter(staff -> password.equals(staff.getPassword()));
     }
 
+    public Staff getStaffById(int Id) {
+        return staffDao.find(Id);
+    }
 }

@@ -3,7 +3,12 @@ package model.dao.jdbc;
 
 import model.dao.DiagnosisHistoryDao;
 
+import model.entities.Diagnosis;
 import model.entities.DiagnosisHistory;
+import model.entities.Staff;
+import model.services.DiagnosisHistoryService;
+import model.services.DiagnosisService;
+import model.services.StaffService;
 
 import java.sql.*;
 
@@ -26,6 +31,9 @@ public class JdbcDiagnosisHistoryDao implements DiagnosisHistoryDao {
     public static final String STAFF_ID = "staff_id";
     public static final String DIAGNOSIS_ID = "diagnosis_id";
     public static final String TYPE = "type";
+
+    private StaffService staffService = StaffService.getInstance();
+    private DiagnosisService diagnosisService = DiagnosisService.getInstance();
 
     private Connection connection;
 
@@ -76,12 +84,15 @@ public class JdbcDiagnosisHistoryDao implements DiagnosisHistoryDao {
     }
 
     private DiagnosisHistory getPatientFromResultSet(ResultSet resultSet) throws SQLException {
+        Staff staff = staffService.getStaffById(resultSet.getInt(PATIENT_ID));
+        Diagnosis diagnosis = diagnosisService.getDiagnosisById(resultSet.getInt(DIAGNOSIS_ID));
+
         DiagnosisHistory diagnosisHistory = new DiagnosisHistory.Builder()
                 .setId(resultSet.getInt(ID))
                 .setDate(resultSet.getTimestamp(DATE))
                 .setPatientId(resultSet.getInt(PATIENT_ID))
-                .setStaffId(resultSet.getInt(STAFF_ID))
-                .setDiagnosisId(resultSet.getInt(DIAGNOSIS_ID))
+                .setStaff(staff)
+                .setDiagnosis(diagnosis)
                 .setType(DiagnosisHistory.Type.valueOf(resultSet.getString(TYPE)))
                 .build();
         return diagnosisHistory;

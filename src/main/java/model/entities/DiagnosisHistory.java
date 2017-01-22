@@ -1,7 +1,6 @@
 package model.entities;
 
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 
 /**
  * Created by alexey.morenets@gmail.com on 22.01.2017.
@@ -11,8 +10,8 @@ public class DiagnosisHistory {
     private int id;
     private Timestamp date;
     private int patientId;
-    private int staffId;
-    private int diagnosisId;
+    private Staff staff;
+    private Diagnosis diagnosis;
     private Type type;
 
 
@@ -25,8 +24,8 @@ public class DiagnosisHistory {
         private int id;
         private Timestamp date;
         private int patientId;
-        private int staffId;
-        private int diagnosisId;
+        private Staff staff;
+        private Diagnosis diagnosis;
         private Type type;
 
         public Builder setId(int id) {
@@ -44,13 +43,13 @@ public class DiagnosisHistory {
             return this;
         }
 
-        public Builder setStaffId(int staffId) {
-            this.staffId = staffId;
+        public Builder setStaff(Staff staff) {
+            this.staff = staff;
             return this;
         }
 
-        public Builder setDiagnosisId(int diagnosisId) {
-            this.diagnosisId = diagnosisId;
+        public Builder setDiagnosis(Diagnosis diagnosis) {
+            this.diagnosis = diagnosis;
             return this;
         }
 
@@ -64,8 +63,8 @@ public class DiagnosisHistory {
             diagnosisHistory.setId(id);
             diagnosisHistory.setDate(date);
             diagnosisHistory.setPatientId(patientId);
-            diagnosisHistory.setStaffId(staffId);
-            diagnosisHistory.setDiagnosisId(diagnosisId);
+            diagnosisHistory.setStaff(staff);
+            diagnosisHistory.setDiagnosis(diagnosis);
             diagnosisHistory.setType(type);
             return diagnosisHistory;
         }
@@ -95,20 +94,20 @@ public class DiagnosisHistory {
         this.patientId = patientId;
     }
 
-    public int getStaffId() {
-        return staffId;
+    public Staff getStaff() {
+        return staff;
     }
 
-    public void setStaffId(int staffId) {
-        this.staffId = staffId;
+    public void setStaff(Staff staff) {
+        this.staff = staff;
     }
 
-    public int getDiagnosisId() {
-        return diagnosisId;
+    public Diagnosis getDiagnosis() {
+        return diagnosis;
     }
 
-    public void setDiagnosisId(int diagnosisId) {
-        this.diagnosisId = diagnosisId;
+    public void setDiagnosis(Diagnosis diagnosis) {
+        this.diagnosis = diagnosis;
     }
 
     public Type getType() {

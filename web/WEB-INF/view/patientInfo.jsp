@@ -15,7 +15,19 @@
         <c:if test="${i.type == 'PRIMARY'}">
             <a href="./show_assignation?id=${i.id}">
         </c:if>
-            ${i.date} ${i.diagnosisId} (${i.staffId} ${i.staffId} ${i.staffId})"
+            ${i.date} ${i.diagnosis.name}
+            (
+        <c:choose>
+            <c:when test="${i.staff.role == 'DOCTOR'}">
+                Лікар:
+            </c:when>
+            <c:otherwise>
+                Медсестра:
+            </c:otherwise>
+        </c:choose>
+
+        ${i.staff.lastName} ${i.staff.firstName} ${i.staff.surName}
+        )
         <c:if test="${i.type == 'PRIMARY'}">
             </a>
         </c:if>

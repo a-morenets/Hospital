@@ -9,8 +9,10 @@ public abstract class DaoFactory {
     public abstract StaffDao createStaffDao();
     public abstract PatientDao createPatientDao();
     public abstract DiagnosisHistoryDao createDiagnosisHistoryDao();
+    public abstract DiagnosisDao createDiagnosisDao();
 
     private static final String DB_FACTORY_CLASS = "factory.class";
+
     public static final String DB_FILE = "/db.properties";
 
     private static DaoFactory instance;

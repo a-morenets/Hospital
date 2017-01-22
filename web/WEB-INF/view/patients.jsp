@@ -8,7 +8,7 @@
     <h1>Patients</h1>
 
     <c:forEach  var="i" items="${patientsList}">
-        <a href="./show_patient_info?id=${i.id}">${i.firstName} ${i.lastName} ${i.surName}</a>
+        <a href="./show_patient_info?id=${i.id}">${i.lastName} ${i.firstName} ${i.surName}</a>
         <br/>
     </c:forEach>
 

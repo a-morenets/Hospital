@@ -34,7 +34,7 @@ public class ShowPatientInfoCommand implements Command {
         Patient patient = patientService.getPatientById(id);
         request.getSession().setAttribute(ATTR_PATIENT, patient);
 
-        List<DiagnosisHistory> diagnosisHistoryList = diagnosisHistoryService.getDiagnosesByPatient(id);
+        List<DiagnosisHistory> diagnosisHistoryList = diagnosisHistoryService.getDiagnosisHistoryByPatient(id);
         request.getSession().setAttribute(ATTR_DIAGNOSIS_HISTORY_LIST, diagnosisHistoryList);
 
         return GlobalConstants.PATIENT_INFO_JSP;

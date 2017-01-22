@@ -14,7 +14,7 @@ public class JdbcPatientDao implements PatientDao {
 
     /* SELECT */
     private static final String SELECT_FROM_PATIENTS = "SELECT * FROM patients";
-    private static final String SELECT_PATIENT_BY_ID = SELECT_FROM_PATIENTS + " WHERE id = ?";
+    private static final String SELECT_PATIENT_BY_ID = "SELECT * FROM patients WHERE id = ?";
     private static final String INSERT_INTO_CITY_NAME_VALUES =
             "INSERT INTO patients (firstname, lastname, surname) VALUES (?, ?, ?)";
 

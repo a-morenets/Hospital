@@ -16,6 +16,7 @@ public class JdbcStaffDao implements StaffDao {
 
     /* SELECT */
     private static final String SELECT_STAFF_BY_LOGIN = "SELECT * FROM staff WHERE lower(email) = ?";
+    private static final String SELECT_STAFF_BY_ID = "SELECT * FROM staff WHERE id = ?";
 
     /* Fields */
     private static final String ID = "id";
@@ -35,7 +36,19 @@ public class JdbcStaffDao implements StaffDao {
 
     @Override
     public Staff find(int id) {
-        return null;
+        Staff staff = null;
+
+        try (PreparedStatement query = connection.prepareStatement(SELECT_STAFF_BY_ID)) {
+            query.setString(1, String.valueOf(id));
+            ResultSet resultSet = query.executeQuery();
+            if (resultSet.next()) {
+                staff = getStaffFromResultSet(resultSet);
+            }
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+
+        return staff;
     }
 
     @Override
@@ -78,7 +91,7 @@ public class JdbcStaffDao implements StaffDao {
     }
 
     private Staff getStaffFromResultSet(ResultSet resultSet) throws SQLException {
-        Staff person = new Staff.Builder()
+        Staff staff = new Staff.Builder()
                 .setId(resultSet.getInt(ID))
                 .setFirstName(resultSet.getString(FIRSTNAME))
                 .setLastName(resultSet.getString(LASTNAME))
@@ -87,7 +100,7 @@ public class JdbcStaffDao implements StaffDao {
                 .setEmail(resultSet.getString(EMAIL))
                 .setPassword(resultSet.getString(PASSWORD))
                 .build();
-        return person;
+        return staff;
     }
 
 }
