@@ -8,10 +8,13 @@ public interface GlobalConstants {
     String INDEX_JSP = "/index.jsp";
 
     /* JSP */
-    String WEB_INF_VIEW = "/WEB-INF/view";
-    String PATIENT_INFO_JSP = WEB_INF_VIEW + "/patientInfo.jsp";
-    String PATIENTS_JSP = WEB_INF_VIEW + "/patients.jsp";
-    String ADD_PATIENT_FORM_JSP = WEB_INF_VIEW + "/addPatient.jsp";
+    String PREFIX = "/WEB-INF/view";
+    String PATIENT_INFO_JSP = PREFIX + "/patientInfo.jsp";
+    String PATIENTS_JSP = PREFIX + "/patients.jsp";
+    String ADD_PATIENT_FORM_JSP = PREFIX + "/addPatient.jsp";
+    String DIAGNOSES_JSP = PREFIX + "/diagnoses.jsp";
+    String ASSIGNATIONS_JSP = PREFIX + "/assignations.jsp";
+    String ADD_ASSIGNATIONS_JSP = PREFIX + "/addAssignations.jsp";
 
     /* Paths for Commands */
     String LOGIN = "/login";
@@ -19,8 +22,14 @@ public interface GlobalConstants {
     String SHOW_PATIENT_INFO = "/show_patient_info";
     String ADD_PATIENT_FORM = "/add_patient_form";
     String ADD_PATIENT = "/add_patient";
+    String SET_DIAGNOSIS = "/set_diagnosis";
+    String SHOW_ASSIGNATIONS = "/show_assignations";
+    String ADD_ASSIGNATIONS_FORM = "/add_assignations_form";
+    String ADD_ASSIGNATIONS = "/add_assignations";
+    String ADD_DIAGNOSIS = "/add_diagnosis";
 
     /* REST */
     String REST = "/rest";
     String REST_SHOW_PATIENTS = REST + SHOW_PATIENTS;
+    String REST_SHOW_PATIENT_INFO = REST + SHOW_PATIENT_INFO;
 }

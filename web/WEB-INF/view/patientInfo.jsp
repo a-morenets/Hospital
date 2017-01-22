@@ -7,13 +7,13 @@
 <body>
     <h1>Patient info</h1>
 
-    <h2>${patient.firstName} ${patient.lastName} ${patient.surName}</h2>
+    <h2>${patient.lastName} ${patient.firstName} ${patient.surName}</h2>
 
     <h3>Diagnosis history</h3>
 
     <c:forEach  var="i" items="${diagnosisHistoryList}">
         <c:if test="${i.type == 'PRIMARY'}">
-            <a href="./show_assignation?id=${i.id}">
+            <a href="./show_assignations?id=${i.id}">
         </c:if>
             ${i.date} ${i.diagnosis.name}
             (
@@ -34,5 +34,11 @@
 
         <br/>
     </c:forEach>
+
+    <br/>
+
+    <a href="./set_diagnosis?id=${patient.id}&type=PRIMARY">Встановити діагноз</a>
+    <a href="./set_diagnosis?id=${patient.id}&type=FINAL">Виписати пацієнта</a>
+    <a href="./show_patients">До списку пацієнтів</a>
 </body>
 </html>
