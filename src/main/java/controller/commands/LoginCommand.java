@@ -24,7 +24,7 @@ public class LoginCommand implements Command {
 	public String execute(HttpServletRequest request, HttpServletResponse httpServletResponse)
 			throws ServletException, IOException {
 
-		String pageToGo = GlobalConstants.INDEX_JSP;
+		String pageToGo = GlobalConstants.LOGIN_JSP;
 
 		String email = request.getParameter(PARAM_LOGIN);
 		String password = request.getParameter(PARAM_PASSWORD);

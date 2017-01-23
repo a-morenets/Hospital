@@ -6,8 +6,8 @@ import java.time.LocalDate;
 public class Staff {
 
 	private int id;
-	private String firstName;
 	private String lastName;
+	private String firstName;
 	private String surName;
 	private Role role;
 	private String email;
@@ -19,8 +19,8 @@ public class Staff {
 
 	public static class Builder {
 		private int id;
-		private String firstName;
 		private String lastName;
+		private String firstName;
 		private String surName;
 		private Role role;
 		private String email;
@@ -31,16 +31,16 @@ public class Staff {
 			return this;
 		}
 		
-		public Builder setFirstName(String firstNname) {
-			this.firstName = firstNname;
-			return this;
-		}
-		
 		public Builder setLastName(String lastNname) {
 			this.lastName = lastNname;
 			return this;
 		}
-		
+
+		public Builder setFirstName(String firstNname) {
+			this.firstName = firstNname;
+			return this;
+		}
+
 		public Builder setSurName(String surNname) {
 			this.surName = surNname;
 			return this;
@@ -64,8 +64,8 @@ public class Staff {
 		public Staff build(){
 			Staff staff = new Staff();
 			staff.setId(id);
-			staff.setFirstName(firstName);
 			staff.setLastName(lastName);
+			staff.setFirstName(firstName);
 			staff.setSurName(surName);
 			staff.setRole(role);
 			staff.setEmail(email);
@@ -82,20 +82,20 @@ public class Staff {
 		this.id = id;
 	}
 
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstNname) {
-		this.firstName = firstNname;
-	}
-
 	public String getLastName() {
 		return lastName;
 	}
 
 	public void setLastName(String lastNname) {
 		this.lastName = lastNname;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstNname) {
+		this.firstName = firstNname;
 	}
 
 	public String getSurName() {

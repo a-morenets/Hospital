@@ -15,7 +15,7 @@
         <c:if test="${i.type == 'PRIMARY'}">
             <a href="./show_assignations?id=${i.id}">
         </c:if>
-            ${i.date} ${i.diagnosis.name}
+        ${i.date} <b> ${i.diagnosis.name} </b>
             (
         <c:choose>
             <c:when test="${i.staff.role == 'DOCTOR'}">

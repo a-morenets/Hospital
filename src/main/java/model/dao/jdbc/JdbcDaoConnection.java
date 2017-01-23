@@ -15,6 +15,10 @@ public class JdbcDaoConnection implements DaoConnection {
         this.connection = connection;
     }
 
+    Connection getConnection() {
+        return connection;
+    }
+
     @Override
     public void close() {
         if (inTransaction) {
@@ -56,10 +60,6 @@ public class JdbcDaoConnection implements DaoConnection {
             throw new RuntimeException(e);
         }
 
-    }
-
-    Connection getConnection() {
-        return connection;
     }
 
 }

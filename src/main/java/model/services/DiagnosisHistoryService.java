@@ -1,5 +1,6 @@
 package model.services;
 
+import model.dao.DaoConnection;
 import model.dao.DaoFactory;
 import model.dao.DiagnosisHistoryDao;
 import model.entities.DiagnosisHistory;
@@ -11,7 +12,7 @@ import java.util.List;
  */
 public class DiagnosisHistoryService {
 
-    private DiagnosisHistoryDao diagnosisHistoryDao = DaoFactory.getInstance().createDiagnosisHistoryDao();
+    DaoFactory daoFactory = DaoFactory.getInstance();
 
     private static class Holder {
         static final DiagnosisHistoryService INSTANCE = new DiagnosisHistoryService();
@@ -24,6 +25,10 @@ public class DiagnosisHistoryService {
     /* Service methods */
 
     public List<DiagnosisHistory> getDiagnosisHistoryByPatient(int id) {
-        return diagnosisHistoryDao.getDiagnosisHistoryByPatientIdList(id);
+        try (DaoConnection connection = daoFactory.getConnection()) {
+            connection.begin();
+            DiagnosisHistoryDao diagnosisHistoryDao = daoFactory.createDiagnosisHistoryDao(connection);
+            return diagnosisHistoryDao.getDiagnosisHistoryByPatientIdList(id);
+        }
     }
 }

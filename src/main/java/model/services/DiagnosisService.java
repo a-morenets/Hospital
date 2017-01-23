@@ -1,5 +1,6 @@
 package model.services;
 
+import model.dao.DaoConnection;
 import model.dao.DaoFactory;
 import model.dao.DiagnosisDao;
 import model.entities.Diagnosis;
@@ -9,7 +10,7 @@ import model.entities.Diagnosis;
  */
 public class DiagnosisService {
 
-    private DiagnosisDao diagnosisDao = DaoFactory.getInstance().createDiagnosisDao();
+    DaoFactory daoFactory = DaoFactory.getInstance();
 
     private static class Holder {
         static final DiagnosisService INSTANCE = new DiagnosisService();
@@ -22,6 +23,10 @@ public class DiagnosisService {
     /* Service methods */
 
     public Diagnosis getDiagnosisById(int id) {
-        return diagnosisDao.find(id);
+        try (DaoConnection connection = daoFactory.getConnection()) {
+            connection.begin();
+            DiagnosisDao diagnosisDao = daoFactory.createDiagnosisDao(connection);
+            return diagnosisDao.find(id);
+        }
     }
 }

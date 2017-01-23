@@ -11,10 +11,11 @@ import java.io.IOException;
  * Created by alexey.morenets@gmail.com on 23.01.2017.
  */
 public class AddDiagnosisCommand implements Command {
+
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse httpServletResponse)
             throws ServletException, IOException {
 
-        return GlobalConstants.SHOW_PATIENT_INFO;
+        return GlobalConstants.REST_SHOW_PATIENT_INFO + "?id=1"; // TODO
     }
 }

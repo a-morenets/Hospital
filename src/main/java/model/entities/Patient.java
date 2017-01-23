@@ -6,14 +6,14 @@ package model.entities;
 public class Patient {
 
     private int id;
-    private String firstName;
     private String lastName;
+    private String firstName;
     private String surName;
 
     public static class Builder {
         private int id;
-        private String firstName;
         private String lastName;
+        private String firstName;
         private String surName;
 
         public Builder setId(int id) {
@@ -21,13 +21,13 @@ public class Patient {
             return this;
         }
 
-        public Builder setFirstName(String firstName) {
-            this.firstName = firstName;
+        public Builder setLastName(String lastName) {
+            this.lastName = lastName;
             return this;
         }
 
-        public Builder setLastName(String lastName) {
-            this.lastName = lastName;
+        public Builder setFirstName(String firstName) {
+            this.firstName = firstName;
             return this;
         }
 
@@ -39,8 +39,8 @@ public class Patient {
         public Patient build(){
             Patient patient = new Patient();
             patient.setId(id);
-            patient.setFirstName(firstName);
             patient.setLastName(lastName);
+            patient.setFirstName(firstName);
             patient.setSurName(surName);
             return patient;
         }
@@ -54,20 +54,20 @@ public class Patient {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
     public String getLastName() {
         return lastName;
     }
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getSurName() {

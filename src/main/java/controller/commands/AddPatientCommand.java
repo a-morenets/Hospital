@@ -15,16 +15,16 @@ import java.io.IOException;
 public class AddPatientCommand implements Command {
 
     /* Parameters & attributes */
-    public static final String PARAM_FIRSTNAME = "firstname";
     public static final String PARAM_LASTNAME = "lastname";
+    public static final String PARAM_FIRSTNAME = "firstname";
     public static final String PARAM_SURNAME = "surname";
 
     private PatientService patientService = PatientService.getInstance();
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse httpServletResponse) throws ServletException, IOException {
-        String firstName = request.getParameter(PARAM_FIRSTNAME);
         String lastName = request.getParameter(PARAM_LASTNAME);
+        String firstName = request.getParameter(PARAM_FIRSTNAME);
         String surName = request.getParameter(PARAM_SURNAME);
 
         Patient patient = new Patient.Builder()

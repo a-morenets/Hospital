@@ -20,8 +20,8 @@ public class JdbcStaffDao implements StaffDao {
 
     /* Fields */
     private static final String ID = "id";
-    private static final String FIRSTNAME = "firstname";
     private static final String LASTNAME = "lastname";
+    private static final String FIRSTNAME = "firstname";
     private static final String SURNAME = "surname";
     private static final String ROLE = "role";
     private static final String EMAIL = "email";
@@ -29,15 +29,17 @@ public class JdbcStaffDao implements StaffDao {
 
     private Connection connection;
 
-    JdbcStaffDao(Connection connection) {
-        super();
+    public JdbcStaffDao(Connection connection) {
+        this.connection = connection;
+    }
+
+    public void setConnection(Connection connection) {
         this.connection = connection;
     }
 
     @Override
     public Staff find(int id) {
         Staff staff = null;
-
         try (PreparedStatement query = connection.prepareStatement(SELECT_STAFF_BY_ID)) {
             query.setString(1, String.valueOf(id));
             ResultSet resultSet = query.executeQuery();
@@ -47,7 +49,6 @@ public class JdbcStaffDao implements StaffDao {
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }
-
         return staff;
     }
 
@@ -74,7 +75,6 @@ public class JdbcStaffDao implements StaffDao {
     @Override
     public Optional<Staff> getStaffByEmail(String email) {
         Optional<Staff> result = Optional.empty();
-
         try (PreparedStatement query = connection.prepareStatement(SELECT_STAFF_BY_LOGIN)) {
             query.setString(1, email.toLowerCase());
             ResultSet resultSet = query.executeQuery();
@@ -82,25 +82,22 @@ public class JdbcStaffDao implements StaffDao {
                 Staff staff = getStaffFromResultSet(resultSet);
                 result = Optional.of(staff);
             }
-
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }
-
         return result;
     }
 
     private Staff getStaffFromResultSet(ResultSet resultSet) throws SQLException {
-        Staff staff = new Staff.Builder()
+        return new Staff.Builder()
                 .setId(resultSet.getInt(ID))
-                .setFirstName(resultSet.getString(FIRSTNAME))
                 .setLastName(resultSet.getString(LASTNAME))
+                .setFirstName(resultSet.getString(FIRSTNAME))
                 .setSurName(resultSet.getString(SURNAME))
                 .setRole(Role.valueOf(resultSet.getString(ROLE)))
                 .setEmail(resultSet.getString(EMAIL))
                 .setPassword(resultSet.getString(PASSWORD))
                 .build();
-        return staff;
     }
 
 }

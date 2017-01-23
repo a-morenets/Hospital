@@ -1,51 +1,62 @@
 package model.dao.jdbc;
 
-import com.mysql.jdbc.Driver;
-
 import model.dao.*;
 
-import java.io.InputStream;
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
+
 
 import java.sql.Connection;
-import java.sql.DriverManager;
-
-import java.util.Properties;
+import java.sql.SQLException;
 
 public class JdbcDaoFactory extends DaoFactory {
 
-    private Connection connection;
-    private static final String DB_URL = "url";
+    private DataSource dataSource;
 
-    public JdbcDaoFactory() {
+    public JdbcDaoFactory() throws SQLException {
         try {
-            InputStream inputStream = DaoFactory.class.getResourceAsStream(DB_FILE);
-            Properties dbProps = new Properties();
-            dbProps.load(inputStream);
-            String url = dbProps.getProperty(DB_URL);
-            new Driver();
-            connection = DriverManager.getConnection(url, dbProps);
+            InitialContext ic = new InitialContext();
+            dataSource = (DataSource) ic.lookup("java:comp/env/jdbc/hospital");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
     @Override
-    public StaffDao createStaffDao() {
-        return new JdbcStaffDao(connection);
+    public DaoConnection getConnection() {
+        try {
+            return new JdbcDaoConnection(dataSource.getConnection());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
-    public PatientDao createPatientDao() {
-        return new JdbcPatientDao(connection);
+    public StaffDao createStaffDao(DaoConnection connection) {
+        JdbcDaoConnection jdbcConnection = (JdbcDaoConnection) connection;
+        Connection sqlConnection = jdbcConnection.getConnection();
+        return new JdbcStaffDao(sqlConnection);
     }
 
     @Override
-    public DiagnosisHistoryDao createDiagnosisHistoryDao() {
-        return new JdbcDiagnosisHistoryDao(connection);
+    public PatientDao createPatientDao(DaoConnection connection) {
+        JdbcDaoConnection jdbcConnection = (JdbcDaoConnection) connection;
+        Connection sqlConnection = jdbcConnection.getConnection();
+        return new JdbcPatientDao(sqlConnection);
     }
 
     @Override
-    public DiagnosisDao createDiagnosisDao() {
-        return new JdbcDiagnosisDao(connection);
+    public DiagnosisHistoryDao createDiagnosisHistoryDao(DaoConnection connection) {
+        JdbcDaoConnection jdbcConnection = (JdbcDaoConnection) connection;
+        Connection sqlConnection = jdbcConnection.getConnection();
+        return new JdbcDiagnosisHistoryDao(sqlConnection);
     }
+
+    @Override
+    public DiagnosisDao createDiagnosisDao(DaoConnection connection) {
+        JdbcDaoConnection jdbcConnection = (JdbcDaoConnection) connection;
+        Connection sqlConnection = jdbcConnection.getConnection();
+        return new JdbcDiagnosisDao(sqlConnection);
+    }
+
 }

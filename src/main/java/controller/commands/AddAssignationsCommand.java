@@ -11,6 +11,7 @@ import java.io.IOException;
  * Created by alexey.morenets@gmail.com on 23.01.2017.
  */
 public class AddAssignationsCommand implements Command {
+
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse httpServletResponse)
             throws ServletException, IOException {

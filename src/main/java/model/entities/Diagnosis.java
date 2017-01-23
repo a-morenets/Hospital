@@ -4,6 +4,7 @@ package model.entities;
  * Created by alexey.morenets@gmail.com on 22.01.2017.
  */
 public class Diagnosis {
+
     private int id;
     private String name;
 

@@ -21,7 +21,7 @@ import java.util.List;
 public class JdbcDiagnosisHistoryDao implements DiagnosisHistoryDao {
 
     /* SELECT */
-    public static final String SELECT_FROM_DIAGNOSIS_HISTORY =
+    private static final String SELECT_FROM_DIAGNOSIS_HISTORY =
             "SELECT * FROM diagnosis_history WHERE patient_id = ? ORDER BY diagnosis_date";
 
     /* Fields */
@@ -38,7 +38,6 @@ public class JdbcDiagnosisHistoryDao implements DiagnosisHistoryDao {
     private Connection connection;
 
     public JdbcDiagnosisHistoryDao(Connection connection) {
-        super();
         this.connection = connection;
     }
 
@@ -70,7 +69,6 @@ public class JdbcDiagnosisHistoryDao implements DiagnosisHistoryDao {
     @Override
     public List<DiagnosisHistory> getDiagnosisHistoryByPatientIdList(int patientId) {
         List<DiagnosisHistory> result = new ArrayList<>();
-
         try (PreparedStatement query = connection.prepareStatement(SELECT_FROM_DIAGNOSIS_HISTORY)) {
             query.setString(1, String.valueOf(patientId));
             ResultSet resultSet = query.executeQuery();
@@ -84,10 +82,9 @@ public class JdbcDiagnosisHistoryDao implements DiagnosisHistoryDao {
     }
 
     private DiagnosisHistory getPatientFromResultSet(ResultSet resultSet) throws SQLException {
-        Staff staff = staffService.getStaffById(resultSet.getInt(PATIENT_ID));
+        Staff staff = staffService.getStaffById(resultSet.getInt(STAFF_ID));
         Diagnosis diagnosis = diagnosisService.getDiagnosisById(resultSet.getInt(DIAGNOSIS_ID));
-
-        DiagnosisHistory diagnosisHistory = new DiagnosisHistory.Builder()
+        return new DiagnosisHistory.Builder()
                 .setId(resultSet.getInt(ID))
                 .setDate(resultSet.getTimestamp(DATE))
                 .setPatientId(resultSet.getInt(PATIENT_ID))
@@ -95,7 +92,6 @@ public class JdbcDiagnosisHistoryDao implements DiagnosisHistoryDao {
                 .setDiagnosis(diagnosis)
                 .setType(DiagnosisHistory.Type.valueOf(resultSet.getString(TYPE)))
                 .build();
-        return diagnosisHistory;
     }
 
 }

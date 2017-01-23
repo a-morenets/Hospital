@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import controller.commands.*;
+import org.apache.log4j.Logger;
 import view.GlobalConstants;
 
 /**
@@ -20,7 +21,7 @@ import view.GlobalConstants;
 @WebServlet("/rest/*")
 public class MainController extends HttpServlet {
 
-    private static final long serialVersionUID = 1L;
+    private static final Logger LOGGER = Logger.getLogger(MainController.class);
 
     public static final String POST = "POST:";
     public static final String GET = "GET:";
@@ -59,12 +60,9 @@ public class MainController extends HttpServlet {
 
     void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String method = request.getMethod().toUpperCase();
-        String path = request.getRequestURI();
-        path = path.replaceAll(".*/rest", "");
+        String path = request.getRequestURI().replaceAll(".*/rest", "");
         String key = method + ":" + path;
-
-        System.out.println(key);
-
+        LOGGER.debug(key);
         Command command = commands.getOrDefault(key, (req, resp) -> GlobalConstants.INDEX_JSP);
         String viewPage = command.execute(request, response);
         request.getRequestDispatcher(viewPage).forward(request, response);

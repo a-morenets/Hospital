@@ -9,6 +9,7 @@ public interface GlobalConstants {
 
     /* JSP */
     String PREFIX = "/WEB-INF/view";
+    String LOGIN_JSP = PREFIX + "/login.jsp";
     String PATIENT_INFO_JSP = PREFIX + "/patientInfo.jsp";
     String PATIENTS_JSP = PREFIX + "/patients.jsp";
     String ADD_PATIENT_FORM_JSP = PREFIX + "/addPatient.jsp";

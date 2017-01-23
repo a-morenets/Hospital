@@ -15,16 +15,15 @@ import java.util.List;
 public class JdbcDiagnosisDao implements DiagnosisDao {
 
     /* SELECT */
-    public static final String SELECT_FROM_DIAGNOSIS_BY_ID = "SELECT * FROM diagnosis WHERE id = ?";
+    private static final String SELECT_FROM_DIAGNOSIS_BY_ID = "SELECT * FROM diagnosis WHERE id = ?";
 
     /* Fields */
-    public static final String ID = "id";
-    public static final String NAME = "name";
+    private static final String ID = "id";
+    private static final String NAME = "name";
 
     private Connection connection;
 
-    public JdbcDiagnosisDao(Connection connection) {
-        super();
+    JdbcDiagnosisDao(Connection connection) {
         this.connection = connection;
     }
 
@@ -35,7 +34,6 @@ public class JdbcDiagnosisDao implements DiagnosisDao {
     @Override
     public Diagnosis find(int id) {
         Diagnosis diagnosis = null;
-
         try (PreparedStatement query = connection.prepareStatement(SELECT_FROM_DIAGNOSIS_BY_ID)) {
             query.setString(1, String.valueOf(id));
             ResultSet resultSet = query.executeQuery();
@@ -45,7 +43,6 @@ public class JdbcDiagnosisDao implements DiagnosisDao {
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }
-
         return diagnosis;
     }
 

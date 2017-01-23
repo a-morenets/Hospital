@@ -1,5 +1,6 @@
 package model.services;
 
+import model.dao.DaoConnection;
 import model.dao.DaoFactory;
 import model.dao.PatientDao;
 import model.entities.Patient;
@@ -11,27 +12,40 @@ import java.util.List;
  */
 public class PatientService {
 
-    private PatientDao patientDao = DaoFactory.getInstance().createPatientDao();
+    DaoFactory daoFactory = DaoFactory.getInstance();
 
-    private static class Holder{
+    private static class Holder {
         static final PatientService INSTANCE = new PatientService();
     }
 
-    public static PatientService getInstance(){
+    public static PatientService getInstance() {
         return Holder.INSTANCE;
     }
 
     /* Service methods */
 
-    public List<Patient> getAllPatients(){
-        return patientDao.findAll();
+    public List<Patient> getAllPatients() {
+        try (DaoConnection connection = daoFactory.getConnection()) {
+            connection.begin();
+            PatientDao patientDao = daoFactory.createPatientDao(connection);
+            return patientDao.findAll();
+        }
     }
 
     public void createPatient(Patient patient) {
-        patientDao.create(patient);
+        try (DaoConnection connection = daoFactory.getConnection()) {
+            connection.begin();
+            PatientDao patientDao = daoFactory.createPatientDao(connection);
+            patientDao.create(patient);
+        }
     }
 
     public Patient getPatientById(int id) {
-        return patientDao.find(id);
+        try (DaoConnection connection = daoFactory.getConnection()) {
+            connection.begin();
+            PatientDao patientDao = daoFactory.createPatientDao(connection);
+            return patientDao.find(id);
+        }
     }
+
 }

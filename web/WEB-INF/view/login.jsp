@@ -6,9 +6,13 @@
 </head>
 <body>
 <form method="post" action="./rest/login" >
-	<input type="text" name="login"/><br/>
+	<label>E-mail:</label>
+	<input type="text" name="login"/>
+	<br/>
+	<label>Password:</label>
 	<input type="password" name="password"/>
-	<input type="submit">
+	<br/>
+	<input type="submit" value="Login">
 </form>
 </body>
 </html>

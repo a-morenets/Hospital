@@ -2,13 +2,14 @@ package model.services;
 
 import java.util.Optional;
 
+import model.dao.DaoConnection;
 import model.dao.DaoFactory;
 import model.dao.StaffDao;
 import model.entities.Staff;
 
 public class StaffService {
 
-    private StaffDao staffDao = DaoFactory.getInstance().createStaffDao();
+    DaoFactory daoFactory = DaoFactory.getInstance();
 
     private static class Holder {
         static final StaffService INSTANCE = new StaffService();
@@ -21,10 +22,19 @@ public class StaffService {
     /* Service methods */
 
     public Optional<Staff> login(String email, String password) {
-        return staffDao.getStaffByEmail(email).filter(staff -> password.equals(staff.getPassword()));
+        try (DaoConnection connection = daoFactory.getConnection()) {
+            connection.begin();
+            StaffDao staffDao = daoFactory.createStaffDao(connection);
+            return staffDao.getStaffByEmail(email).filter(staff -> password.equals(staff.getPassword()));
+        }
     }
 
     public Staff getStaffById(int Id) {
-        return staffDao.find(Id);
+        try (DaoConnection connection = daoFactory.getConnection()) {
+            connection.begin();
+            StaffDao staffDao = daoFactory.createStaffDao(connection);
+            return staffDao.find(Id);
+        }
     }
+
 }
