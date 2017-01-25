@@ -5,7 +5,7 @@
 <title>Hospital login</title>
 </head>
 <body>
-<form method="post" action="./rest/login" >
+<form method="post" action="./login" >
 	<label>E-mail:</label>
 	<input type="text" name="login"/>
 	<br/>

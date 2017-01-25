@@ -45,7 +45,7 @@
     </c:otherwise>
 </c:choose>
 
-<br>
+<br/>
 <a href="./show_patients">До списку пацієнтів</a>
 
 </body>

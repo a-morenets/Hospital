@@ -39,7 +39,8 @@ public class MainController extends HttpServlet {
         commands.put(POST + GlobalConstants.ADD_ASSIGNATIONS, new AddAssignationsCommand());
         commands.put(POST + GlobalConstants.ADD_DIAGNOSIS, new AddDiagnosisCommand());
         commands.put(POST + GlobalConstants.SHOW_PATIENT_INFO, new ShowPatientInfoCommand());
-
+// TODO GET & POST дублируются
+        commands.put(GET + GlobalConstants.SHOW_LOGIN_FORM, new ShowLoginFormCommand());
         commands.put(GET + GlobalConstants.ADD_PATIENT_FORM, new AddPatientFormCommand());
         commands.put(GET + GlobalConstants.SHOW_PATIENT_INFO, new ShowPatientInfoCommand());
         commands.put(GET + GlobalConstants.SHOW_PATIENTS, new ShowPatientsCommand());
@@ -63,9 +64,14 @@ public class MainController extends HttpServlet {
         String path = request.getRequestURI().replaceAll(".*/rest", "");
         String key = method + ":" + path;
         LOGGER.debug(key);
-        Command command = commands.getOrDefault(key, (req, resp) -> GlobalConstants.INDEX_JSP);
+        Command command = commands.getOrDefault(key, (req, resp) -> GlobalConstants.REDIRECT);
         String viewPage = command.execute(request, response);
-        request.getRequestDispatcher(viewPage).forward(request, response);
+        LOGGER.debug(viewPage);
+        if (viewPage.equals(GlobalConstants.REDIRECT)) {
+            response.sendRedirect(GlobalConstants.INDEX_JSP);
+        } else {
+            request.getRequestDispatcher(viewPage).forward(request, response);
+        }
     }
 
 }

@@ -6,6 +6,7 @@ package view;
 public interface GlobalConstants {
 
     String INDEX_JSP = "/index.jsp";
+    String REDIRECT = "REDIRECT";
 
     /* JSP */
     String PREFIX = "/WEB-INF/view";
@@ -18,6 +19,7 @@ public interface GlobalConstants {
     String ADD_ASSIGNATIONS_JSP = PREFIX + "/addAssignations.jsp";
 
     /* Paths for Commands */
+    String SHOW_LOGIN_FORM = "/show_login_form";
     String LOGIN = "/login";
     String SHOW_PATIENTS = "/show_patients";
     String SHOW_PATIENT_INFO = "/show_patient_info";
