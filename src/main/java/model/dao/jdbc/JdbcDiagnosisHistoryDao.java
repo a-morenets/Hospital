@@ -6,7 +6,7 @@ import model.dao.DiagnosisHistoryDao;
 import model.entities.Diagnosis;
 import model.entities.DiagnosisHistory;
 import model.entities.Staff;
-import model.services.DiagnosisHistoryService;
+import model.entities.DiagnosisType;
 import model.services.DiagnosisService;
 import model.services.StaffService;
 
@@ -94,7 +94,7 @@ public class JdbcDiagnosisHistoryDao implements DiagnosisHistoryDao {
                 .setPatientId(resultSet.getInt(PATIENT_ID))
                 .setStaff(staff)
                 .setDiagnosis(diagnosis)
-                .setType(DiagnosisHistory.Type.valueOf(resultSet.getString(TYPE)))
+                .setDiagnosisType(DiagnosisType.valueOf(resultSet.getString(TYPE)))
                 .build();
     }
 

@@ -1,5 +1,6 @@
 package controller.commands;
 
+import model.entities.Patient;
 import view.GlobalConstants;
 
 import javax.servlet.ServletException;
@@ -12,10 +13,18 @@ import java.io.IOException;
  */
 public class AddDiagnosisCommand implements Command {
 
+    public static final String PARAM_ID = "?id=";
+    public static final String ATTR_PATIENT = "patient";
+    public static final String PARAM_DIAGNOSIS_ID = "diagnosisId";
+
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse httpServletResponse)
             throws ServletException, IOException {
 
-        return GlobalConstants.REST_SHOW_PATIENT_INFO + "?id=1"; // TODO
+        int diagnosisId = Integer.parseInt(request.getParameter(PARAM_DIAGNOSIS_ID));
+        // TODO service - insert
+
+        int patientId = ((Patient) request.getSession().getAttribute(ATTR_PATIENT)).getId();
+        return GlobalConstants.REST_SHOW_PATIENT_INFO + PARAM_ID + patientId;
     }
 }

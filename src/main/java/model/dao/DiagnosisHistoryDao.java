@@ -1,6 +1,7 @@
 package model.dao;
 
 import model.entities.DiagnosisHistory;
+import model.entities.Patient;
 
 import java.util.List;
 

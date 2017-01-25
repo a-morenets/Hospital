@@ -5,16 +5,22 @@
     <title>Diagnoses</title>
 </head>
 <body>
-    <h1>Diagnoses</h1>
+<h2>${patient.lastName} ${patient.firstName} ${patient.surName}</h2>
 
-    <c:forEach  var="i" items="${diagnosesList}">
-        ${i.name}
-        <br/>
-    </c:forEach>
+<h2>Diagnoses:</h2>
+
+<form method="post" action="./add_diagnosis">
+
+    <select name="diagnosisId" required>
+        <c:forEach var="i" items="${diagnosesList}">
+            <option value="${i.id}">${i.name}</option>
+            <br/>
+        </c:forEach>
+    </select>
     <br/>
 
-    <form method="post" action="./add_diagnosis">
-        <input type="submit">
-    </form>
+    <input type="submit">
+</form>
+
 </body>
 </html>

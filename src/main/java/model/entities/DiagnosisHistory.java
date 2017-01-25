@@ -12,11 +12,7 @@ public class DiagnosisHistory {
     private int patientId;
     private Staff staff;
     private Diagnosis diagnosis;
-    private Type type;
-
-    public enum Type {
-        PRIMARY, FINAL
-    }
+    private DiagnosisType diagnosisType;
 
     public static class Builder {
         private int id;
@@ -24,7 +20,7 @@ public class DiagnosisHistory {
         private int patientId;
         private Staff staff;
         private Diagnosis diagnosis;
-        private Type type;
+        private DiagnosisType diagnosisType;
 
         public Builder setId(int id) {
             this.id = id;
@@ -51,8 +47,8 @@ public class DiagnosisHistory {
             return this;
         }
 
-        public Builder setType(Type type) {
-            this.type = type;
+        public Builder setDiagnosisType(DiagnosisType diagnosisType) {
+            this.diagnosisType = diagnosisType;
             return this;
         }
 
@@ -63,7 +59,7 @@ public class DiagnosisHistory {
             diagnosisHistory.setPatientId(patientId);
             diagnosisHistory.setStaff(staff);
             diagnosisHistory.setDiagnosis(diagnosis);
-            diagnosisHistory.setType(type);
+            diagnosisHistory.setDiagnosisType(diagnosisType);
             return diagnosisHistory;
         }
     }
@@ -108,12 +104,12 @@ public class DiagnosisHistory {
         this.diagnosis = diagnosis;
     }
 
-    public Type getType() {
-        return type;
+    public DiagnosisType getDiagnosisType() {
+        return diagnosisType;
     }
 
-    public void setType(Type type) {
-        this.type = type;
+    public void setDiagnosisType(DiagnosisType diagnosisType) {
+        this.diagnosisType = diagnosisType;
     }
 
 }

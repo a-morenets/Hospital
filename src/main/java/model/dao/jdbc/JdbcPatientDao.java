@@ -2,6 +2,7 @@ package model.dao.jdbc;
 
 import model.dao.PatientDao;
 import model.entities.Patient;
+import model.entities.DiagnosisType;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -17,12 +18,18 @@ public class JdbcPatientDao implements PatientDao {
     private static final String SELECT_PATIENT_BY_ID = "SELECT * FROM patients WHERE id = ?";
     private static final String INSERT_INTO_CITY_NAME_VALUES =
             "INSERT INTO patients (lastname, firstname, surname) VALUES (?, ?, ?)";
+    public static final String SELECT_PATIENT_STATUS =
+            "SELECT type FROM diagnosis_history\n" +
+                    "WHERE patient_id = ?\n" +
+                    "ORDER BY diagnosis_date DESC\n" +
+                    "LIMIT 1";
 
     /* Fields */
     private static final String ID = "id";
     private static final String LASTNAME = "lastname";
     private static final String FIRSTNAME = "firstname";
     private static final String SURNAME = "surname";
+    public static final String DIAGNOSIS_TYPE = "type";
 
     private Connection connection;
 
@@ -103,4 +110,19 @@ public class JdbcPatientDao implements PatientDao {
 
     }
 
+    @Override
+    public DiagnosisType getDiagnosisType(int patient_id) {
+        DiagnosisType result = DiagnosisType.NONE;
+        try (PreparedStatement query = connection.prepareStatement(SELECT_PATIENT_STATUS)) {
+
+            query.setString(1, String.valueOf(patient_id));
+            ResultSet resultSet = query.executeQuery();
+            if (resultSet.next()) {
+                result = DiagnosisType.valueOf(resultSet.getString(DIAGNOSIS_TYPE));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
+    }
 }

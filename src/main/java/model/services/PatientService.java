@@ -3,6 +3,7 @@ package model.services;
 import model.dao.DaoConnection;
 import model.dao.DaoFactory;
 import model.dao.PatientDao;
+import model.entities.DiagnosisType;
 import model.entities.Patient;
 
 import java.util.List;
@@ -15,9 +16,9 @@ public class PatientService {
     DaoFactory daoFactory = DaoFactory.getInstance();
 
     private static class Holder {
+
         static final PatientService INSTANCE = new PatientService();
     }
-
     public static PatientService getInstance() {
         return Holder.INSTANCE;
     }
@@ -48,6 +49,15 @@ public class PatientService {
             PatientDao patientDao = daoFactory.createPatientDao(connection);
             connection.commit();
             return patientDao.find(id);
+        }
+    }
+
+    public boolean isPatientOnCure(int id) {
+        try (DaoConnection connection = daoFactory.getConnection()) {
+            connection.begin();
+            PatientDao patientDao = daoFactory.createPatientDao(connection);
+            connection.commit();
+            return patientDao.getDiagnosisType(id) == DiagnosisType.PRIMARY;
         }
     }
 

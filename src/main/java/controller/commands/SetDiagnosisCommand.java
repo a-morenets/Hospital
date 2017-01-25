@@ -18,6 +18,8 @@ public class SetDiagnosisCommand implements Command {
 
     private static Logger LOGGER = Logger.getLogger(ShowAssignationsCommand.class);
 
+    public static final String ATTR_DIAGNOSES_LIST = "diagnosesList";
+
     /* Parameters & Attributes */
     public static final String PARAM_DIAGNOSIS_HISTORY_ID = "diagnosisHistoryId";
 
@@ -31,7 +33,7 @@ public class SetDiagnosisCommand implements Command {
 
         List<Diagnosis> diagnosisList = diagnosisService.getAllDiagnoses();
         // TODO setAttribute()
-        request.setAttribute("diagnosesList", diagnosisList);
+        request.setAttribute(ATTR_DIAGNOSES_LIST, diagnosisList);
 
         return GlobalConstants.DIAGNOSES_JSP;
     }
