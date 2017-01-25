@@ -26,6 +26,7 @@ public class DiagnosisService {
         try (DaoConnection connection = daoFactory.getConnection()) {
             connection.begin();
             DiagnosisDao diagnosisDao = daoFactory.createDiagnosisDao(connection);
+            connection.commit();
             return diagnosisDao.find(id);
         }
     }

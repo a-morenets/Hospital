@@ -25,6 +25,7 @@ public class StaffService {
         try (DaoConnection connection = daoFactory.getConnection()) {
             connection.begin();
             StaffDao staffDao = daoFactory.createStaffDao(connection);
+            connection.commit();
             return staffDao.getStaffByEmail(email).filter(staff -> password.equals(staff.getPassword()));
         }
     }
@@ -33,6 +34,7 @@ public class StaffService {
         try (DaoConnection connection = daoFactory.getConnection()) {
             connection.begin();
             StaffDao staffDao = daoFactory.createStaffDao(connection);
+            connection.commit();
             return staffDao.find(Id);
         }
     }

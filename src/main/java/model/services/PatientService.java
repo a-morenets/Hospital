@@ -28,6 +28,7 @@ public class PatientService {
         try (DaoConnection connection = daoFactory.getConnection()) {
             connection.begin();
             PatientDao patientDao = daoFactory.createPatientDao(connection);
+            connection.commit();
             return patientDao.findAll();
         }
     }
@@ -37,6 +38,7 @@ public class PatientService {
             connection.begin();
             PatientDao patientDao = daoFactory.createPatientDao(connection);
             patientDao.create(patient);
+            connection.commit();
         }
     }
 
@@ -44,6 +46,7 @@ public class PatientService {
         try (DaoConnection connection = daoFactory.getConnection()) {
             connection.begin();
             PatientDao patientDao = daoFactory.createPatientDao(connection);
+            connection.commit();
             return patientDao.find(id);
         }
     }

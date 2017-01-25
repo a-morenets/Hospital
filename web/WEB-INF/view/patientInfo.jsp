@@ -13,7 +13,7 @@
 
     <c:forEach  var="i" items="${diagnosisHistoryList}">
         <c:if test="${i.type == 'PRIMARY'}">
-            <a href="./show_assignations?id=${i.id}">
+            <a href="./show_assignations?diagnosisHistoryId=${i.id}">
         </c:if>
         ${i.date} <b> ${i.diagnosis.name} </b>
             (

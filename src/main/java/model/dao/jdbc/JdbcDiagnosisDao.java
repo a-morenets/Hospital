@@ -48,8 +48,8 @@ public class JdbcDiagnosisDao implements DiagnosisDao {
 
     private Diagnosis getDiagnosisFromResultSet(ResultSet resultSet) throws SQLException {
         Diagnosis diagnosis = new Diagnosis();
-                diagnosis.setId(resultSet.getInt(ID));
-                diagnosis.setName(resultSet.getString(NAME));
+        diagnosis.setId(resultSet.getInt(ID));
+        diagnosis.setName(resultSet.getString(NAME));
         return diagnosis;
     }
 

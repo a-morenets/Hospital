@@ -28,6 +28,7 @@ public class DiagnosisHistoryService {
         try (DaoConnection connection = daoFactory.getConnection()) {
             connection.begin();
             DiagnosisHistoryDao diagnosisHistoryDao = daoFactory.createDiagnosisHistoryDao(connection);
+            connection.commit();
             return diagnosisHistoryDao.getDiagnosisHistoryByPatientIdList(id);
         }
     }

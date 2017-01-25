@@ -11,9 +11,13 @@ public abstract class DaoFactory {
     public abstract PatientDao createPatientDao(DaoConnection connection);
     public abstract DiagnosisHistoryDao createDiagnosisHistoryDao(DaoConnection connection);
     public abstract DiagnosisDao createDiagnosisDao(DaoConnection connection);
+    public abstract AssignationDrugDao createAssignationDrugDao(DaoConnection connection);
+    public abstract AssignationProcedureDao createAssignationProcedureDao(DaoConnection connection);
+    public abstract AssignationSurgeryDao createAssignationSurgeryDao(DaoConnection connection);
 
     public static final String DB_FILE = "/db.properties";
     private static final String DB_FACTORY_CLASS = "factory.class";
+
     private static DaoFactory instance;
 
     public static DaoFactory getInstance() {
