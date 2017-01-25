@@ -5,6 +5,8 @@ import model.dao.DaoFactory;
 import model.dao.DiagnosisDao;
 import model.entities.Diagnosis;
 
+import java.util.List;
+
 /**
  * Created by alexey.morenets@gmail.com on 22.01.2017.
  */
@@ -28,6 +30,15 @@ public class DiagnosisService {
             DiagnosisDao diagnosisDao = daoFactory.createDiagnosisDao(connection);
             connection.commit();
             return diagnosisDao.find(id);
+        }
+    }
+
+    public List<Diagnosis> getAllDiagnoses() {
+        try (DaoConnection connection = daoFactory.getConnection()) {
+            connection.begin();
+            DiagnosisDao diagnosisDao = daoFactory.createDiagnosisDao(connection);
+            connection.commit();
+            return diagnosisDao.findAll();
         }
     }
 }

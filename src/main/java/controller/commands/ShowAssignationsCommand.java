@@ -21,6 +21,7 @@ import java.util.List;
 public class ShowAssignationsCommand implements Command {
 
     private static Logger LOGGER = Logger.getLogger(ShowAssignationsCommand.class);
+
     /* Parameters & Attributes */
     public static final String PARAM_DIAGNOSIS_HISTORY_ID = "diagnosisHistoryId";
     public static final String ATTR_ASSIGNATION_DRUGS_LIST = "assignationDrugsList";

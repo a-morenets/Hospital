@@ -49,15 +49,6 @@ public class JdbcPatientDao implements PatientDao {
         return patient;
     }
 
-    private Patient getPatientFromResultSet(ResultSet resultSet) throws SQLException {
-        return new Patient.Builder()
-                .setId(resultSet.getInt(ID))
-                .setFirstName(resultSet.getString(FIRSTNAME))
-                .setLastName(resultSet.getString(LASTNAME))
-                .setSurName(resultSet.getString(SURNAME))
-                .build();
-    }
-
     @Override
     public List<Patient> findAll() {
         List<Patient> result = new ArrayList<>();
@@ -72,6 +63,15 @@ public class JdbcPatientDao implements PatientDao {
             throw new RuntimeException(e);
         }
         return result;
+    }
+
+    private Patient getPatientFromResultSet(ResultSet resultSet) throws SQLException {
+        return new Patient.Builder()
+                .setId(resultSet.getInt(ID))
+                .setFirstName(resultSet.getString(FIRSTNAME))
+                .setLastName(resultSet.getString(LASTNAME))
+                .setSurName(resultSet.getString(SURNAME))
+                .build();
     }
 
     @Override

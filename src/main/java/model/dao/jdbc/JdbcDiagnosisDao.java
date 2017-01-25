@@ -3,10 +3,8 @@ package model.dao.jdbc;
 import model.dao.DiagnosisDao;
 import model.entities.Diagnosis;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,6 +14,7 @@ public class JdbcDiagnosisDao implements DiagnosisDao {
 
     /* SELECT */
     private static final String SELECT_FROM_DIAGNOSIS_BY_ID = "SELECT * FROM diagnosis WHERE id = ?";
+    private static final String SELECT_FROM_DIAGNOSIS = "SELECT * FROM diagnosis";
 
     /* Fields */
     private static final String ID = "id";
@@ -46,16 +45,27 @@ public class JdbcDiagnosisDao implements DiagnosisDao {
         return diagnosis;
     }
 
+    @Override
+    public List<Diagnosis> findAll() {
+        List<Diagnosis> result = new ArrayList<>();
+
+        try (Statement query = connection.createStatement();
+             ResultSet resultSet = query.executeQuery(SELECT_FROM_DIAGNOSIS)) {
+
+            while (resultSet.next()) {
+                result.add(getDiagnosisFromResultSet(resultSet));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
+    }
+
     private Diagnosis getDiagnosisFromResultSet(ResultSet resultSet) throws SQLException {
         Diagnosis diagnosis = new Diagnosis();
         diagnosis.setId(resultSet.getInt(ID));
         diagnosis.setName(resultSet.getString(NAME));
         return diagnosis;
-    }
-
-    @Override
-    public List<Diagnosis> findAll() {
-        return null;
     }
 
     @Override
