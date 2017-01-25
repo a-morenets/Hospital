@@ -29,6 +29,7 @@ public class SetDiagnosisCommand implements Command {
     public String execute(HttpServletRequest request, HttpServletResponse httpServletResponse)
             throws ServletException, IOException {
 
+        // TODO
 //        int diagnosisHistoryId = Integer.parseInt(request.getParameter(PARAM_DIAGNOSIS_HISTORY_ID));
 
         List<Diagnosis> diagnosisList = diagnosisService.getAllDiagnoses();

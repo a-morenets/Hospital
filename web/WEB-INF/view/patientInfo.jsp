@@ -5,6 +5,7 @@
     <title>Patient info</title>
 </head>
 <body>
+<div align="center">
 <h1>Patient info</h1>
 
 <h2>${patient.lastName} ${patient.firstName} ${patient.surName}</h2>
@@ -47,6 +48,6 @@
 
 <br/>
 <a href="./show_patients">До списку пацієнтів</a>
-
+</div>
 </body>
 </html>

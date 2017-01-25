@@ -12,10 +12,12 @@ import java.io.IOException;
  */
 public class AddAssignationsCommand implements Command {
 
+    public static final String PARAM_ID = "?id=";
+
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse httpServletResponse)
             throws ServletException, IOException {
 
-        return GlobalConstants.REST_SHOW_PATIENT_INFO + "?id=1"; // TODO
+        return GlobalConstants.REST_SHOW_PATIENT_INFO + PARAM_ID + 1; // TODO
     }
 }
