@@ -5,11 +5,11 @@ package view;
  */
 public final class Paths {
 
-    public static final String INDEX_JSP = "/index.jsp";
     public static final String REDIRECT = "REDIRECT";
 
     /* JSP */
     public static final String PREFIX = "/WEB-INF/view";
+    public static final String HOME_JSP = PREFIX + "/home.jsp";
     public static final String LOGIN_JSP = PREFIX + "/login.jsp";
     public static final String PATIENT_INFO_JSP = PREFIX + "/patientInfo.jsp";
     public static final String PATIENTS_JSP = PREFIX + "/patients.jsp";
@@ -22,6 +22,7 @@ public final class Paths {
 
     /* Paths for Commands */
     public static final String SHOW_LOGIN_FORM = "/show_login_form";
+    public static final String HOME = "/home";
     public static final String LOGIN = "/login";
     public static final String SHOW_PATIENTS = "/show_patients";
     public static final String SHOW_PATIENT_INFO = "/show_patient_info";

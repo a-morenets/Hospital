@@ -15,4 +15,5 @@ public interface Attributes {
     String DIAGNOSES_LIST = "diagnosesList";
     String USER_LOCALE = "javax.servlet.jsp.jstl.fmt.locale.session";
     String BUNDLE_FILE = "bundle_file";
+    String PAGE_TITLE = "page_title";
 }

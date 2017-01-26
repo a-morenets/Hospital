@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import controller.commands.*;
 import org.apache.log4j.Logger;
-import view.Attributes;
 import view.Paths;
 
 /**
@@ -35,6 +34,7 @@ public class MainController extends HttpServlet {
 
     @Override
     public void init(ServletConfig config) throws ServletException {
+        commands.put(GET + Paths.HOME, new HomeCommand());
         commands.put(GET + Paths.SHOW_LOGIN_FORM, new ShowLoginFormCommand());
         commands.put(GET + Paths.SHOW_ADD_PATIENT_FORM, new ShowAddPatientFormCommand());
         commands.put(GET + Paths.SHOW_PATIENT_INFO, new ShowPatientInfoCommand());
@@ -73,8 +73,10 @@ public class MainController extends HttpServlet {
         Command command = commands.getOrDefault(key, (req, resp) -> Paths.REDIRECT);
         String viewPage = command.execute(request, response);
         if (viewPage.equals(Paths.REDIRECT)) {
-            response.sendRedirect(Paths.INDEX_JSP);
+            LOGGER.debug("REDIRECT");
+            response.sendRedirect(Paths.HOME_JSP);
         } else {
+            LOGGER.debug("FORWARD to page " + viewPage);
             request.getRequestDispatcher(viewPage).forward(request, response);
         }
     }
