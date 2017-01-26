@@ -36,10 +36,8 @@ public class PatientService {
 
     public void createPatient(Patient patient) {
         try (DaoConnection connection = daoFactory.getConnection()) {
-            connection.begin();
             PatientDao patientDao = daoFactory.createPatientDao(connection);
             patientDao.create(patient);
-            connection.commit();
         }
     }
 

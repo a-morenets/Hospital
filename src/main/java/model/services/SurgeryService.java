@@ -26,9 +26,7 @@ public class SurgeryService {
 
     public List<Surgery> getAllSurgeries() {
         try (DaoConnection connection = daoFactory.getConnection()) {
-            connection.begin(); // TODO ---
             SurgeryDao surgeryDao = daoFactory.createSurgeryDao(connection);
-            connection.commit();  // TODO ---
             return surgeryDao.findAll();
         }
     }

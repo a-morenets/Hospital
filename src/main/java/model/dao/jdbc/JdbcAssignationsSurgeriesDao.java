@@ -1,20 +1,17 @@
 package model.dao.jdbc;
 
-import model.dao.AssignationSurgeryDao;
-import model.entities.AssignationSurgery;
+import model.dao.AssignationsSurgeriesDao;
+import model.entities.AssignationsSurgeries;
 import model.entities.Surgery;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by alexey.morenets@gmail.com on 25.01.2017.
  */
-public class JdbcAssignationSurgeryDao implements AssignationSurgeryDao {
+public class JdbcAssignationsSurgeriesDao implements AssignationsSurgeriesDao {
 
     /* SELECT */
     private static final String SELECT_FROM_ASSIGNATIONS_SURGERIES =
@@ -22,6 +19,10 @@ public class JdbcAssignationSurgeryDao implements AssignationSurgeryDao {
                     "FROM assignations_surgeries asur JOIN surgeries s\n" +
                     "ON asur.surgery_id = s.id\n" +
                     "WHERE asur.diagnosis_history_id = ?";
+    private static final String INSERT_INTO_ASSIGNATIONS_SURGERIES =
+            "INSERT INTO assignations_surgeries\n" +
+                    "(diagnosis_history_id, surgery_id)\n" +
+                    "VALUES(?, ?)";
 
     /* Fields for assignations_surgeries */
     private static final String ID = "id";
@@ -34,7 +35,7 @@ public class JdbcAssignationSurgeryDao implements AssignationSurgeryDao {
 
     private Connection connection;
 
-    JdbcAssignationSurgeryDao(Connection connection) {
+    JdbcAssignationsSurgeriesDao(Connection connection) {
         this.connection = connection;
     }
 
@@ -42,8 +43,8 @@ public class JdbcAssignationSurgeryDao implements AssignationSurgeryDao {
         this.connection = connection;
     }
 
-    public List<AssignationSurgery> findByDiagnosisHistoryId(int diagnosisHistoryId) {
-        List<AssignationSurgery> result = new ArrayList<>();
+    public List<AssignationsSurgeries> findByDiagnosisHistoryId(int diagnosisHistoryId) {
+        List<AssignationsSurgeries> result = new ArrayList<>();
         try (PreparedStatement query = connection.prepareStatement(SELECT_FROM_ASSIGNATIONS_SURGERIES)) {
             query.setString(1, String.valueOf(diagnosisHistoryId));
             ResultSet resultSet = query.executeQuery();
@@ -56,11 +57,11 @@ public class JdbcAssignationSurgeryDao implements AssignationSurgeryDao {
         return result;
     }
 
-    private AssignationSurgery getAssignationSurgeryFromResultSet(ResultSet resultSet) throws SQLException {
+    private AssignationsSurgeries getAssignationSurgeryFromResultSet(ResultSet resultSet) throws SQLException {
         Surgery surgery = new Surgery();
         surgery.setId(resultSet.getInt(ID_SURGERY));
         surgery.setName(resultSet.getString(NAME));
-        return new AssignationSurgery.Builder()
+        return new AssignationsSurgeries.Builder()
                 .setId(resultSet.getInt(ID))
                 .setDiagnosisHistoryId(resultSet.getInt(DIAGNOSIS_HISTORY_ID))
                 .setSurgery(surgery)
@@ -68,22 +69,36 @@ public class JdbcAssignationSurgeryDao implements AssignationSurgeryDao {
     }
 
     @Override
-    public AssignationSurgery find(int id) {
+    public AssignationsSurgeries find(int id) {
         return null;
     }
 
     @Override
-    public List<AssignationSurgery> findAll() {
+    public List<AssignationsSurgeries> findAll() {
         return null;
     }
 
     @Override
-    public void create(AssignationSurgery assignationSurgery) {
+    public void create(AssignationsSurgeries assignationsSurgeries) {
+        try (PreparedStatement query =
+                     connection.prepareStatement(INSERT_INTO_ASSIGNATIONS_SURGERIES, Statement.RETURN_GENERATED_KEYS)) {
 
+            query.setString(1, String.valueOf(assignationsSurgeries.getDiagnosisHistoryId()));
+            query.setString(2, String.valueOf(assignationsSurgeries.getSurgery().getId()));
+
+            query.executeUpdate();
+            ResultSet keys = query.getGeneratedKeys();
+
+            if (keys.next()) {
+                assignationsSurgeries.setId(keys.getInt(1));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
-    public void update(AssignationSurgery assignationSurgery) {
+    public void update(AssignationsSurgeries assignationsSurgeries) {
 
     }
 

@@ -1,30 +1,51 @@
 package controller.commands;
 
-import model.entities.Patient;
-import view.GlobalConstants;
+import model.entities.*;
+import model.services.DiagnosisHistoryService;
+import org.apache.log4j.Logger;
+import view.Attributes;
+import view.Parameters;
+import view.Paths;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * Created by alexey.morenets@gmail.com on 23.01.2017.
  */
 public class AddDiagnosisCommand implements Command {
 
-    public static final String PARAM_ID = "?id=";
-    public static final String ATTR_PATIENT = "patient";
-    public static final String PARAM_DIAGNOSIS_ID = "diagnosisId";
+    private static Logger LOGGER = Logger.getLogger(AddDiagnosisCommand.class);
+
+    private DiagnosisHistoryService diagnosisHistoryService = DiagnosisHistoryService.getInstance();
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse httpServletResponse)
             throws ServletException, IOException {
 
-        int diagnosisId = Integer.parseInt(request.getParameter(PARAM_DIAGNOSIS_ID));
-        // TODO service - insert
+        DiagnosisType diagnosisType = (DiagnosisType)(request.getSession().getAttribute(Parameters.DIAGNOSIS_TYPE));
 
-        int patientId = ((Patient) request.getSession().getAttribute(ATTR_PATIENT)).getId();
-        return GlobalConstants.REST_SHOW_PATIENT_INFO + PARAM_ID + patientId;
+        Patient patient = (Patient) request.getSession().getAttribute(Attributes.PATIENT);
+        int patientId = patient.getId();
+        Staff staff = (Staff) request.getSession().getAttribute(Attributes.STAFF);
+
+        int diagnosisId = Integer.parseInt(request.getParameter(Parameters.DIAGNOSIS_ID));
+        Diagnosis diagnosis = new Diagnosis();
+        diagnosis.setId(diagnosisId);
+
+        DiagnosisHistory diagnosisHistory = new DiagnosisHistory.Builder()
+                .setDate(new Timestamp(new Date().getTime()))
+                .setPatient(patient)
+                .setStaff(staff)
+                .setDiagnosis(diagnosis)
+                .setDiagnosisType(diagnosisType)
+                .build();
+        diagnosisHistoryService.createDiagnosisHistory(diagnosisHistory);
+
+        return Paths.REST_SHOW_PATIENT_INFO + Parameters._ID + patientId;
     }
 }

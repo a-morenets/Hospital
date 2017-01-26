@@ -60,24 +60,24 @@ public class JdbcDaoFactory extends DaoFactory {
     }
 
     @Override
-    public AssignationDrugDao createAssignationDrugDao(DaoConnection connection) {
+    public AssignationsDrugsDao createAssignationsDrugsDao(DaoConnection connection) {
         JdbcDaoConnection jdbcConnection = (JdbcDaoConnection) connection;
         Connection sqlConnection = jdbcConnection.getConnection();
-        return new JdbcAssignationDrugDao(sqlConnection);
+        return new JdbcAssignationsDrugsDao(sqlConnection);
     }
 
     @Override
-    public AssignationProcedureDao createAssignationProcedureDao(DaoConnection connection) {
+    public AssignationsProceduresDao createAssignationsProceduresDao(DaoConnection connection) {
         JdbcDaoConnection jdbcConnection = (JdbcDaoConnection) connection;
         Connection sqlConnection = jdbcConnection.getConnection();
-        return new JdbcAssignationProcedureDao(sqlConnection);
+        return new JdbcAssignationsProceduresDao(sqlConnection);
     }
 
     @Override
-    public AssignationSurgeryDao createAssignationSurgeryDao(DaoConnection connection) {
+    public AssignationsSurgeriesDao createAssignationsSurgeriesDao(DaoConnection connection) {
         JdbcDaoConnection jdbcConnection = (JdbcDaoConnection) connection;
         Connection sqlConnection = jdbcConnection.getConnection();
-        return new JdbcAssignationSurgeryDao(sqlConnection);
+        return new JdbcAssignationsSurgeriesDao(sqlConnection);
     }
 
     @Override

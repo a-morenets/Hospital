@@ -41,4 +41,5 @@ public class DiagnosisService {
             return diagnosisDao.findAll();
         }
     }
+
 }

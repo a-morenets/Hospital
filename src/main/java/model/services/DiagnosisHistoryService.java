@@ -32,4 +32,12 @@ public class DiagnosisHistoryService {
             return diagnosisHistoryDao.getDiagnosisHistoryByPatientIdList(id);
         }
     }
+
+    public void createDiagnosisHistory(DiagnosisHistory diagnosisHistory) {
+        try (DaoConnection connection = daoFactory.getConnection()) {
+            DiagnosisHistoryDao diagnosisHistoryDao = daoFactory.createDiagnosisHistoryDao(connection);
+            diagnosisHistoryDao.create(diagnosisHistory);
+        }
+    }
+
 }

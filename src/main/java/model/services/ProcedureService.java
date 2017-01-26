@@ -26,9 +26,7 @@ public class ProcedureService {
 
     public List<Procedure> getAllProcedures() {
         try (DaoConnection connection = daoFactory.getConnection()) {
-            connection.begin(); // TODO ---
             ProcedureDao procedureDao = daoFactory.createProcedureDao(connection);
-            connection.commit();  // TODO ---
             return procedureDao.findAll();
         }
     }

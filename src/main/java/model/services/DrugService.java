@@ -26,9 +26,7 @@ public class DrugService {
 
     public List<Drug> getAllDrugs() {
         try (DaoConnection connection = daoFactory.getConnection()) {
-            connection.begin(); // TODO ---
             DrugDao drugDao = daoFactory.createDrugDao(connection);
-            connection.commit();  // TODO ---
             return drugDao.findAll();
         }
     }

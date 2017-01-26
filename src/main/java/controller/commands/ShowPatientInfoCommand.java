@@ -5,7 +5,9 @@ import model.entities.Patient;
 import model.services.DiagnosisHistoryService;
 import model.services.PatientService;
 import org.apache.log4j.Logger;
-import view.GlobalConstants;
+import view.Attributes;
+import view.Parameters;
+import view.Paths;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -20,12 +22,6 @@ public class ShowPatientInfoCommand implements Command {
 
     private static final Logger LOGGER = Logger.getLogger(ShowPatientInfoCommand.class);
 
-    /* Parameters & attributes */
-    public static final String PARAM_ID = "id";
-    public static final String ATTR_PATIENT = "patient";
-    public static final String ATTR_DIAGNOSIS_HISTORY_LIST = "diagnosisHistoryList";
-    public static final String ATTR_IS_PATIENT_ON_CURE = "isPatientOnCure";
-
     private PatientService patientService = PatientService.getInstance();
     private DiagnosisHistoryService diagnosisHistoryService = DiagnosisHistoryService.getInstance();
 
@@ -33,17 +29,17 @@ public class ShowPatientInfoCommand implements Command {
     public String execute(HttpServletRequest request, HttpServletResponse httpServletResponse)
             throws ServletException, IOException {
 
-        int id = Integer.parseInt(request.getParameter(PARAM_ID));
+        int id = Integer.parseInt(request.getParameter(Parameters.ID));
 
         Patient patient = patientService.getPatientById(id);
-        request.getSession().setAttribute(ATTR_PATIENT, patient);
+        request.getSession().setAttribute(Attributes.PATIENT, patient);
 
         List<DiagnosisHistory> diagnosisHistoryList = diagnosisHistoryService.getDiagnosisHistoryByPatient(id);
-        request.setAttribute(ATTR_DIAGNOSIS_HISTORY_LIST, diagnosisHistoryList);
+        request.getSession().setAttribute(Attributes.DIAGNOSIS_HISTORY_LIST, diagnosisHistoryList);
 
         boolean isPatientOnCure = patientService.isPatientOnCure(id);
-        request.setAttribute(ATTR_IS_PATIENT_ON_CURE, isPatientOnCure);
+        request.setAttribute(Attributes.ATTR_IS_PATIENT_ON_CURE, isPatientOnCure);
 
-        return GlobalConstants.PATIENT_INFO_JSP;
+        return Paths.PATIENT_INFO_JSP;
     }
 }

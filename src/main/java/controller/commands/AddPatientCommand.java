@@ -2,7 +2,7 @@ package controller.commands;
 
 import model.entities.Patient;
 import model.services.PatientService;
-import view.GlobalConstants;
+import view.Paths;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -34,6 +34,6 @@ public class AddPatientCommand implements Command {
                 .build();
         patientService.createPatient(patient);
 
-        return GlobalConstants.REST_SHOW_PATIENTS;
+        return Paths.REST_SHOW_PATIENTS;
     }
 }

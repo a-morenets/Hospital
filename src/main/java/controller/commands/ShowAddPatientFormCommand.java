@@ -1,6 +1,6 @@
 package controller.commands;
 
-import view.GlobalConstants;
+import view.Paths;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -10,12 +10,12 @@ import java.io.IOException;
 /**
  * Created by alexey.morenets@gmail.com on 22.01.2017.
  */
-public class AddPatientFormCommand implements Command {
+public class ShowAddPatientFormCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse httpServletResponse)
             throws ServletException, IOException {
 
-        return GlobalConstants.ADD_PATIENT_FORM_JSP;
+        return Paths.ADD_PATIENT_FORM_JSP;
     }
 }

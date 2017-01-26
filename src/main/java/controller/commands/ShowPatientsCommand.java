@@ -2,7 +2,7 @@ package controller.commands;
 
 import model.entities.Patient;
 import model.services.PatientService;
-import view.GlobalConstants;
+import view.Paths;
 
 import java.io.IOException;
 import java.util.List;
@@ -25,7 +25,7 @@ public class ShowPatientsCommand implements Command {
         List<Patient> patients = patientService.getAllPatients();
         request.setAttribute(ATTR_PATIENTS_LIST, patients);
 
-		return GlobalConstants.PATIENTS_JSP;
+		return Paths.PATIENTS_JSP;
 	}
 
 }

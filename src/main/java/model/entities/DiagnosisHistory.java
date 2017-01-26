@@ -9,7 +9,7 @@ public class DiagnosisHistory {
 
     private int id;
     private Timestamp date;
-    private int patientId;
+    private Patient patient;
     private Staff staff;
     private Diagnosis diagnosis;
     private DiagnosisType diagnosisType;
@@ -17,7 +17,7 @@ public class DiagnosisHistory {
     public static class Builder {
         private int id;
         private Timestamp date;
-        private int patientId;
+        private Patient patient;
         private Staff staff;
         private Diagnosis diagnosis;
         private DiagnosisType diagnosisType;
@@ -32,8 +32,8 @@ public class DiagnosisHistory {
             return this;
         }
 
-        public Builder setPatientId(int patientId) {
-            this.patientId = patientId;
+        public Builder setPatient(Patient patient) {
+            this.patient = patient;
             return this;
         }
 
@@ -56,7 +56,7 @@ public class DiagnosisHistory {
             DiagnosisHistory diagnosisHistory = new DiagnosisHistory();
             diagnosisHistory.setId(id);
             diagnosisHistory.setDate(date);
-            diagnosisHistory.setPatientId(patientId);
+            diagnosisHistory.setPatient(patient);
             diagnosisHistory.setStaff(staff);
             diagnosisHistory.setDiagnosis(diagnosis);
             diagnosisHistory.setDiagnosisType(diagnosisType);
@@ -80,12 +80,12 @@ public class DiagnosisHistory {
         this.date = date;
     }
 
-    public int getPatientId() {
-        return patientId;
+    public Patient getPatient() {
+        return patient;
     }
 
-    public void setPatientId(int patientId) {
-        this.patientId = patientId;
+    public void setPatient(Patient patient) {
+        this.patient = patient;
     }
 
     public Staff getStaff() {

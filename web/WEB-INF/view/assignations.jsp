@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="view.Paths" %>
 <html>
 <head>
     <title>Assignations</title>
@@ -16,6 +17,9 @@
     </c:forEach>
     <br/>
 
+    <br/>
+    <a href=".${Paths.SHOW_ADD_ASSIGNATIONS_DRUGS_FORM}">Add assignations drugs</a>
+
     <h2>Procedures</h2>
 
     <c:forEach var="i" items="${assignationProceduresList}">
@@ -23,6 +27,9 @@
         <br/>
     </c:forEach>
     <br/>
+
+    <br/>
+    <a href=".${Paths.SHOW_ADD_ASSIGNATIONS_PROCEDURES_FORM}">Add assignations procedures</a>
 
     <h2>Surgeries</h2>
 
@@ -33,7 +40,7 @@
     <br/>
 
     <br/>
-    <a href="./add_assignations_form">Add assignations</a>
+    <a href=".${Paths.SHOW_ADD_ASSIGNATIONS_SURGERIES_FORM}">Add assignations surgeries</a>
 </div>
 </body>
 </html>

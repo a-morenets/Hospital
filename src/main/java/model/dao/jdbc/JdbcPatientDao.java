@@ -14,11 +14,13 @@ import java.util.List;
 public class JdbcPatientDao implements PatientDao {
 
     /* SELECT */
-    private static final String SELECT_FROM_PATIENTS = "SELECT * FROM patients";
-    private static final String SELECT_PATIENT_BY_ID = "SELECT * FROM patients WHERE id = ?";
+    private static final String SELECT_FROM_PATIENTS =
+            "SELECT * FROM patients";
+    private static final String SELECT_PATIENT_BY_ID =
+            "SELECT * FROM patients WHERE id = ?";
     private static final String INSERT_INTO_CITY_NAME_VALUES =
             "INSERT INTO patients (lastname, firstname, surname) VALUES (?, ?, ?)";
-    public static final String SELECT_PATIENT_STATUS =
+    private static final String SELECT_PATIENT_STATUS =
             "SELECT type FROM diagnosis_history\n" +
                     "WHERE patient_id = ?\n" +
                     "ORDER BY diagnosis_date DESC\n" +

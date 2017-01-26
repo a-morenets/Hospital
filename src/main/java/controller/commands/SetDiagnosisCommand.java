@@ -1,9 +1,12 @@
 package controller.commands;
 
 import model.entities.Diagnosis;
+import model.entities.DiagnosisType;
 import model.services.DiagnosisService;
 import org.apache.log4j.Logger;
-import view.GlobalConstants;
+import view.Attributes;
+import view.Parameters;
+import view.Paths;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -16,12 +19,7 @@ import java.util.List;
  */
 public class SetDiagnosisCommand implements Command {
 
-    private static Logger LOGGER = Logger.getLogger(ShowAssignationsCommand.class);
-
-    public static final String ATTR_DIAGNOSES_LIST = "diagnosesList";
-
-    /* Parameters & Attributes */
-    public static final String PARAM_DIAGNOSIS_HISTORY_ID = "diagnosisHistoryId";
+    private static Logger LOGGER = Logger.getLogger(SetDiagnosisCommand.class);
 
     private DiagnosisService diagnosisService = DiagnosisService.getInstance();
 
@@ -29,13 +27,12 @@ public class SetDiagnosisCommand implements Command {
     public String execute(HttpServletRequest request, HttpServletResponse httpServletResponse)
             throws ServletException, IOException {
 
-        // TODO
-//        int diagnosisHistoryId = Integer.parseInt(request.getParameter(PARAM_DIAGNOSIS_HISTORY_ID));
+        DiagnosisType diagnosisType = DiagnosisType.valueOf(request.getParameter(Parameters.DIAGNOSIS_TYPE));
+        request.getSession().setAttribute(Parameters.DIAGNOSIS_TYPE, diagnosisType);
 
-        List<Diagnosis> diagnosisList = diagnosisService.getAllDiagnoses();
-        // TODO setAttribute()
-        request.setAttribute(ATTR_DIAGNOSES_LIST, diagnosisList);
+        List<Diagnosis> diagnosesList = diagnosisService.getAllDiagnoses();
+        request.setAttribute(Attributes.DIAGNOSES_LIST, diagnosesList);
 
-        return GlobalConstants.DIAGNOSES_JSP;
+        return Paths.DIAGNOSES_JSP;
     }
 }

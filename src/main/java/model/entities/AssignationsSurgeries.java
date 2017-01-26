@@ -3,7 +3,7 @@ package model.entities;
 /**
  * Created by alexey.morenets@gmail.com on 24.01.2017.
  */
-public class AssignationSurgery {
+public class AssignationsSurgeries {
     private int id;
     private int diagnosisHistoryId;
     private Surgery surgery;
@@ -28,12 +28,12 @@ public class AssignationSurgery {
             return this;
         }
 
-        public AssignationSurgery build() {
-            AssignationSurgery assignationSurgery = new AssignationSurgery();
-            assignationSurgery.setId(id);
-            assignationSurgery.setDiagnosisHistoryId(diagnosisHistoryId);
-            assignationSurgery.setSurgery(surgery);
-            return assignationSurgery;
+        public AssignationsSurgeries build() {
+            AssignationsSurgeries assignationsSurgeries = new AssignationsSurgeries();
+            assignationsSurgeries.setId(id);
+            assignationsSurgeries.setDiagnosisHistoryId(diagnosisHistoryId);
+            assignationsSurgeries.setSurgery(surgery);
+            return assignationsSurgeries;
         }
     }
 

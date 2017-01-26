@@ -3,7 +3,7 @@ package model.entities;
 /**
  * Created by alexey.morenets@gmail.com on 24.01.2017.
  */
-public class AssignationDrug {
+public class AssignationsDrugs {
     private int id;
     private int diagnosisHistoryId;
     private Drug drug;
@@ -49,15 +49,15 @@ public class AssignationDrug {
             return this;
         }
 
-        public AssignationDrug build() {
-            AssignationDrug assignationDrug = new AssignationDrug();
-            assignationDrug.setId(id);
-            assignationDrug.setDiagnosisHistoryId(diagnosisHistoryId);
-            assignationDrug.setDrug(drug);
-            assignationDrug.setNumUnits(numUnits);
-            assignationDrug.setNumTimes(numTimes);
-            assignationDrug.setNumDays(numDays);
-            return assignationDrug;
+        public AssignationsDrugs build() {
+            AssignationsDrugs assignationsDrugs = new AssignationsDrugs();
+            assignationsDrugs.setId(id);
+            assignationsDrugs.setDiagnosisHistoryId(diagnosisHistoryId);
+            assignationsDrugs.setDrug(drug);
+            assignationsDrugs.setNumUnits(numUnits);
+            assignationsDrugs.setNumTimes(numTimes);
+            assignationsDrugs.setNumDays(numDays);
+            return assignationsDrugs;
         }
     }
 
@@ -107,5 +107,17 @@ public class AssignationDrug {
 
     public void setNumDays(int numDays) {
         this.numDays = numDays;
+    }
+
+    @Override
+    public String toString() {
+        return "AssignationsDrugs{" +
+                "id=" + id +
+                ", diagnosisHistoryId=" + diagnosisHistoryId +
+                ", drug=" + drug +
+                ", numUnits=" + numUnits +
+                ", numTimes=" + numTimes +
+                ", numDays=" + numDays +
+                '}';
     }
 }

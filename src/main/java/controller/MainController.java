@@ -13,7 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import controller.commands.*;
 import org.apache.log4j.Logger;
-import view.GlobalConstants;
+import view.Attributes;
+import view.Paths;
 
 /**
  * Servlet implementation class MainController
@@ -32,21 +33,26 @@ public class MainController extends HttpServlet {
         super();
     }
 
+    @Override
     public void init(ServletConfig config) throws ServletException {
-        commands.put(POST + GlobalConstants.LOGIN, new LoginCommand());
-        commands.put(POST + GlobalConstants.SHOW_PATIENTS, new ShowPatientsCommand());
-        commands.put(POST + GlobalConstants.ADD_PATIENT, new AddPatientCommand());
-        commands.put(POST + GlobalConstants.ADD_ASSIGNATIONS, new AddAssignationsCommand());
-        commands.put(POST + GlobalConstants.ADD_DIAGNOSIS, new AddDiagnosisCommand());
-        commands.put(POST + GlobalConstants.SHOW_PATIENT_INFO, new ShowPatientInfoCommand());
-// TODO GET & POST дублируются
-        commands.put(GET + GlobalConstants.SHOW_LOGIN_FORM, new ShowLoginFormCommand());
-        commands.put(GET + GlobalConstants.ADD_PATIENT_FORM, new AddPatientFormCommand());
-        commands.put(GET + GlobalConstants.SHOW_PATIENT_INFO, new ShowPatientInfoCommand());
-        commands.put(GET + GlobalConstants.SHOW_PATIENTS, new ShowPatientsCommand());
-        commands.put(GET + GlobalConstants.SET_DIAGNOSIS, new SetDiagnosisCommand());
-        commands.put(GET + GlobalConstants.SHOW_ASSIGNATIONS, new ShowAssignationsCommand());
-        commands.put(GET + GlobalConstants.ADD_ASSIGNATIONS_FORM, new AddAssignationsFormCommand());
+        commands.put(GET + Paths.SHOW_LOGIN_FORM, new ShowLoginFormCommand());
+        commands.put(GET + Paths.SHOW_ADD_PATIENT_FORM, new ShowAddPatientFormCommand());
+        commands.put(GET + Paths.SHOW_PATIENT_INFO, new ShowPatientInfoCommand());
+        commands.put(GET + Paths.SHOW_PATIENTS, new ShowPatientsCommand());
+        commands.put(GET + Paths.SHOW_ASSIGNATIONS, new ShowAssignationsDrugsCommand());
+        commands.put(GET + Paths.SET_DIAGNOSIS, new SetDiagnosisCommand());
+        commands.put(GET + Paths.SHOW_ADD_ASSIGNATIONS_DRUGS_FORM, new ShowAddAssignationsDrugsFormCommand());
+        commands.put(GET + Paths.SHOW_ADD_ASSIGNATIONS_PROCEDURES_FORM, new ShowAddAssignationsProceduresFormCommand());
+        commands.put(GET + Paths.SHOW_ADD_ASSIGNATIONS_SURGERIES_FORM, new ShowAddAssignationsSurgeriesFormCommand());
+
+        commands.put(POST + Paths.LOGIN, new LoginCommand());
+        commands.put(POST + Paths.SHOW_PATIENTS, new ShowPatientsCommand());
+        commands.put(POST + Paths.ADD_PATIENT, new AddPatientCommand());
+        commands.put(POST + Paths.SHOW_PATIENT_INFO, new ShowPatientInfoCommand());
+        commands.put(POST + Paths.ADD_DIAGNOSIS, new AddDiagnosisCommand());
+        commands.put(POST + Paths.ADD_ASSIGNATIONS_DRUGS, new AddAssignationsDrugsCommand());
+        commands.put(POST + Paths.ADD_ASSIGNATIONS_PROCEDURES, new AddAssignationsProceduresCommand());
+        commands.put(POST + Paths.ADD_ASSIGNATIONS_SURGERIES, new AddAssignationsSurgeriesCommand());
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -64,11 +70,10 @@ public class MainController extends HttpServlet {
         String path = request.getRequestURI().replaceAll(".*/rest", "");
         String key = method + ":" + path;
         LOGGER.debug(key);
-        Command command = commands.getOrDefault(key, (req, resp) -> GlobalConstants.REDIRECT);
+        Command command = commands.getOrDefault(key, (req, resp) -> Paths.REDIRECT);
         String viewPage = command.execute(request, response);
-        LOGGER.debug(viewPage);
-        if (viewPage.equals(GlobalConstants.REDIRECT)) {
-            response.sendRedirect(GlobalConstants.INDEX_JSP);
+        if (viewPage.equals(Paths.REDIRECT)) {
+            response.sendRedirect(Paths.INDEX_JSP);
         } else {
             request.getRequestDispatcher(viewPage).forward(request, response);
         }

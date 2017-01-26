@@ -3,11 +3,9 @@ package model.dao.jdbc;
 
 import model.dao.DiagnosisHistoryDao;
 
-import model.entities.Diagnosis;
-import model.entities.DiagnosisHistory;
-import model.entities.Staff;
-import model.entities.DiagnosisType;
+import model.entities.*;
 import model.services.DiagnosisService;
+import model.services.PatientService;
 import model.services.StaffService;
 
 import java.sql.*;
@@ -23,6 +21,9 @@ public class JdbcDiagnosisHistoryDao implements DiagnosisHistoryDao {
     /* SELECT */
     private static final String SELECT_FROM_DIAGNOSIS_HISTORY =
             "SELECT * FROM diagnosis_history WHERE patient_id = ? ORDER BY diagnosis_date";
+    public static final String INSERT_INTO_DIAGNOSIS_HISTORY =
+            "INSERT INTO diagnosis_history(diagnosis_date, patient_id, staff_id, diagnosis_id, type)\n" +
+                    "VALUES(?, ?, ?, ?, ?)";
 
     /* Fields */
     public static final String ID = "id";
@@ -32,6 +33,7 @@ public class JdbcDiagnosisHistoryDao implements DiagnosisHistoryDao {
     public static final String DIAGNOSIS_ID = "diagnosis_id";
     public static final String TYPE = "type";
 
+    private PatientService patientService = PatientService.getInstance();
     private StaffService staffService = StaffService.getInstance();
     private DiagnosisService diagnosisService = DiagnosisService.getInstance();
 
@@ -57,7 +59,24 @@ public class JdbcDiagnosisHistoryDao implements DiagnosisHistoryDao {
 
     @Override
     public void create(DiagnosisHistory diagnosisHistory) {
+        try (PreparedStatement query =
+                     connection.prepareStatement(INSERT_INTO_DIAGNOSIS_HISTORY, Statement.RETURN_GENERATED_KEYS)) {
 
+            query.setString(1, String.valueOf(diagnosisHistory.getDate()));
+            query.setString(2, String.valueOf(diagnosisHistory.getPatient().getId()));
+            query.setString(3, String.valueOf(diagnosisHistory.getStaff().getId()));
+            query.setString(4, String.valueOf(diagnosisHistory.getDiagnosis().getId()));
+            query.setString(5, String.valueOf(diagnosisHistory.getDiagnosisType().name()));
+
+            query.executeUpdate();
+            ResultSet keys = query.getGeneratedKeys();
+
+            if (keys.next()) {
+                diagnosisHistory.setId(keys.getInt(1));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -77,7 +96,7 @@ public class JdbcDiagnosisHistoryDao implements DiagnosisHistoryDao {
             query.setString(1, String.valueOf(patientId));
             ResultSet resultSet = query.executeQuery();
             while (resultSet.next()) {
-                result.add(getPatientFromResultSet(resultSet));
+                result.add(getDiagnosisHistoryFromResultSet(resultSet));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -85,13 +104,14 @@ public class JdbcDiagnosisHistoryDao implements DiagnosisHistoryDao {
         return result;
     }
 
-    private DiagnosisHistory getPatientFromResultSet(ResultSet resultSet) throws SQLException {
+    private DiagnosisHistory getDiagnosisHistoryFromResultSet(ResultSet resultSet) throws SQLException {
+        Patient patient = patientService.getPatientById(resultSet.getInt(PATIENT_ID));
         Staff staff = staffService.getStaffById(resultSet.getInt(STAFF_ID));
         Diagnosis diagnosis = diagnosisService.getDiagnosisById(resultSet.getInt(DIAGNOSIS_ID));
         return new DiagnosisHistory.Builder()
                 .setId(resultSet.getInt(ID))
                 .setDate(resultSet.getTimestamp(DATE))
-                .setPatientId(resultSet.getInt(PATIENT_ID))
+                .setPatient(patient)
                 .setStaff(staff)
                 .setDiagnosis(diagnosis)
                 .setDiagnosisType(DiagnosisType.valueOf(resultSet.getString(TYPE)))
