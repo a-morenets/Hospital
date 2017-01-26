@@ -19,12 +19,9 @@
     <div class="container" align="center">
 
         <%@ include file="/WEB-INF/view/i18n/languages.jsp" %>
-        <hr>
         <br>
         <div align="center">
-
             <img src="${pageContext.request.contextPath}/img/drHouse.jpg" height="100px"><br>
             <h1><fmt:message key="title.home"/></h1>
-
         </div>
 

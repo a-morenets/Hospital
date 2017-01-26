@@ -20,7 +20,7 @@ public class HomeCommand implements Command {
     public String execute(HttpServletRequest request, HttpServletResponse httpServletResponse) throws ServletException, IOException {
         LOGGER.debug("HomeCommand");
         request.setAttribute(Attributes.PAGE_TITLE, "title.home");
-        return Paths.ADD_ASSIGNATIONS_PROCEDURES_JSP;
+        return "/WEB-INF/view/home.jsp";
 //        return Paths.HOME_JSP;
     }
 }

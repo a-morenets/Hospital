@@ -73,10 +73,10 @@ public class MainController extends HttpServlet {
         Command command = commands.getOrDefault(key, (req, resp) -> Paths.REDIRECT);
         String viewPage = command.execute(request, response);
         if (viewPage.equals(Paths.REDIRECT)) {
-            LOGGER.debug("REDIRECT");
+            LOGGER.debug("REDIRECT to" + Paths.HOME_JSP);
             response.sendRedirect(Paths.HOME_JSP);
         } else {
-            LOGGER.debug("FORWARD to page " + viewPage);
+            LOGGER.debug("FORWARD to " + viewPage);
             request.getRequestDispatcher(viewPage).forward(request, response);
         }
     }

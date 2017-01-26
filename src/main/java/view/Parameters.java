@@ -3,11 +3,11 @@ package view;
 /**
  * Created by alexey.morenets@gmail.com on 26.01.2017.
  */
-public interface Parameters {
-    String _ID = "?id=";
-    String DIAGNOSIS_HISTORY_ID = "diagnosisHistoryId";
-    String DIAGNOSIS_TYPE = "diagnosisType";
-    String DIAGNOSIS_ID = "diagnosisId";
-    String ID = "id";
-    String USER_LOCALE = "language";
+public class Parameters {
+    public static final String _ID = "?id=";
+    public static final String DIAGNOSIS_HISTORY_ID = "diagnosisHistoryId";
+    public static final String DIAGNOSIS_TYPE = "diagnosisType";
+    public static final String DIAGNOSIS_ID = "diagnosisId";
+    public static final String ID = "id";
+    public static final String USER_LOCALE = "language";
 }
