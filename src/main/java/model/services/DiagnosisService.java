@@ -8,6 +8,7 @@ import model.entities.Diagnosis;
 import java.util.List;
 
 /**
+ * DiagnosisService
  * Created by alexey.morenets@gmail.com on 22.01.2017.
  */
 public class DiagnosisService {
@@ -26,18 +27,14 @@ public class DiagnosisService {
 
     public Diagnosis getDiagnosisById(int id) {
         try (DaoConnection connection = daoFactory.getConnection()) {
-            connection.begin();
             DiagnosisDao diagnosisDao = daoFactory.createDiagnosisDao(connection);
-            connection.commit();
             return diagnosisDao.find(id);
         }
     }
 
     public List<Diagnosis> getAllDiagnoses() {
         try (DaoConnection connection = daoFactory.getConnection()) {
-            connection.begin();
             DiagnosisDao diagnosisDao = daoFactory.createDiagnosisDao(connection);
-            connection.commit();
             return diagnosisDao.findAll();
         }
     }

@@ -1,9 +1,11 @@
 package model.entities;
 
 /**
+ * Procedure
  * Created by alexey.morenets@gmail.com on 24.01.2017.
  */
 public class Procedure {
+
     private int id;
     private String name;
 
@@ -30,4 +32,5 @@ public class Procedure {
                 ", name='" + name + '\'' +
                 '}';
     }
+
 }

@@ -1,6 +1,7 @@
 package model.entities;
 
 /**
+ * AssignationsDrugs
  * Created by alexey.morenets@gmail.com on 24.01.2017.
  */
 public class AssignationsDrugs {
@@ -120,4 +121,5 @@ public class AssignationsDrugs {
                 ", numDays=" + numDays +
                 '}';
     }
+
 }

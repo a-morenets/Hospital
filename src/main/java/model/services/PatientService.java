@@ -9,6 +9,7 @@ import model.entities.Patient;
 import java.util.List;
 
 /**
+ * PatientService
  * Created by alexey.morenets@gmail.com on 21.01.2017.
  */
 public class PatientService {
@@ -16,9 +17,9 @@ public class PatientService {
     DaoFactory daoFactory = DaoFactory.getInstance();
 
     private static class Holder {
-
         static final PatientService INSTANCE = new PatientService();
     }
+
     public static PatientService getInstance() {
         return Holder.INSTANCE;
     }
@@ -27,9 +28,7 @@ public class PatientService {
 
     public List<Patient> getAllPatients() {
         try (DaoConnection connection = daoFactory.getConnection()) {
-            connection.begin();
             PatientDao patientDao = daoFactory.createPatientDao(connection);
-            connection.commit();
             return patientDao.findAll();
         }
     }
@@ -43,18 +42,14 @@ public class PatientService {
 
     public Patient getPatientById(int id) {
         try (DaoConnection connection = daoFactory.getConnection()) {
-            connection.begin();
             PatientDao patientDao = daoFactory.createPatientDao(connection);
-            connection.commit();
             return patientDao.find(id);
         }
     }
 
     public boolean isPatientOnCure(int id) {
         try (DaoConnection connection = daoFactory.getConnection()) {
-            connection.begin();
             PatientDao patientDao = daoFactory.createPatientDao(connection);
-            connection.commit();
             return patientDao.getDiagnosisType(id) == DiagnosisType.PRIMARY;
         }
     }

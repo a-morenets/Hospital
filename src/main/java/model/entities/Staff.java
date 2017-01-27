@@ -1,8 +1,9 @@
 package model.entities;
 
-import java.sql.Timestamp;
-import java.time.LocalDate;
-
+/**
+ * Patient
+ * Created by alexey.morenets@gmail.com on 21.01.2017.
+ */
 public class Staff {
 
 	private int id;

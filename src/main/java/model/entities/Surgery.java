@@ -1,6 +1,7 @@
 package model.entities;
 
 /**
+ * Surgery
  * Created by alexey.morenets@gmail.com on 24.01.2017.
  */
 public class Surgery {
@@ -22,4 +23,5 @@ public class Surgery {
     public void setName(String name) {
         this.name = name;
     }
+
 }

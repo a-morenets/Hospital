@@ -1,6 +1,7 @@
 package model.entities;
 
 /**
+ * AssignationsProcedures
  * Created by alexey.morenets@gmail.com on 24.01.2017.
  */
 public class AssignationsProcedures {
@@ -76,4 +77,5 @@ public class AssignationsProcedures {
     public void setNumDays(int numDays) {
         this.numDays = numDays;
     }
+
 }

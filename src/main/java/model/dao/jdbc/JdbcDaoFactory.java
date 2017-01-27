@@ -5,10 +5,13 @@ import model.dao.*;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-
 import java.sql.Connection;
 import java.sql.SQLException;
 
+/**
+ * JdbcDaoConnection
+ * Created by alexey.morenets@gmail.com on 26.01.2017.
+ */
 public class JdbcDaoFactory extends DaoFactory {
 
     private DataSource dataSource;

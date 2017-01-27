@@ -5,6 +5,7 @@ import model.entities.AssignationsDrugs;
 import java.util.List;
 
 /**
+ * interface AssignationsDrugsDao
  * Created by alexey.morenets@gmail.com on 24.01.2017.
  */
 public interface AssignationsDrugsDao extends GenericDao<AssignationsDrugs> {

@@ -9,11 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * JdbcAssignationsSurgeriesDao
  * Created by alexey.morenets@gmail.com on 25.01.2017.
  */
 public class JdbcAssignationsSurgeriesDao implements AssignationsSurgeriesDao {
 
-    /* SELECT */
+    /* SQL */
     private static final String SELECT_FROM_ASSIGNATIONS_SURGERIES =
             "SELECT asur.id, diagnosis_history_id, surgery_id, s.id id_surgery, name\n" +
                     "FROM assignations_surgeries asur JOIN surgeries s\n" +
@@ -27,11 +28,10 @@ public class JdbcAssignationsSurgeriesDao implements AssignationsSurgeriesDao {
     /* Fields for assignations_surgeries */
     private static final String ID = "id";
     private static final String DIAGNOSIS_HISTORY_ID = "diagnosis_history_id";
-    public static final String PROCEDURE_ID = "surgery_id";
 
     /* Fields for surgeries */
-    public static final String ID_SURGERY = "id_surgery";
-    public static final String NAME = "name";
+    private static final String ID_SURGERY = "id_surgery";
+    private static final String NAME = "name";
 
     private Connection connection;
 
@@ -70,12 +70,12 @@ public class JdbcAssignationsSurgeriesDao implements AssignationsSurgeriesDao {
 
     @Override
     public AssignationsSurgeries find(int id) {
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public List<AssignationsSurgeries> findAll() {
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     @Override
@@ -99,11 +99,12 @@ public class JdbcAssignationsSurgeriesDao implements AssignationsSurgeriesDao {
 
     @Override
     public void update(AssignationsSurgeries assignationsSurgeries) {
-
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public void delete(int id) {
-
+        throw new UnsupportedOperationException();
     }
+
 }

@@ -18,15 +18,16 @@ import java.io.IOException;
 import java.util.List;
 
 /**
+ * ShowAssignationsCommand
  * Created by alexey.morenets@gmail.com on 23.01.2017.
  */
-public class ShowAssignationsDrugsCommand implements Command {
+public class ShowAssignationsCommand implements Command {
 
-    private static Logger LOGGER = Logger.getLogger(ShowAssignationsDrugsCommand.class);
+    private static Logger LOGGER = Logger.getLogger(ShowAssignationsCommand.class);
 
-    public static final String ATTR_ASSIGNATION_DRUGS_LIST = "assignationDrugsList";
-    public static final String ATTR_ASSIGNATION_PROCEDURES_LIST = "assignationProceduresList";
-    public static final String ATTR_ASSIGNATION_SURGERIES_LIST = "assignationSurgeriesList";
+    private static final String ATTR_ASSIGNATION_DRUGS_LIST = "assignationDrugsList";
+    private static final String ATTR_ASSIGNATION_PROCEDURES_LIST = "assignationProceduresList";
+    private static final String ATTR_ASSIGNATION_SURGERIES_LIST = "assignationSurgeriesList";
 
     private AssignationsDrugsService assignationsDrugsService = AssignationsDrugsService.getInstance();
     private AssignationsProceduresService assignationsProceduresService = AssignationsProceduresService.getInstance();
@@ -50,6 +51,7 @@ public class ShowAssignationsDrugsCommand implements Command {
         request.setAttribute(ATTR_ASSIGNATION_PROCEDURES_LIST, assignationProceduresList);
         request.setAttribute(ATTR_ASSIGNATION_SURGERIES_LIST, assignationSurgeriesList);
 
+        request.setAttribute(Attributes.PAGE_TITLE, "title.assignations.show");
         return Paths.ASSIGNATIONS_JSP;
     }
 

@@ -15,12 +15,12 @@ import java.util.List;
  */
 public class JdbcProcedureDao implements ProcedureDao {
 
-    /* SELECT */
+    /* SQL */
     private static final String SELECT_FROM_PROCEDURES = "SELECT * FROM procedures";
 
     /* Fields */
     private static final String ID = "id";
-    public static final String NAME = "name";
+    private static final String NAME = "name";
 
     private Connection connection;
 
@@ -34,7 +34,7 @@ public class JdbcProcedureDao implements ProcedureDao {
 
     @Override
     public Procedure find(int id) {
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     @Override
@@ -62,16 +62,17 @@ public class JdbcProcedureDao implements ProcedureDao {
 
     @Override
     public void create(Procedure procedure) {
-
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public void update(Procedure procedure) {
-
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public void delete(int id) {
-
+        throw new UnsupportedOperationException();
     }
+
 }

@@ -8,6 +8,7 @@ import model.entities.AssignationsProcedures;
 import java.util.List;
 
 /**
+ * AssignationsProceduresService
  * Created by alexey.morenets@gmail.com on 25.01.2017.
  */
 public class AssignationsProceduresService {
@@ -26,9 +27,7 @@ public class AssignationsProceduresService {
 
     public List<AssignationsProcedures> getAssignationProceduresByDiagnosisHistoryIdList(int diagnosisHistoryId) {
         try (DaoConnection connection = daoFactory.getConnection()) {
-            connection.begin();
             AssignationsProceduresDao assignationsProceduresDao = daoFactory.createAssignationsProceduresDao(connection);
-            connection.commit();
             return assignationsProceduresDao.findByDiagnosisHistoryId(diagnosisHistoryId);
         }
     }

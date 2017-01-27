@@ -3,6 +3,7 @@ package model.entities;
 import java.sql.Timestamp;
 
 /**
+ * DiagnosisHistory
  * Created by alexey.morenets@gmail.com on 22.01.2017.
  */
 public class DiagnosisHistory {

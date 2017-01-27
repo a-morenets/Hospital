@@ -4,6 +4,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+/**
+ * abstract class DaoFactory
+ * Created by alexey.morenets@gmail.com on 26.01.2017.
+ */
 public abstract class DaoFactory {
 
     public abstract DaoConnection getConnection();
@@ -19,7 +23,7 @@ public abstract class DaoFactory {
     public abstract ProcedureDao createProcedureDao(DaoConnection connection);
     public abstract SurgeryDao createSurgeryDao(DaoConnection connection);
 
-    public static final String DB_FILE = "/db.properties";
+    private static final String DB_FILE = "/db.properties";
 
     private static final String DB_FACTORY_CLASS = "factory.class";
 
@@ -39,4 +43,5 @@ public abstract class DaoFactory {
         }
         return instance;
     }
+
 }

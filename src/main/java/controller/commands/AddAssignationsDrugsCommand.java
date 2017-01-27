@@ -16,15 +16,16 @@ import java.io.IOException;
 import java.util.*;
 
 /**
+ * AddAssignationsDrugsCommand
  * Created by alexey.morenets@gmail.com on 23.01.2017.
  */
 public class AddAssignationsDrugsCommand implements Command {
 
     private static final Logger LOGGER = Logger.getLogger(AddAssignationsDrugsCommand.class);
 
-    public static final String NUM_UNITS = "drugNumUnits";
-    public static final String NUM_TIMES = "drugNumTimes";
-    public static final String NUM_DAYS = "drugNumDays";
+    private static final String NUM_UNITS = "drugNumUnits";
+    private static final String NUM_TIMES = "drugNumTimes";
+    private static final String NUM_DAYS = "drugNumDays";
 
     private AssignationsDrugsService assignationsDrugsService = AssignationsDrugsService.getInstance();
 
@@ -39,13 +40,16 @@ public class AddAssignationsDrugsCommand implements Command {
 
         int patientId = ((Patient) request.getSession().getAttribute(Attributes.PATIENT)).getId();
 
+        request.setAttribute(Attributes.PAGE_TITLE, "title.assignations.drugs");
         return Paths.REST_SHOW_PATIENT_INFO + Parameters._ID + patientId;
+        // TODO
+//        return "/rest/show_assignations?diagnosisHistoryId=30";
     }
 
     private List<AssignationsDrugs> getDrugsAssignationsFromRequest(HttpServletRequest request, int diagnosisHistoryId) {
         List<AssignationsDrugs> assignationsDrugsList = new ArrayList<>();
         Enumeration<String> params = request.getParameterNames();
-
+//todo refactor
         while (params.hasMoreElements()) {
             String paramName = params.nextElement();
             String[] paramParts = paramName.split("_");

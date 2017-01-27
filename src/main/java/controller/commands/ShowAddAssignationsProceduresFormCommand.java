@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.util.List;
 
 /**
+ * ShowAddAssignationsProceduresFormCommand
  * Created by alexey.morenets@gmail.com on 26.01.2017.
  */
 public class ShowAddAssignationsProceduresFormCommand implements Command {
@@ -28,6 +29,7 @@ public class ShowAddAssignationsProceduresFormCommand implements Command {
         List<Procedure> proceduresList = procedureService.getAllProcedures();
         request.setAttribute(Attributes.PROCEDURES_LIST, proceduresList);
 
+        request.setAttribute(Attributes.PAGE_TITLE, "form.assignations.procedures.add");
         return Paths.ADD_ASSIGNATIONS_PROCEDURES_JSP;
     }
 

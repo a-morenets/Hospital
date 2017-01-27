@@ -15,6 +15,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 
 /**
+ * AddDiagnosisCommand
  * Created by alexey.morenets@gmail.com on 23.01.2017.
  */
 public class AddDiagnosisCommand implements Command {
@@ -46,6 +47,8 @@ public class AddDiagnosisCommand implements Command {
                 .build();
         diagnosisHistoryService.createDiagnosisHistory(diagnosisHistory);
 
+        request.setAttribute(Attributes.PAGE_TITLE, "title.diagnosis.add");
         return Paths.REST_SHOW_PATIENT_INFO + Parameters._ID + patientId;
     }
+
 }

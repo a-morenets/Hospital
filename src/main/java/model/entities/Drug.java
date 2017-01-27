@@ -1,6 +1,7 @@
 package model.entities;
 
 /**
+ * Drug
  * Created by alexey.morenets@gmail.com on 24.01.2017.
  */
 public class Drug {
@@ -30,4 +31,5 @@ public class Drug {
                 ", name='" + name + '\'' +
                 '}';
     }
+
 }

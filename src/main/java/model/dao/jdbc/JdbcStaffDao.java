@@ -12,9 +12,13 @@ import model.dao.StaffDao;
 import model.entities.Staff;
 import model.entities.Staff.Role;
 
+/**
+ * JdbcStaffDao
+ * Created by alexey.morenets@gmail.com on 26.01.2017.
+ */
 public class JdbcStaffDao implements StaffDao {
 
-    /* SELECT */
+    /* SQL */
     private static final String SELECT_STAFF_BY_LOGIN = "SELECT * FROM staff WHERE lower(email) = ?";
     private static final String SELECT_STAFF_BY_ID = "SELECT * FROM staff WHERE id = ?";
 
@@ -29,7 +33,7 @@ public class JdbcStaffDao implements StaffDao {
 
     private Connection connection;
 
-    public JdbcStaffDao(Connection connection) {
+    JdbcStaffDao(Connection connection) {
         this.connection = connection;
     }
 
@@ -54,22 +58,22 @@ public class JdbcStaffDao implements StaffDao {
 
     @Override
     public List<Staff> findAll() {
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public void create(Staff staff) {
-
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public void update(Staff staff) {
-
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public void delete(int id) {
-
+        throw new UnsupportedOperationException();
     }
 
     @Override

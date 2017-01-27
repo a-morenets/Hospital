@@ -8,6 +8,7 @@ import model.entities.DiagnosisHistory;
 import java.util.List;
 
 /**
+ * DiagnosisHistoryService
  * Created by alexey.morenets@gmail.com on 22.01.2017.
  */
 public class DiagnosisHistoryService {
@@ -26,9 +27,7 @@ public class DiagnosisHistoryService {
 
     public List<DiagnosisHistory> getDiagnosisHistoryByPatient(int id) {
         try (DaoConnection connection = daoFactory.getConnection()) {
-            connection.begin();
             DiagnosisHistoryDao diagnosisHistoryDao = daoFactory.createDiagnosisHistoryDao(connection);
-            connection.commit();
             return diagnosisHistoryDao.getDiagnosisHistoryByPatientIdList(id);
         }
     }

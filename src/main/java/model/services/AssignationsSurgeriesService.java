@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.util.List;
 
 /**
+ * AssignationsSurgeriesService
  * Created by alexey.morenets@gmail.com on 25.01.2017.
  */
 public class AssignationsSurgeriesService {
@@ -29,9 +30,7 @@ public class AssignationsSurgeriesService {
 
     public List<AssignationsSurgeries> getAssignationSurgeriesByDiagnosisHistoryIdList(int diagnosisHistoryId) {
         try (DaoConnection connection = daoFactory.getConnection()) {
-            connection.begin();
             AssignationsSurgeriesDao assignationsSurgeriesDao = daoFactory.createAssignationsSurgeriesDao(connection);
-            connection.commit();
             return assignationsSurgeriesDao.findByDiagnosisHistoryId(diagnosisHistoryId);
         }
     }
@@ -46,5 +45,6 @@ public class AssignationsSurgeriesService {
             connection.commit();
         }
     }
+
 }
 

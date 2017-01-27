@@ -5,6 +5,10 @@ import java.sql.SQLException;
 
 import model.dao.DaoConnection;
 
+/**
+ * JdbcDaoConnection
+ * Created by alexey.morenets@gmail.com on 26.01.2017.
+ */
 public class JdbcDaoConnection implements DaoConnection {
 
     private Connection connection;
@@ -59,7 +63,6 @@ public class JdbcDaoConnection implements DaoConnection {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
     }
 
 }

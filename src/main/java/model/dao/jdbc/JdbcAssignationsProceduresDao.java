@@ -11,13 +11,14 @@ import java.util.List;
 
 
 /**
+ * JdbcAssignationsProceduresDao
  * Created by alexey.morenets@gmail.com on 25.01.2017.
  */
 public class JdbcAssignationsProceduresDao implements AssignationsProceduresDao {
 
     private static final Logger LOGGER = Logger.getLogger(JdbcAssignationsProceduresDao.class);
 
-    /* SELECT */
+    /* SQL */
     private static final String SELECT_FROM_ASSIGNATIONS_PROCEDURES =
             "SELECT ap.id, diagnosis_history_id, procedure_id, num_days, p.id id_procedure, name\n" +
                     "FROM assignations_procedures ap JOIN procedures p\n" +
@@ -31,11 +32,11 @@ public class JdbcAssignationsProceduresDao implements AssignationsProceduresDao 
     /* Fields for assignations_procedures */
     private static final String ID = "id";
     private static final String DIAGNOSIS_HISTORY_ID = "diagnosis_history_id";
-    public static final String NUM_DAYS = "num_days";
+    private static final String NUM_DAYS = "num_days";
 
     /* Fields for procedures */
-    public static final String ID_PROCEDURE = "id_procedure";
-    public static final String NAME = "name";
+    private static final String ID_PROCEDURE = "id_procedure";
+    private static final String NAME = "name";
 
     private Connection connection;
 
@@ -75,12 +76,12 @@ public class JdbcAssignationsProceduresDao implements AssignationsProceduresDao 
 
     @Override
     public AssignationsProcedures find(int id) {
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public List<AssignationsProcedures> findAll() {
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     @Override
@@ -105,11 +106,12 @@ public class JdbcAssignationsProceduresDao implements AssignationsProceduresDao 
 
     @Override
     public void update(AssignationsProcedures assignationsProcedures) {
-
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public void delete(int id) {
-
+        throw new UnsupportedOperationException();
     }
+
 }

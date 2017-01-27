@@ -1,6 +1,7 @@
 package model.entities;
 
 /**
+ * AssignationsSurgeries
  * Created by alexey.morenets@gmail.com on 24.01.2017.
  */
 public class AssignationsSurgeries {
@@ -60,4 +61,5 @@ public class AssignationsSurgeries {
     public void setSurgery(Surgery surgery) {
         this.surgery = surgery;
     }
+
 }

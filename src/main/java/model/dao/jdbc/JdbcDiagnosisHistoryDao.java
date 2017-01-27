@@ -14,24 +14,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * JdbcDiagnosisHistoryDao
  * Created by alexey.morenets@gmail.com on 22.01.2017.
  */
 public class JdbcDiagnosisHistoryDao implements DiagnosisHistoryDao {
 
-    /* SELECT */
+    /* SQL */
     private static final String SELECT_FROM_DIAGNOSIS_HISTORY =
             "SELECT * FROM diagnosis_history WHERE patient_id = ? ORDER BY diagnosis_date";
-    public static final String INSERT_INTO_DIAGNOSIS_HISTORY =
+    private static final String INSERT_INTO_DIAGNOSIS_HISTORY =
             "INSERT INTO diagnosis_history(diagnosis_date, patient_id, staff_id, diagnosis_id, type)\n" +
                     "VALUES(?, ?, ?, ?, ?)";
 
     /* Fields */
-    public static final String ID = "id";
-    public static final String DATE = "diagnosis_date";
-    public static final String PATIENT_ID = "patient_id";
-    public static final String STAFF_ID = "staff_id";
-    public static final String DIAGNOSIS_ID = "diagnosis_id";
-    public static final String TYPE = "type";
+    private static final String ID = "id";
+    private static final String DATE = "diagnosis_date";
+    private static final String PATIENT_ID = "patient_id";
+    private static final String STAFF_ID = "staff_id";
+    private static final String DIAGNOSIS_ID = "diagnosis_id";
+    private static final String TYPE = "type";
 
     private PatientService patientService = PatientService.getInstance();
     private StaffService staffService = StaffService.getInstance();
@@ -39,7 +40,7 @@ public class JdbcDiagnosisHistoryDao implements DiagnosisHistoryDao {
 
     private Connection connection;
 
-    public JdbcDiagnosisHistoryDao(Connection connection) {
+    JdbcDiagnosisHistoryDao(Connection connection) {
         this.connection = connection;
     }
 
@@ -49,12 +50,12 @@ public class JdbcDiagnosisHistoryDao implements DiagnosisHistoryDao {
 
     @Override
     public DiagnosisHistory find(int id) {
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public List<DiagnosisHistory> findAll() {
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     @Override
@@ -81,12 +82,12 @@ public class JdbcDiagnosisHistoryDao implements DiagnosisHistoryDao {
 
     @Override
     public void update(DiagnosisHistory diagnosisHistory) {
-
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public void delete(int id) {
-
+        throw new UnsupportedOperationException();
     }
 
     @Override
@@ -105,6 +106,7 @@ public class JdbcDiagnosisHistoryDao implements DiagnosisHistoryDao {
     }
 
     private DiagnosisHistory getDiagnosisHistoryFromResultSet(ResultSet resultSet) throws SQLException {
+        // TODO SELECT ... JOIN
         Patient patient = patientService.getPatientById(resultSet.getInt(PATIENT_ID));
         Staff staff = staffService.getStaffById(resultSet.getInt(STAFF_ID));
         Diagnosis diagnosis = diagnosisService.getDiagnosisById(resultSet.getInt(DIAGNOSIS_ID));

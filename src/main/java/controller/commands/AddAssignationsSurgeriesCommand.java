@@ -5,7 +5,6 @@ import model.entities.Patient;
 import model.entities.Surgery;
 import model.services.AssignationsSurgeriesService;
 import org.apache.log4j.Logger;
-import sun.rmi.runtime.Log;
 import view.Attributes;
 import view.Parameters;
 import view.Paths;
@@ -19,13 +18,14 @@ import java.util.Enumeration;
 import java.util.List;
 
 /**
+ * AddAssignationsSurgeriesCommand
  * Created by alexey.morenets@gmail.com on 26.01.2017.
  */
 public class AddAssignationsSurgeriesCommand implements Command {
 
     private static final Logger LOGGER = Logger.getLogger(AddAssignationsSurgeriesCommand.class);
 
-    public static final String SURGERY_CHK = "surgeryChk";
+    private static final String SURGERY_CHK = "surgeryChk";
 
     private AssignationsSurgeriesService assignationsSurgeriesService = AssignationsSurgeriesService.getInstance();
 
@@ -40,6 +40,7 @@ public class AddAssignationsSurgeriesCommand implements Command {
 
         int patientId = ((Patient) request.getSession().getAttribute(Attributes.PATIENT)).getId();
 
+        request.setAttribute(Attributes.PAGE_TITLE, "title.assignations.surgeries");
         return Paths.REST_SHOW_PATIENT_INFO + Parameters._ID + patientId;
     }
 

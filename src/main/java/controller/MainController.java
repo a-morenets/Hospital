@@ -17,16 +17,14 @@ import view.Paths;
 
 /**
  * Servlet implementation class MainController
+ * Created by alexey.morenets@gmail.com on 11.11.2016.
  */
 @WebServlet("/rest/*")
 public class MainController extends HttpServlet {
 
     private static final Logger LOGGER = Logger.getLogger(MainController.class);
 
-    public static final String POST = "POST:";
-    public static final String GET = "GET:";
-
-    private Map<String, Command> commands = new HashMap<>();
+    private Map<String, Command> commands;
 
     public MainController() {
         super();
@@ -34,38 +32,22 @@ public class MainController extends HttpServlet {
 
     @Override
     public void init(ServletConfig config) throws ServletException {
-        commands.put(GET + Paths.HOME, new HomeCommand());
-        commands.put(GET + Paths.SHOW_LOGIN_FORM, new ShowLoginFormCommand());
-        commands.put(GET + Paths.SHOW_ADD_PATIENT_FORM, new ShowAddPatientFormCommand());
-        commands.put(GET + Paths.SHOW_PATIENT_INFO, new ShowPatientInfoCommand());
-        commands.put(GET + Paths.SHOW_PATIENTS, new ShowPatientsCommand());
-        commands.put(GET + Paths.SHOW_ASSIGNATIONS, new ShowAssignationsDrugsCommand());
-        commands.put(GET + Paths.SET_DIAGNOSIS, new SetDiagnosisCommand());
-        commands.put(GET + Paths.SHOW_ADD_ASSIGNATIONS_DRUGS_FORM, new ShowAddAssignationsDrugsFormCommand());
-        commands.put(GET + Paths.SHOW_ADD_ASSIGNATIONS_PROCEDURES_FORM, new ShowAddAssignationsProceduresFormCommand());
-        commands.put(GET + Paths.SHOW_ADD_ASSIGNATIONS_SURGERIES_FORM, new ShowAddAssignationsSurgeriesFormCommand());
-
-        commands.put(POST + Paths.LOGIN, new LoginCommand());
-        commands.put(POST + Paths.SHOW_PATIENTS, new ShowPatientsCommand());
-        commands.put(POST + Paths.ADD_PATIENT, new AddPatientCommand());
-        commands.put(POST + Paths.SHOW_PATIENT_INFO, new ShowPatientInfoCommand());
-        commands.put(POST + Paths.ADD_DIAGNOSIS, new AddDiagnosisCommand());
-        commands.put(POST + Paths.ADD_ASSIGNATIONS_DRUGS, new AddAssignationsDrugsCommand());
-        commands.put(POST + Paths.ADD_ASSIGNATIONS_PROCEDURES, new AddAssignationsProceduresCommand());
-        commands.put(POST + Paths.ADD_ASSIGNATIONS_SURGERIES, new AddAssignationsSurgeriesCommand());
+        commands = CommandsHolder.initCommands();
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         processRequest(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         processRequest(request, response);
     }
 
-    void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    private void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String method = request.getMethod().toUpperCase();
         String path = request.getRequestURI().replaceAll(".*/rest", "");
         String key = method + ":" + path;
@@ -73,8 +55,8 @@ public class MainController extends HttpServlet {
         Command command = commands.getOrDefault(key, (req, resp) -> Paths.REDIRECT);
         String viewPage = command.execute(request, response);
         if (viewPage.equals(Paths.REDIRECT)) {
-            LOGGER.debug("REDIRECT to" + Paths.HOME_JSP);
-            response.sendRedirect(Paths.HOME_JSP);
+            LOGGER.debug("REDIRECT to " + Paths.REST_HOME);
+            response.sendRedirect(Paths.REST_HOME);
         } else {
             LOGGER.debug("FORWARD to " + viewPage);
             request.getRequestDispatcher(viewPage).forward(request, response);

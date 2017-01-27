@@ -1,16 +1,9 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>Set diagnosis</title>
-</head>
-<body>
+<%@ page import="view.Paths" %>
+
+<%@ include file="/WEB-INF/view/includes/header.jsp" %>
 <div align="center">
     <h2>${patient.lastName} ${patient.firstName} ${patient.surName}</h2>
-
-    <h2>Diagnoses:</h2>
-
-    <form method="post" action="./add_diagnosis">
+    <form method="post" action=".${Paths.ADD_DIAGNOSIS}">
 
         <select name="diagnosisId" required>
             <c:forEach var="i" items="${diagnosesList}">
@@ -18,10 +11,7 @@
                 <br/>
             </c:forEach>
         </select>
-        <br/>
-
         <input type="submit">
     </form>
 </div>
-</body>
-</html>
+<%@ include file="/WEB-INF/view/includes/footer.jsp" %>

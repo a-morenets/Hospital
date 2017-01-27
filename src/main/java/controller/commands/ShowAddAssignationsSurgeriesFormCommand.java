@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.util.List;
 
 /**
+ * ShowAddAssignationsSurgeriesFormCommand
  * Created by alexey.morenets@gmail.com on 26.01.2017.
  */
 public class ShowAddAssignationsSurgeriesFormCommand implements Command {
@@ -28,6 +29,8 @@ public class ShowAddAssignationsSurgeriesFormCommand implements Command {
         List<Surgery> surgeriesList = surgeryService.getAllSurgeries();
         request.setAttribute(Attributes.SURGERIES_LIST, surgeriesList);
 
+        request.setAttribute(Attributes.PAGE_TITLE, "form.assignations.surgeries.add");
         return Paths.ADD_ASSIGNATIONS_SURGERIES_JSP;
     }
+
 }

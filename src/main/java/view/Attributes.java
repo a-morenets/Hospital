@@ -1,6 +1,7 @@
 package view;
 
 /**
+ * Attributes
  * Created by alexey.morenets@gmail.com on 26.01.2017.
  */
 public class Attributes {

@@ -1,16 +1,8 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="view.Paths" %>
-<html>
-<head>
-    <title>Add assignations Surgeries</title>
-</head>
-<body>
-<div align="center">
-    <h1>Add assignations Surgeries</h1>
 
+<%@ include file="/WEB-INF/view/includes/header.jsp" %>
+<div align="center">
     <form method="post" action=".${Paths.ADD_ASSIGNATIONS_SURGERIES}">
-        <h2>Surgeries</h2>
         <table>
             <c:forEach var="i" items="${surgeriesList}">
                 <tr>
@@ -19,10 +11,7 @@
                 </tr>
             </c:forEach>
         </table>
-
-
         <input type="submit">
     </form>
 </div>
-</body>
-</html>
+<%@ include file="/WEB-INF/view/includes/footer.jsp" %>

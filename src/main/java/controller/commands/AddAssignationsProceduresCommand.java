@@ -18,13 +18,14 @@ import java.util.Enumeration;
 import java.util.List;
 
 /**
+ * AddAssignationsProceduresCommand
  * Created by alexey.morenets@gmail.com on 26.01.2017.
  */
 public class AddAssignationsProceduresCommand implements Command {
 
     private static final Logger LOGGER = Logger.getLogger(AddAssignationsProceduresCommand.class);
 
-    public static final String NUM_DAYS = "procedureNumDays";
+    private static final String NUM_DAYS = "procedureNumDays";
 
     private AssignationsProceduresService assignationsProceduresService = AssignationsProceduresService.getInstance();
 
@@ -40,6 +41,7 @@ public class AddAssignationsProceduresCommand implements Command {
 
         int patientId = ((Patient) request.getSession().getAttribute(Attributes.PATIENT)).getId();
 
+        request.setAttribute(Attributes.PAGE_TITLE, "title.assignations.procedures");
         return Paths.REST_SHOW_PATIENT_INFO + Parameters._ID + patientId;
     }
 
@@ -58,7 +60,7 @@ public class AddAssignationsProceduresCommand implements Command {
             } catch (NumberFormatException e) {
                 LOGGER.warn(e);
             }
-LOGGER.debug(fieldName);
+
             if (fieldName.equals(NUM_DAYS)) {
                 int numDays = 0;
                 try {

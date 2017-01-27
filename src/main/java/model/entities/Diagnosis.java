@@ -1,6 +1,7 @@
 package model.entities;
 
 /**
+ * Diagnosis
  * Created by alexey.morenets@gmail.com on 22.01.2017.
  */
 public class Diagnosis {
@@ -23,4 +24,5 @@ public class Diagnosis {
     public void setName(String name) {
         this.name = name;
     }
+
 }

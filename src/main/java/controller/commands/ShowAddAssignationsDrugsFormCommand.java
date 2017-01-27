@@ -1,11 +1,7 @@
 package controller.commands;
 
 import model.entities.Drug;
-import model.entities.Procedure;
-import model.entities.Surgery;
 import model.services.DrugService;
-import model.services.ProcedureService;
-import model.services.SurgeryService;
 import org.apache.log4j.Logger;
 import view.Attributes;
 import view.Paths;
@@ -17,6 +13,7 @@ import java.io.IOException;
 import java.util.List;
 
 /**
+ * ShowAddAssignationsDrugsFormCommand
  * Created by alexey.morenets@gmail.com on 23.01.2017.
  */
 public class ShowAddAssignationsDrugsFormCommand implements Command {
@@ -32,6 +29,7 @@ public class ShowAddAssignationsDrugsFormCommand implements Command {
         List<Drug> drugsList = drugService.getAllDrugs();
         request.setAttribute(Attributes.DRUGS_LIST, drugsList);
 
+        request.setAttribute(Attributes.PAGE_TITLE, "form.assignations.drugs.add");
         return Paths.ADD_ASSIGNATIONS_DRUGS_JSP;
     }
 

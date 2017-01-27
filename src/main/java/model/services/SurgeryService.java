@@ -8,6 +8,7 @@ import model.entities.Surgery;
 import java.util.List;
 
 /**
+ * SurgeryService
  * Created by alexey.morenets@gmail.com on 26.01.2017.
  */
 public class SurgeryService {
@@ -15,9 +16,9 @@ public class SurgeryService {
     DaoFactory daoFactory = DaoFactory.getInstance();
 
     private static class Holder {
-
         static final SurgeryService INSTANCE = new SurgeryService();
     }
+
     public static SurgeryService getInstance() {
         return Holder.INSTANCE;
     }

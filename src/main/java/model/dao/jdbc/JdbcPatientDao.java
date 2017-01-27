@@ -9,16 +9,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * JdbcPatientDao
  * Created by alexey.morenets@gmail.com on 21.01.2017.
  */
 public class JdbcPatientDao implements PatientDao {
 
-    /* SELECT */
+    /* SQL */
     private static final String SELECT_FROM_PATIENTS =
             "SELECT * FROM patients";
     private static final String SELECT_PATIENT_BY_ID =
             "SELECT * FROM patients WHERE id = ?";
-    private static final String INSERT_INTO_CITY_NAME_VALUES =
+    private static final String INSERT_INTO_PATIENTS =
             "INSERT INTO patients (lastname, firstname, surname) VALUES (?, ?, ?)";
     private static final String SELECT_PATIENT_STATUS =
             "SELECT type FROM diagnosis_history\n" +
@@ -45,6 +46,7 @@ public class JdbcPatientDao implements PatientDao {
 
     @Override
     public Patient find(int id) {
+        // TODO use Optional
         Patient patient = null;
         try (PreparedStatement query = connection.prepareStatement(SELECT_PATIENT_BY_ID)) {
             query.setString(1, String.valueOf(id));
@@ -86,7 +88,7 @@ public class JdbcPatientDao implements PatientDao {
     @Override
     public void create(Patient patient) {
         try (PreparedStatement query =
-                     connection.prepareStatement(INSERT_INTO_CITY_NAME_VALUES, Statement.RETURN_GENERATED_KEYS)) {
+                     connection.prepareStatement(INSERT_INTO_PATIENTS, Statement.RETURN_GENERATED_KEYS)) {
 
             query.setString(1, patient.getLastName());
             query.setString(2, patient.getFirstName());
@@ -104,20 +106,20 @@ public class JdbcPatientDao implements PatientDao {
 
     @Override
     public void update(Patient patient) {
-
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public void delete(int id) {
-
+        throw new UnsupportedOperationException();
     }
 
     @Override
-    public DiagnosisType getDiagnosisType(int patient_id) {
+    public DiagnosisType getDiagnosisType(int patientId) {
         DiagnosisType result = DiagnosisType.NONE;
         try (PreparedStatement query = connection.prepareStatement(SELECT_PATIENT_STATUS)) {
 
-            query.setString(1, String.valueOf(patient_id));
+            query.setString(1, String.valueOf(patientId));
             ResultSet resultSet = query.executeQuery();
             if (resultSet.next()) {
                 result = DiagnosisType.valueOf(resultSet.getString(DIAGNOSIS_TYPE));
@@ -127,4 +129,5 @@ public class JdbcPatientDao implements PatientDao {
         }
         return result;
     }
+
 }

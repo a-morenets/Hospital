@@ -8,6 +8,7 @@ import model.entities.Procedure;
 import java.util.List;
 
 /**
+ * ProcedureService
  * Created by alexey.morenets@gmail.com on 26.01.2017.
  */
 public class ProcedureService {
@@ -15,7 +16,6 @@ public class ProcedureService {
     DaoFactory daoFactory = DaoFactory.getInstance();
 
     private static class Holder {
-
         static final ProcedureService INSTANCE = new ProcedureService();
     }
     public static ProcedureService getInstance() {
@@ -30,4 +30,5 @@ public class ProcedureService {
             return procedureDao.findAll();
         }
     }
+
 }

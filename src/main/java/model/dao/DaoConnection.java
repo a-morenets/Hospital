@@ -1,5 +1,9 @@
 package model.dao;
 
+/**
+ * interface DaoConnection
+ * Created by alexey.morenets@gmail.com on 26.01.2017.
+ */
 public interface DaoConnection extends AutoCloseable {
 
 	void begin();
@@ -9,4 +13,5 @@ public interface DaoConnection extends AutoCloseable {
 	void rollback();
 
 	void close();
+
 }

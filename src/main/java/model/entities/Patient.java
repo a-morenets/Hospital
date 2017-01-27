@@ -1,6 +1,7 @@
 package model.entities;
 
 /**
+ * Patient
  * Created by alexey.morenets@gmail.com on 21.01.2017.
  */
 public class Patient {
@@ -77,4 +78,5 @@ public class Patient {
     public void setSurName(String surName) {
         this.surName = surName;
     }
+
 }

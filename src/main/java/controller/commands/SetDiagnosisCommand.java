@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.util.List;
 
 /**
+ * SetDiagnosisCommand
  * Created by alexey.morenets@gmail.com on 23.01.2017.
  */
 public class SetDiagnosisCommand implements Command {
@@ -33,6 +34,8 @@ public class SetDiagnosisCommand implements Command {
         List<Diagnosis> diagnosesList = diagnosisService.getAllDiagnoses();
         request.setAttribute(Attributes.DIAGNOSES_LIST, diagnosesList);
 
+        request.setAttribute(Attributes.PAGE_TITLE, "diagnosis.set");
         return Paths.DIAGNOSES_JSP;
     }
+
 }

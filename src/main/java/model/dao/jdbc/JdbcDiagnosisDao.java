@@ -8,11 +8,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * JdbcDiagnosisDao
  * Created by alexey.morenets@gmail.com on 22.01.2017.
  */
 public class JdbcDiagnosisDao implements DiagnosisDao {
 
-    /* SELECT */
+    /* SQL */
     private static final String SELECT_FROM_DIAGNOSIS_BY_ID = "SELECT * FROM diagnosis WHERE id = ?";
     private static final String SELECT_FROM_DIAGNOSIS = "SELECT * FROM diagnosis";
 
@@ -70,16 +71,17 @@ public class JdbcDiagnosisDao implements DiagnosisDao {
 
     @Override
     public void create(Diagnosis diagnosis) {
-
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public void update(Diagnosis diagnosis) {
-
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public void delete(int id) {
-
+        throw new UnsupportedOperationException();
     }
+
 }

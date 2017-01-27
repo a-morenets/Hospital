@@ -2,6 +2,7 @@ package controller.commands;
 
 import model.entities.Patient;
 import model.services.PatientService;
+import view.Attributes;
 import view.Paths;
 
 import javax.servlet.ServletException;
@@ -10,14 +11,15 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
+ * AddPatientCommand
  * Created by alexey.morenets@gmail.com on 22.01.2017.
  */
 public class AddPatientCommand implements Command {
 
     /* Parameters & attributes */
-    public static final String PARAM_LASTNAME = "lastname";
-    public static final String PARAM_FIRSTNAME = "firstname";
-    public static final String PARAM_SURNAME = "surname";
+    private static final String PARAM_LASTNAME = "lastname";
+    private static final String PARAM_FIRSTNAME = "firstname";
+    private static final String PARAM_SURNAME = "surname";
 
     private PatientService patientService = PatientService.getInstance();
 
@@ -34,6 +36,8 @@ public class AddPatientCommand implements Command {
                 .build();
         patientService.createPatient(patient);
 
+        request.setAttribute(Attributes.PAGE_TITLE, "patient.add");
         return Paths.REST_SHOW_PATIENTS;
     }
+
 }

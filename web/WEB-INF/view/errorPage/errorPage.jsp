@@ -13,6 +13,5 @@
         <h3><fmt:message key="error"/></h3>
     </div>
 </div>
-
 </body>
 </html>

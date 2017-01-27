@@ -5,6 +5,7 @@ import model.entities.AssignationsSurgeries;
 import java.util.List;
 
 /**
+ * interface AssignationsSurgeriesDao
  * Created by alexey.morenets@gmail.com on 24.01.2017.
  */
 public interface AssignationsSurgeriesDao extends GenericDao<AssignationsSurgeries> {

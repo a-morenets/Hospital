@@ -5,6 +5,7 @@ import model.entities.AssignationsProcedures;
 import java.util.List;
 
 /**
+ * interface AssignationsProceduresDao
  * Created by alexey.morenets@gmail.com on 24.01.2017.
  */
 public interface AssignationsProceduresDao extends GenericDao<AssignationsProcedures> {

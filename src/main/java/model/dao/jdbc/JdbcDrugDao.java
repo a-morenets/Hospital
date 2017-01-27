@@ -11,16 +11,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * JdbcDrugDao
  * Created by alexey.morenets@gmail.com on 26.01.2017.
  */
 public class JdbcDrugDao implements DrugDao {
 
-    /* SELECT */
+    /* SQL */
     private static final String SELECT_FROM_DRUGS = "SELECT * FROM drugs";
 
     /* Fields */
     private static final String ID = "id";
-    public static final String NAME = "name";
+    private static final String NAME = "name";
 
     private Connection connection;
 
@@ -34,7 +35,7 @@ public class JdbcDrugDao implements DrugDao {
 
     @Override
     public Drug find(int id) {
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     @Override
@@ -62,16 +63,17 @@ public class JdbcDrugDao implements DrugDao {
 
     @Override
     public void create(Drug drug) {
-
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public void update(Drug drug) {
-
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public void delete(int id) {
-
+        throw new UnsupportedOperationException();
     }
+
 }

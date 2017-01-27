@@ -8,6 +8,7 @@ import model.entities.AssignationsDrugs;
 import java.util.List;
 
 /**
+ * AssignationsDrugsService
  * Created by alexey.morenets@gmail.com on 25.01.2017.
  */
 public class AssignationsDrugsService {
@@ -26,9 +27,7 @@ public class AssignationsDrugsService {
 
     public List<AssignationsDrugs> getAssignationDrugsByDiagnosisHistoryIdList(int diagnosisHistoryId) {
         try (DaoConnection connection = daoFactory.getConnection()) {
-            connection.begin();
             AssignationsDrugsDao assignationsDrugsDao = daoFactory.createAssignationsDrugsDao(connection);
-            connection.commit();
             return assignationsDrugsDao.findByDiagnosisHistoryId(diagnosisHistoryId);
         }
     }

@@ -8,6 +8,7 @@ import model.entities.Drug;
 import java.util.List;
 
 /**
+ * DrugService
  * Created by alexey.morenets@gmail.com on 26.01.2017.
  */
 public class DrugService {
@@ -15,9 +16,9 @@ public class DrugService {
     DaoFactory daoFactory = DaoFactory.getInstance();
 
     private static class Holder {
-
         static final DrugService INSTANCE = new DrugService();
     }
+
     public static DrugService getInstance() {
         return Holder.INSTANCE;
     }

@@ -2,10 +2,14 @@ package i18n;
 
 import java.util.Locale;
 
+/**
+ * SupportedLocale
+ * Created by alexey.morenets@gmail.com on 26.01.2017.
+ */
 public enum SupportedLocale {
-    RU(new Locale("ru", "RU"), "ru"),
-    UA(new Locale("uk", "UA"), "ua"),
-    EN(new Locale("en", "EN"), "en");
+    UA (new Locale("uk", "UA"), "ua"),
+    EN (new Locale("en", "EN"), "en"),
+    RU (new Locale("ru", "RU"), "ru");
 
     final private Locale locale;
     final private String param;
@@ -28,7 +32,4 @@ public enum SupportedLocale {
         return defaultLocale.getLocale();
     }
 
-    public static SupportedLocale[] getLocales() {
-        return values();
-    }
 }

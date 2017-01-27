@@ -9,11 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * JdbcAssignationsDrugsDao
  * Created by alexey.morenets@gmail.com on 24.01.2017.
  */
 public class JdbcAssignationsDrugsDao implements AssignationsDrugsDao {
 
-    /* SELECT */
+    /* SQL */
     private static final String SELECT_FROM_ASSIGNATIONS_DRUGS =
             "SELECT ad.id, diagnosis_history_id, drug_id, num_units, num_times, num_days, d.id id_drug, name\n" +
                     "FROM assignations_drugs ad JOIN drugs d\n" +
@@ -27,14 +28,13 @@ public class JdbcAssignationsDrugsDao implements AssignationsDrugsDao {
     /* Fields for assignations_drugs */
     private static final String ID = "id";
     private static final String DIAGNOSIS_HISTORY_ID = "diagnosis_history_id";
-    public static final String DRUG_ID = "drug_id";
-    public static final String NUM_UNITS = "num_units";
-    public static final String NUM_TIMES = "num_times";
-    public static final String NUM_DAYS = "num_days";
+    private static final String NUM_UNITS = "num_units";
+    private static final String NUM_TIMES = "num_times";
+    private static final String NUM_DAYS = "num_days";
 
     /* Fields for drugs */
-    public static final String ID_DRUG = "id_drug";
-    public static final String NAME = "name";
+    private static final String ID_DRUG = "id_drug";
+    private static final String NAME = "name";
 
     private Connection connection;
 
@@ -76,12 +76,12 @@ public class JdbcAssignationsDrugsDao implements AssignationsDrugsDao {
 
     @Override
     public AssignationsDrugs find(int id) {
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public List<AssignationsDrugs> findAll() {
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     @Override
@@ -108,11 +108,12 @@ public class JdbcAssignationsDrugsDao implements AssignationsDrugsDao {
 
     @Override
     public void update(AssignationsDrugs assignationsDrugs) {
-
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public void delete(int id) {
-
+        throw new UnsupportedOperationException();
     }
+
 }

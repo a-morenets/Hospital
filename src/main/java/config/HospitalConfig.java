@@ -1,8 +1,9 @@
-package controller;
+package config;
 
 import java.util.ResourceBundle;
 
 /**
+ * interface HospitalConfig
  * Created by alexey.morenets@gmail.com on 26.01.2017.
  */
 public interface HospitalConfig {
