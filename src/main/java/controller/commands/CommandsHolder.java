@@ -11,11 +11,17 @@ import java.util.Map;
  */
 public class CommandsHolder {
 
-    private static final String POST = "POST:";
     private static final String GET = "GET:";
+    private static final String POST = "POST:";
 
-    public static Map<String, Command> initCommands() {
-        return new HashMap<String, Command>() {
+    private Map<String, Command> commands;
+
+    public CommandsHolder() {
+        initCommands();
+    }
+
+    public void initCommands() {
+        commands = new HashMap<String, Command>() {
             {
                 put(GET + Paths.HOME, new HomeCommand());
                 put(GET + Paths.SHOW_LOGIN_FORM, new ShowLoginFormCommand());
@@ -40,4 +46,7 @@ public class CommandsHolder {
         };
     }
 
+    public Command getCommand(String key) {
+        return commands.getOrDefault(key, (req, resp) -> Paths.REDIRECT);
+    }
 }

@@ -8,7 +8,7 @@
         <select name="diagnosisId" required>
             <c:forEach var="i" items="${diagnosesList}">
                 <option value="${i.id}">${i.name}</option>
-                <br/>
+                <br>
             </c:forEach>
         </select>
         <input type="submit">

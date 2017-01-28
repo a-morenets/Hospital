@@ -9,7 +9,7 @@
             </tr>
         </c:forEach>
     </table>
-    <br/>
+    <br>
     <a href=".${Paths.SHOW_ADD_PATIENT_FORM}"><fmt:message key="patient.new"/></a>
 </div>
 <%@ include file="/WEB-INF/view/includes/footer.jsp" %>

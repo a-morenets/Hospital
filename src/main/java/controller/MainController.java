@@ -24,15 +24,11 @@ public class MainController extends HttpServlet {
 
     private static final Logger LOGGER = Logger.getLogger(MainController.class);
 
-    private Map<String, Command> commands;
+    private CommandsHolder commandsHolder;
 
     public MainController() {
         super();
-    }
-
-    @Override
-    public void init(ServletConfig config) throws ServletException {
-        commands = CommandsHolder.initCommands();
+        commandsHolder = new CommandsHolder();
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -48,11 +44,9 @@ public class MainController extends HttpServlet {
     }
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        String method = request.getMethod().toUpperCase();
-        String path = request.getRequestURI().replaceAll(".*/rest", "");
-        String key = method + ":" + path;
-        LOGGER.debug(key);
-        Command command = commands.getOrDefault(key, (req, resp) -> Paths.REDIRECT);
+        String commandKey = getCommandKey(request);
+        LOGGER.debug(commandKey);
+        Command command = commandsHolder.getCommand(commandKey);
         String viewPage = command.execute(request, response);
         if (viewPage.equals(Paths.REDIRECT)) {
             LOGGER.debug("REDIRECT to " + Paths.REST_HOME);
@@ -61,6 +55,12 @@ public class MainController extends HttpServlet {
             LOGGER.debug("FORWARD to " + viewPage);
             request.getRequestDispatcher(viewPage).forward(request, response);
         }
+    }
+
+    private String getCommandKey(HttpServletRequest request) {
+        String method = request.getMethod().toUpperCase();
+        String path = request.getRequestURI().replaceAll(".*/rest", "");
+        return method + ":" + path;
     }
 
 }

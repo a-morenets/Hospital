@@ -10,19 +10,10 @@
     <c:forEach items="${SupportedLocale.values()}" var="locale">
         <c:choose>
             <c:when test="${locale.locale == sessionScope[Attributes.USER_LOCALE]}">
-                <b>
+                <b>${locale}</b>
             </c:when>
             <c:otherwise>
-                <a href="?${Parameters.USER_LOCALE}=${locale.param}">
-            </c:otherwise>
-        </c:choose>
-        ${locale}
-        <c:choose>
-            <c:when test="${locale.locale == sessionScope[Attributes.USER_LOCALE]}">
-                </b>
-            </c:when>
-            <c:otherwise>
-                </a>
+                <a href="?${Parameters.USER_LOCALE}=${locale.param}">${locale}</a>
             </c:otherwise>
         </c:choose>
     </c:forEach>

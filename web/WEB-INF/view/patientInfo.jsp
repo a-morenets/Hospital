@@ -45,7 +45,7 @@
         </c:otherwise>
     </c:choose>
 
-    <br/><br/>
+    <br><br>
     <a href=".${Paths.SHOW_PATIENTS}"><fmt:message key="patient.back.to.patients"/></a>
 </div>
 <%@ include file="/WEB-INF/view/includes/footer.jsp" %>
