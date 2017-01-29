@@ -15,30 +15,21 @@ import view.Attributes;
 import view.Parameters;
 import view.Paths;
 
-public class LoginCommand implements Command {
+public class LoginCommand extends CommandWrapper {
 
-    private static final Logger LOGGER = Logger.getLogger(LoginCommand.class);
     private static final String TITLE_HOME = "title.home";
-    private static final Object ERROR = "error";
 
     private StaffService staffService = StaffService.getInstance();
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response)
+    public String doExecute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         String email = request.getParameter(Parameters.LOGIN);
         String password = request.getParameter(Parameters.PASSWORD);
         if (email != null && password != null) {
             Optional<Staff> staff;
-            try {
-                staff = staffService.login(email, password);
-            } catch (AppException e) {
-                LOGGER.error(e);
-                request.setAttribute(Attributes.PAGE_TITLE, ERROR);
-                throw e;
-            }
-
+            staff = staffService.login(email, password);
             if (staff.isPresent()) {
                 request.getSession().setAttribute(Attributes.STAFF, staff.get());
                 response.sendRedirect(Paths.REST_SHOW_PATIENTS);
@@ -47,7 +38,6 @@ public class LoginCommand implements Command {
                 response.sendRedirect(Paths.REST_HOME);
             }
         }
-
         return Paths.REDIRECTED;
     }
 

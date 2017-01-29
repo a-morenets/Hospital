@@ -13,13 +13,12 @@ import java.io.IOException;
  * HomeCommand
  * Created by alexey.morenets@gmail.com on 27.01.2017.
  */
-public class HomeCommand implements Command {
+public class HomeCommand extends CommandWrapper {
 
-    private static final Logger LOGGER = Logger.getLogger(HomeCommand.class);
     private static final String TITLE_HOME = "title.home";
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response)
+    public String doExecute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         request.setAttribute(Attributes.PAGE_TITLE, TITLE_HOME);

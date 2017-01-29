@@ -2,7 +2,6 @@ package controller.commands;
 
 import model.entities.Procedure;
 import model.services.ProcedureService;
-import org.apache.log4j.Logger;
 import view.Attributes;
 import view.Parameters;
 import view.Paths;
@@ -17,15 +16,14 @@ import java.util.List;
  * ShowAddAssignationsProceduresFormCommand
  * Created by alexey.morenets@gmail.com on 26.01.2017.
  */
-public class ShowAddAssignationsProceduresFormCommand implements Command {
+public class ShowAddAssignationsProceduresFormCommand extends CommandWrapper {
 
-    private static final Logger LOGGER = Logger.getLogger(ShowAddAssignationsProceduresFormCommand.class);
     private static final String TITLE_ASSIGNATIONS_PROCEDURES_ADD_FORM = "title.assignations.procedures.add.form";
 
     private ProcedureService procedureService = ProcedureService.getInstance();
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response)
+    public String doExecute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         int diagnosisHistoryId = Integer.parseInt(request.getParameter(Parameters.DIAGNOSIS_HISTORY_ID));

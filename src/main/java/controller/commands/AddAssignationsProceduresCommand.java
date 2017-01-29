@@ -21,27 +21,23 @@ import java.util.List;
  * AddAssignationsProceduresCommand
  * Created by alexey.morenets@gmail.com on 26.01.2017.
  */
-public class AddAssignationsProceduresCommand implements Command {
+public class AddAssignationsProceduresCommand extends CommandWrapper {
 
-    private static final Logger LOGGER = Logger.getLogger(AddAssignationsProceduresCommand.class);
-
-    private static final String NUM_DAYS = "procedureNumDays";
     private static final String TITLE_ASSIGNATIONS_PROCEDURES_ADD = "title.assignations.procedures.add";
+    private static final String NUM_DAYS = "procedureNumDays";
 
     private AssignationsProceduresService assignationsProceduresService = AssignationsProceduresService.getInstance();
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response)
+    public String doExecute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         int diagnosisHistoryId = Integer.parseInt(request.getParameter(Parameters.DIAGNOSIS_HISTORY_ID));
 
         List<AssignationsProcedures> assignationsProceduresList = getProceduresAssignationsFromRequest(request, diagnosisHistoryId);
-        LOGGER.debug(assignationsProceduresList);
         assignationsProceduresService.createAssignationsProcedures(assignationsProceduresList);
 
         request.setAttribute(Attributes.PAGE_TITLE, TITLE_ASSIGNATIONS_PROCEDURES_ADD);
-
         response.sendRedirect(Paths.REST_SHOW_ASSIGNATIONS + Parameters._DIAGNOSIS_HISTORY_ID + diagnosisHistoryId);
         return Paths.REDIRECTED;
     }

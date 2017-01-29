@@ -12,12 +12,12 @@ import java.io.IOException;
  * ShowLoginFormCommand
  * Created by alexey.morenets@gmail.com on 25.01.2017.
  */
-public class ShowLoginFormCommand implements Command {
+public class ShowLoginFormCommand extends CommandWrapper {
 
-    public static final String TITLE_LOGIN_FORM = "title.login.form";
+    private static final String TITLE_LOGIN_FORM = "title.login.form";
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response)
+    public String doExecute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         request.setAttribute(Attributes.PAGE_TITLE, TITLE_LOGIN_FORM);

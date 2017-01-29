@@ -20,16 +20,15 @@ import java.util.Optional;
  * ShowPatientInfoCommand
  * Created by alexey.morenets@gmail.com on 22.01.2017.
  */
-public class ShowPatientInfoCommand implements Command {
+public class ShowPatientInfoCommand extends CommandWrapper {
 
-    private static final Logger LOGGER = Logger.getLogger(ShowPatientInfoCommand.class);
-    public static final String TITLE_PATIENT_INFO = "title.patient.info";
+    private static final String TITLE_PATIENT_INFO = "title.patient.info";
 
     private PatientService patientService = PatientService.getInstance();
     private DiagnosisHistoryService diagnosisHistoryService = DiagnosisHistoryService.getInstance();
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response)
+    public String doExecute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         int id = Integer.parseInt(request.getParameter(Parameters.ID)); //todo if not null + validation \\d+

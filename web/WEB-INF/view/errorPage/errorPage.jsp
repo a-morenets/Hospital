@@ -3,10 +3,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="org.apache.log4j.Logger" %>
 <%! private static final Logger logger = Logger.getLogger("JSP ERROR HANDLER PAGE"); %>
-<% logger.error(exception.getMessage() + "; cause: " + exception.getCause().toString());
+<% logger.error(pageContext.getException());
 %>
-<%@ page import="view.Attributes" %>
-<jsp setProperty="${Attributes.PAGE_TITLE}" value="${page_title}" />
 
 <%@ include file="/WEB-INF/view/includes/header.jsp" %>
 <!DOCTYPE html>

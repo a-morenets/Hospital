@@ -18,15 +18,14 @@ import java.util.List;
  * SetDiagnosisCommand
  * Created by alexey.morenets@gmail.com on 23.01.2017.
  */
-public class SetDiagnosisCommand implements Command {
+public class SetDiagnosisCommand extends CommandWrapper {
 
     private static final String TITLE_DIAGNOSIS_SET = "title.diagnosis.set";
-    private static Logger LOGGER = Logger.getLogger(SetDiagnosisCommand.class);
 
     private DiagnosisService diagnosisService = DiagnosisService.getInstance();
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response)
+    public String doExecute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         DiagnosisType diagnosisType = DiagnosisType.valueOf(request.getParameter(Parameters.DIAGNOSIS_TYPE));

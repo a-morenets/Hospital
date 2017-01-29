@@ -19,19 +19,17 @@ import java.util.*;
  * AddAssignationsDrugsCommand
  * Created by alexey.morenets@gmail.com on 23.01.2017.
  */
-public class AddAssignationsDrugsCommand implements Command {
+public class AddAssignationsDrugsCommand extends CommandWrapper {
 
-    private static final Logger LOGGER = Logger.getLogger(AddAssignationsDrugsCommand.class);
-
+    private static final String TITLE_ASSIGNATIONS_DRUGS_ADD = "title.assignations.drugs.add";
     private static final String NUM_UNITS = "drugNumUnits";
     private static final String NUM_TIMES = "drugNumTimes";
     private static final String NUM_DAYS = "drugNumDays";
-    private static final String TITLE_ASSIGNATIONS_DRUGS_ADD = "title.assignations.drugs.add";
 
     private AssignationsDrugsService assignationsDrugsService = AssignationsDrugsService.getInstance();
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response)
+    public String doExecute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         int diagnosisHistoryId = Integer.parseInt(request.getParameter(Parameters.DIAGNOSIS_HISTORY_ID));
@@ -40,7 +38,6 @@ public class AddAssignationsDrugsCommand implements Command {
         assignationsDrugsService.createAssignationDrug(assignationsDrugsList);
 
         request.setAttribute(Attributes.PAGE_TITLE, TITLE_ASSIGNATIONS_DRUGS_ADD);
-
         response.sendRedirect(Paths.REST_SHOW_ASSIGNATIONS + Parameters._DIAGNOSIS_HISTORY_ID + diagnosisHistoryId);
         return Paths.REDIRECTED;
     }

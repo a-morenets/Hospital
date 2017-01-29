@@ -23,17 +23,15 @@ import java.util.List;
  * AddAssignationsSurgeriesCommand
  * Created by alexey.morenets@gmail.com on 26.01.2017.
  */
-public class AddAssignationsSurgeriesCommand implements Command {
+public class AddAssignationsSurgeriesCommand extends CommandWrapper {
 
-    private static final Logger LOGGER = Logger.getLogger(AddAssignationsSurgeriesCommand.class);
-
-    private static final String SURGERY_CHK = "surgeryChk";
     private static final String TITLE_ASSIGNATIONS_SURGERIES_ADD = "title.assignations.surgeries.add";
+    private static final String SURGERY_CHK = "surgeryChk";
 
     private AssignationsSurgeriesService assignationsSurgeriesService = AssignationsSurgeriesService.getInstance();
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response)
+    public String doExecute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         int diagnosisHistoryId = Integer.parseInt(request.getParameter(Parameters.DIAGNOSIS_HISTORY_ID));
@@ -42,7 +40,6 @@ public class AddAssignationsSurgeriesCommand implements Command {
         assignationsSurgeriesService.createAssignationsSurgeries(assignationsProceduresList);
 
         request.setAttribute(Attributes.PAGE_TITLE, TITLE_ASSIGNATIONS_SURGERIES_ADD);
-
         response.sendRedirect(Paths.REST_SHOW_ASSIGNATIONS + Parameters._DIAGNOSIS_HISTORY_ID + diagnosisHistoryId);
         return Paths.REDIRECTED;
     }

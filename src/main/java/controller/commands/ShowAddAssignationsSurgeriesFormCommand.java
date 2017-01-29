@@ -2,7 +2,6 @@ package controller.commands;
 
 import model.entities.Surgery;
 import model.services.SurgeryService;
-import org.apache.log4j.Logger;
 import view.Attributes;
 import view.Parameters;
 import view.Paths;
@@ -17,15 +16,14 @@ import java.util.List;
  * ShowAddAssignationsSurgeriesFormCommand
  * Created by alexey.morenets@gmail.com on 26.01.2017.
  */
-public class ShowAddAssignationsSurgeriesFormCommand implements Command {
+public class ShowAddAssignationsSurgeriesFormCommand extends CommandWrapper {
 
-    private static final Logger LOGGER = Logger.getLogger(ShowAddAssignationsSurgeriesFormCommand.class);
-    public static final String TITLE_ASSIGNATIONS_SURGERIES_ADD_FORM = "title.assignations.surgeries.add.form";
+    private static final String TITLE_ASSIGNATIONS_SURGERIES_ADD_FORM = "title.assignations.surgeries.add.form";
 
     private SurgeryService surgeryService = SurgeryService.getInstance();
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response)
+    public String doExecute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         int diagnosisHistoryId = Integer.parseInt(request.getParameter(Parameters.DIAGNOSIS_HISTORY_ID));

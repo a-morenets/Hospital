@@ -17,15 +17,14 @@ import java.util.List;
  * ShowAddAssignationsDrugsFormCommand
  * Created by alexey.morenets@gmail.com on 23.01.2017.
  */
-public class ShowAddAssignationsDrugsFormCommand implements Command {
+public class ShowAddAssignationsDrugsFormCommand extends CommandWrapper {
 
-    private static final Logger LOGGER = Logger.getLogger(ShowAddAssignationsDrugsFormCommand.class);
     private static final String TITLE_ASSIGNATIONS_DRUGS_ADD_FORM = "title.assignations.drugs.add.form";
 
     private DrugService drugService = DrugService.getInstance();
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response)
+    public String doExecute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         int diagnosisHistoryId = Integer.parseInt(request.getParameter(Parameters.DIAGNOSIS_HISTORY_ID));

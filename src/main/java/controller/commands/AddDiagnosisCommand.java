@@ -18,15 +18,14 @@ import java.util.Date;
  * AddDiagnosisCommand
  * Created by alexey.morenets@gmail.com on 23.01.2017.
  */
-public class AddDiagnosisCommand implements Command {
+public class AddDiagnosisCommand extends CommandWrapper {
 
     private static final String TITLE_DIAGNOSIS_ADD = "title.diagnosis.add";
-    private static Logger LOGGER = Logger.getLogger(AddDiagnosisCommand.class);
 
     private DiagnosisHistoryService diagnosisHistoryService = DiagnosisHistoryService.getInstance();
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response)
+    public String doExecute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         DiagnosisType diagnosisType = (DiagnosisType)(request.getSession().getAttribute(Parameters.DIAGNOSIS_TYPE));
@@ -49,10 +48,8 @@ public class AddDiagnosisCommand implements Command {
         diagnosisHistoryService.createDiagnosisHistory(diagnosisHistory);
 
         request.setAttribute(Attributes.PAGE_TITLE, TITLE_DIAGNOSIS_ADD);
-
         response.sendRedirect(Paths.REST_SHOW_PATIENT_INFO + Parameters._ID + patientId);
         return Paths.REDIRECTED;
-//        return Paths.REST_SHOW_PATIENT_INFO + Parameters._ID + patientId;
     }
 
 }
