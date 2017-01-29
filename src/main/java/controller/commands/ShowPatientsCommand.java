@@ -19,16 +19,17 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class ShowPatientsCommand implements Command {
 
-    private PatientService patientService = PatientService.getInstance();
+	public static final String TITLE_PATIENTS_SHOW = "title.patients.show";
+	private PatientService patientService = PatientService.getInstance();
 
 	@Override
-	public String execute(HttpServletRequest request, HttpServletResponse httpServletResponse)
+	public String execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
         List<Patient> patients = patientService.getAllPatients();
         request.setAttribute(Parameters.ATTR_PATIENTS_LIST, patients);
 
-        request.setAttribute(Attributes.PAGE_TITLE, "title.patients.show");
+        request.setAttribute(Attributes.PAGE_TITLE, TITLE_PATIENTS_SHOW);
 		return Paths.PATIENTS_JSP;
 	}
 

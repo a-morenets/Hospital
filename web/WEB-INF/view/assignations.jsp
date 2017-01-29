@@ -1,4 +1,5 @@
 <%@ page import="view.Paths" %>
+<%@ page import="view.Parameters" %>
 
 <%@ include file="/WEB-INF/view/includes/header.jsp" %>
 <div align="center">
@@ -14,7 +15,9 @@
         </c:forEach>
     </table>
     <br>
-    <a href=".${Paths.SHOW_ADD_ASSIGNATIONS_DRUGS_FORM}"><fmt:message key="drugs.add"/></a>
+    <a href=".${Paths.SHOW_ADD_ASSIGNATIONS_DRUGS_FORM}?${Parameters.DIAGNOSIS_HISTORY_ID}=${diagnosisHistoryId}">
+        <fmt:message key="drugs.add"/>
+    </a>
 
     <h2><fmt:message key="procedures"/></h2>
     <table>
@@ -26,7 +29,9 @@
         </c:forEach>
     </table>
     <br>
-    <a href=".${Paths.SHOW_ADD_ASSIGNATIONS_PROCEDURES_FORM}"><fmt:message key="procedures.add"/></a>
+    <a href=".${Paths.SHOW_ADD_ASSIGNATIONS_PROCEDURES_FORM}?${Parameters.DIAGNOSIS_HISTORY_ID}=${diagnosisHistoryId}">
+        <fmt:message key="procedures.add"/>
+    </a>
 
     <h2><fmt:message key="surgeries"/></h2>
     <table>
@@ -37,6 +42,8 @@
         </c:forEach>
     </table>
     <br>
-    <a href=".${Paths.SHOW_ADD_ASSIGNATIONS_SURGERIES_FORM}"><fmt:message key="surgeries.add"/></a>
+    <a href=".${Paths.SHOW_ADD_ASSIGNATIONS_SURGERIES_FORM}?${Parameters.DIAGNOSIS_HISTORY_ID}=${diagnosisHistoryId}">
+        <fmt:message key="surgeries.add"/>
+    </a>
 </div>
 <%@ include file="/WEB-INF/view/includes/footer.jsp" %>

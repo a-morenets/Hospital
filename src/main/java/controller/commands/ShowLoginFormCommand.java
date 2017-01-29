@@ -14,11 +14,13 @@ import java.io.IOException;
  */
 public class ShowLoginFormCommand implements Command {
 
+    public static final String TITLE_LOGIN_FORM = "title.login.form";
+
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse httpServletResponse)
+    public String execute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        request.setAttribute(Attributes.PAGE_TITLE, "title.login");
+        request.setAttribute(Attributes.PAGE_TITLE, TITLE_LOGIN_FORM);
         return Paths.LOGIN_JSP;
     }
 

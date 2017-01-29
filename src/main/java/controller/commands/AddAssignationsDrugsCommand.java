@@ -26,24 +26,23 @@ public class AddAssignationsDrugsCommand implements Command {
     private static final String NUM_UNITS = "drugNumUnits";
     private static final String NUM_TIMES = "drugNumTimes";
     private static final String NUM_DAYS = "drugNumDays";
+    private static final String TITLE_ASSIGNATIONS_DRUGS_ADD = "title.assignations.drugs.add";
 
     private AssignationsDrugsService assignationsDrugsService = AssignationsDrugsService.getInstance();
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse httpServletResponse)
+    public String execute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        int diagnosisHistoryId = (int) request.getSession().getAttribute(Attributes.DIAGNOSIS_HISTORY_ID);
+        int diagnosisHistoryId = Integer.parseInt(request.getParameter(Parameters.DIAGNOSIS_HISTORY_ID));
 
         List<AssignationsDrugs> assignationsDrugsList = getDrugsAssignationsFromRequest(request, diagnosisHistoryId);
         assignationsDrugsService.createAssignationDrug(assignationsDrugsList);
 
-        int patientId = ((Patient) request.getSession().getAttribute(Attributes.PATIENT)).getId();
+        request.setAttribute(Attributes.PAGE_TITLE, TITLE_ASSIGNATIONS_DRUGS_ADD);
 
-        request.setAttribute(Attributes.PAGE_TITLE, "title.assignations.drugs");
-        return Paths.REST_SHOW_PATIENT_INFO + Parameters._ID + patientId;
-        // TODO
-//        return "/rest/show_assignations?diagnosisHistoryId=30";
+        response.sendRedirect(Paths.REST_SHOW_ASSIGNATIONS + Parameters._DIAGNOSIS_HISTORY_ID + diagnosisHistoryId);
+        return Paths.REDIRECTED;
     }
 
     private List<AssignationsDrugs> getDrugsAssignationsFromRequest(HttpServletRequest request, int diagnosisHistoryId) {
@@ -52,22 +51,18 @@ public class AddAssignationsDrugsCommand implements Command {
 //todo refactor
         while (params.hasMoreElements()) {
             String paramName = params.nextElement();
-            String[] paramParts = paramName.split("_");
-            String fieldName = paramParts[0];
 
-            int drugId = 0;
-            try {
-                drugId = Integer.parseInt(paramParts[1]);
-            } catch (NumberFormatException e) {
-                LOGGER.warn(e);
-            }
+            if (paramName.startsWith(NUM_UNITS)) {
+                int drugId = 0;
+                try {
+                    drugId = Integer.parseInt(paramName.replaceAll(".*\\_", ""));
+                } catch (NumberFormatException e) {
+                }
 
-            if (fieldName.equals(NUM_UNITS)) {
                 int numUnits = 0;
                 try {
                     numUnits = Integer.parseInt(request.getParameter(paramName));
                 } catch (NumberFormatException e) {
-                    LOGGER.warn(e);
                 }
 
                 if (numUnits > 0) {
@@ -77,7 +72,6 @@ public class AddAssignationsDrugsCommand implements Command {
                         numTimes = Integer.parseInt(request.getParameter(NUM_TIMES + "_" + drugId));
                         numDays = Integer.parseInt(request.getParameter(NUM_DAYS + "_" + drugId));
                     } catch (NumberFormatException e) {
-                        LOGGER.warn(e);
                     }
 
                     if (numTimes > 0 && numDays > 0) {

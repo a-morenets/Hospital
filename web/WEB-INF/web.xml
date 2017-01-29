@@ -3,6 +3,16 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
 
+    <error-page>
+        <error-code>404</error-code>
+        <location>/index.html</location>
+    </error-page>
+
+    <error-page>
+        <exception-type>java.lang.Throwable</exception-type>
+        <location>/WEB-INF/view/errorPage/errorPage.jsp</location>
+    </error-page>
+
     <resource-ref>
         <description>Hospital Pool</description>
         <res-ref-name>jdbc/hospital</res-ref-name>

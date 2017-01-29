@@ -1,10 +1,7 @@
 package controller;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import controller.commands.*;
+
 import org.apache.log4j.Logger;
 import view.Paths;
 
@@ -47,11 +45,9 @@ public class MainController extends HttpServlet {
         String commandKey = getCommandKey(request);
         LOGGER.debug(commandKey);
         Command command = commandsHolder.getCommand(commandKey);
-        String viewPage = command.execute(request, response);
-        if (viewPage.equals(Paths.REDIRECT)) {
-            LOGGER.debug("REDIRECT to " + Paths.REST_HOME);
-            response.sendRedirect(Paths.REST_HOME);
-        } else {
+        String viewPage = "";
+        viewPage = command.execute(request, response);
+        if (!viewPage.equals(Paths.REDIRECTED)) {
             LOGGER.debug("FORWARD to " + viewPage);
             request.getRequestDispatcher(viewPage).forward(request, response);
         }

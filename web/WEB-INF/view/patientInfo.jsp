@@ -4,9 +4,7 @@
 
 <%@ include file="/WEB-INF/view/includes/header.jsp" %>
 <div align="center">
-
-    <h2>${patient.lastName} ${patient.firstName} ${patient.surName}</h2>
-
+    <h2>${patientId.lastName} ${patientId.firstName} ${patientId.surName}</h2>
     <table>
         <c:forEach var="i" items="${diagnosisHistoryList}">
             <tr>
@@ -24,7 +22,6 @@
                                 <fmt:message key="nurse"/>
                             </c:otherwise>
                         </c:choose>
-
                             ${i.staff.lastName} ${i.staff.firstName} ${i.staff.surName}
                         )
                         <c:if test="${i.diagnosisType == 'PRIMARY'}">
@@ -34,17 +31,17 @@
             </tr>
         </c:forEach>
     </table>
+    <br>
     <c:choose>
         <c:when test="${isPatientOnCure}">
-            <a href=".${Paths.SET_DIAGNOSIS}?id=${patient.id}&${Parameters.DIAGNOSIS_TYPE}=FINAL"><fmt:message
-                    key="patient.discharge"/></a>
+            <a href=".${Paths.SET_DIAGNOSIS}?id=${patientId.id}&${Parameters.DIAGNOSIS_TYPE}=FINAL"><fmt:message
+                    key="patient.drawout"/></a>
         </c:when>
         <c:otherwise>
-            <a href=".${Paths.SET_DIAGNOSIS}?id=${patient.id}&${Parameters.DIAGNOSIS_TYPE}=PRIMARY"><fmt:message
-                    key="patient.set.diagnosis"/></a>
+            <a href=".${Paths.SET_DIAGNOSIS}?id=${patientId.id}&${Parameters.DIAGNOSIS_TYPE}=PRIMARY"><fmt:message
+                    key="patient.diagnosis.set"/></a>
         </c:otherwise>
     </c:choose>
-
     <br><br>
     <a href=".${Paths.SHOW_PATIENTS}"><fmt:message key="patient.back.to.patients"/></a>
 </div>

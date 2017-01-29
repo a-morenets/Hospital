@@ -1,12 +1,15 @@
 package model.dao.jdbc;
 
+import controller.exception.AppException;
 import model.dao.AssignationsSurgeriesDao;
 import model.entities.AssignationsSurgeries;
 import model.entities.Surgery;
+import view.Errors;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * JdbcAssignationsSurgeriesDao
@@ -16,7 +19,7 @@ public class JdbcAssignationsSurgeriesDao implements AssignationsSurgeriesDao {
 
     /* SQL */
     private static final String SELECT_FROM_ASSIGNATIONS_SURGERIES =
-            "SELECT asur.id, diagnosis_history_id, surgery_id, s.id id_surgery, name\n" +
+            "SELECT asur.id, diagnosis_history_id, surgery_id, name surgery_name\n" +
                     "FROM assignations_surgeries asur JOIN surgeries s\n" +
                     "ON asur.surgery_id = s.id\n" +
                     "WHERE asur.diagnosis_history_id = ?";
@@ -30,8 +33,8 @@ public class JdbcAssignationsSurgeriesDao implements AssignationsSurgeriesDao {
     private static final String DIAGNOSIS_HISTORY_ID = "diagnosis_history_id";
 
     /* Fields for surgeries */
-    private static final String ID_SURGERY = "id_surgery";
-    private static final String NAME = "name";
+    private static final String SURGERY_ID = "surgery_id";
+    private static final String NASURGERY_NAMEE = "surgery_name";
 
     private Connection connection;
 
@@ -49,27 +52,27 @@ public class JdbcAssignationsSurgeriesDao implements AssignationsSurgeriesDao {
             query.setString(1, String.valueOf(diagnosisHistoryId));
             ResultSet resultSet = query.executeQuery();
             while (resultSet.next()) {
-                result.add(getAssignationSurgeryFromResultSet(resultSet));
+                result.add(getEntityFromResultSet(resultSet));
             }
-        } catch (SQLException ex) {
-            throw new RuntimeException(ex);
+        } catch (SQLException e) {
+            throw new AppException(Errors.SQL_ERROR, e);
         }
         return result;
     }
 
-    private AssignationsSurgeries getAssignationSurgeryFromResultSet(ResultSet resultSet) throws SQLException {
+    private AssignationsSurgeries getEntityFromResultSet(ResultSet rs) throws SQLException {
         Surgery surgery = new Surgery();
-        surgery.setId(resultSet.getInt(ID_SURGERY));
-        surgery.setName(resultSet.getString(NAME));
+        surgery.setId(rs.getInt(SURGERY_ID));
+        surgery.setName(rs.getString(NASURGERY_NAMEE));
         return new AssignationsSurgeries.Builder()
-                .setId(resultSet.getInt(ID))
-                .setDiagnosisHistoryId(resultSet.getInt(DIAGNOSIS_HISTORY_ID))
+                .setId(rs.getInt(ID))
+                .setDiagnosisHistoryId(rs.getInt(DIAGNOSIS_HISTORY_ID))
                 .setSurgery(surgery)
                 .build();
     }
 
     @Override
-    public AssignationsSurgeries find(int id) {
+    public Optional<AssignationsSurgeries> find(int id) {
         throw new UnsupportedOperationException();
     }
 
@@ -93,7 +96,7 @@ public class JdbcAssignationsSurgeriesDao implements AssignationsSurgeriesDao {
                 assignationsSurgeries.setId(keys.getInt(1));
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new AppException(Errors.SQL_ERROR, e);
         }
     }
 

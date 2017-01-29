@@ -8,9 +8,11 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
+import controller.exception.AppException;
 import model.dao.StaffDao;
 import model.entities.Staff;
 import model.entities.Staff.Role;
+import view.Errors;
 
 /**
  * JdbcStaffDao
@@ -42,18 +44,19 @@ public class JdbcStaffDao implements StaffDao {
     }
 
     @Override
-    public Staff find(int id) {
-        Staff staff = null;
+    public Optional<Staff> find(int id) {
+        Optional<Staff> result = Optional.empty();
         try (PreparedStatement query = connection.prepareStatement(SELECT_STAFF_BY_ID)) {
             query.setString(1, String.valueOf(id));
             ResultSet resultSet = query.executeQuery();
             if (resultSet.next()) {
-                staff = getStaffFromResultSet(resultSet);
+                Staff staff = getEntityFromResultSet(resultSet);
+                result = Optional.of(staff);
             }
         } catch (SQLException ex) {
-            throw new RuntimeException(ex);
+            throw new AppException(Errors.SQL_ERROR, ex);
         }
-        return staff;
+        return result;
     }
 
     @Override
@@ -83,24 +86,24 @@ public class JdbcStaffDao implements StaffDao {
             query.setString(1, email.toLowerCase());
             ResultSet resultSet = query.executeQuery();
             if (resultSet.next()) {
-                Staff staff = getStaffFromResultSet(resultSet);
+                Staff staff = getEntityFromResultSet(resultSet);
                 result = Optional.of(staff);
             }
         } catch (SQLException ex) {
-            throw new RuntimeException(ex);
+            throw new AppException(Errors.SQL_ERROR, ex);
         }
         return result;
     }
 
-    private Staff getStaffFromResultSet(ResultSet resultSet) throws SQLException {
+    private Staff getEntityFromResultSet(ResultSet rs) throws SQLException {
         return new Staff.Builder()
-                .setId(resultSet.getInt(ID))
-                .setLastName(resultSet.getString(LASTNAME))
-                .setFirstName(resultSet.getString(FIRSTNAME))
-                .setSurName(resultSet.getString(SURNAME))
-                .setRole(Role.valueOf(resultSet.getString(ROLE)))
-                .setEmail(resultSet.getString(EMAIL))
-                .setPassword(resultSet.getString(PASSWORD))
+                .setId(rs.getInt(ID))
+                .setLastName(rs.getString(LASTNAME))
+                .setFirstName(rs.getString(FIRSTNAME))
+                .setSurName(rs.getString(SURNAME))
+                .setRole(Role.valueOf(rs.getString(ROLE)))
+                .setEmail(rs.getString(EMAIL))
+                .setPassword(rs.getString(PASSWORD))
                 .build();
     }
 

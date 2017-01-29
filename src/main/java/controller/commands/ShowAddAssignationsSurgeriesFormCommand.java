@@ -4,6 +4,7 @@ import model.entities.Surgery;
 import model.services.SurgeryService;
 import org.apache.log4j.Logger;
 import view.Attributes;
+import view.Parameters;
 import view.Paths;
 
 import javax.servlet.ServletException;
@@ -19,17 +20,21 @@ import java.util.List;
 public class ShowAddAssignationsSurgeriesFormCommand implements Command {
 
     private static final Logger LOGGER = Logger.getLogger(ShowAddAssignationsSurgeriesFormCommand.class);
+    public static final String TITLE_ASSIGNATIONS_SURGERIES_ADD_FORM = "title.assignations.surgeries.add.form";
 
     private SurgeryService surgeryService = SurgeryService.getInstance();
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse httpServletResponse)
+    public String execute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        int diagnosisHistoryId = Integer.parseInt(request.getParameter(Parameters.DIAGNOSIS_HISTORY_ID));
 
         List<Surgery> surgeriesList = surgeryService.getAllSurgeries();
         request.setAttribute(Attributes.SURGERIES_LIST, surgeriesList);
 
-        request.setAttribute(Attributes.PAGE_TITLE, "form.assignations.surgeries.add");
+        request.setAttribute(Attributes.DIAGNOSIS_HISTORY_ID, diagnosisHistoryId);
+        request.setAttribute(Attributes.PAGE_TITLE, TITLE_ASSIGNATIONS_SURGERIES_ADD_FORM);
         return Paths.ADD_ASSIGNATIONS_SURGERIES_JSP;
     }
 

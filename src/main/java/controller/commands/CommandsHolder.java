@@ -1,5 +1,6 @@
 package controller.commands;
 
+import view.Attributes;
 import view.Paths;
 
 import java.util.HashMap;
@@ -47,6 +48,11 @@ public class CommandsHolder {
     }
 
     public Command getCommand(String key) {
-        return commands.getOrDefault(key, (req, resp) -> Paths.REDIRECT);
+        return commands.getOrDefault(key, (request, response) -> {
+            request.setAttribute(Attributes.PAGE_TITLE, "title.home");
+            response.sendRedirect(Paths.REST_HOME);
+            return Paths.REDIRECTED;
+        });
     }
+
 }

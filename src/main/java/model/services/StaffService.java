@@ -32,7 +32,7 @@ public class StaffService {
         }
     }
 
-    public Staff getStaffById(int Id) {
+    public Optional<Staff> getStaffById(int Id) {
         try (DaoConnection connection = daoFactory.getConnection()) {
             StaffDao staffDao = daoFactory.createStaffDao(connection);
             return staffDao.find(Id);

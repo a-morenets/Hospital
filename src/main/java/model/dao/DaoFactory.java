@@ -1,5 +1,8 @@
 package model.dao;
 
+import controller.exception.AppException;
+import view.Errors;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -38,7 +41,7 @@ public abstract class DaoFactory {
                 String factoryClass = dbProps.getProperty(DB_FACTORY_CLASS);
                 instance = (DaoFactory) Class.forName(factoryClass).newInstance();
             } catch (IOException | IllegalAccessException | InstantiationException | ClassNotFoundException e) {
-                throw new RuntimeException(e);
+                throw new AppException(Errors.DAO_FACTORY_EXCEPTION, e);
             }
         }
         return instance;

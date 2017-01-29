@@ -1,7 +1,9 @@
 package model.dao.jdbc;
 
+import controller.exception.AppException;
 import model.dao.SurgeryDao;
 import model.entities.Surgery;
+import view.Errors;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -9,6 +11,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * JdbcSurgeryDao
@@ -34,7 +37,7 @@ public class JdbcSurgeryDao implements SurgeryDao {
     }
 
     @Override
-    public Surgery find(int id) {
+    public Optional<Surgery> find(int id) {
         throw new UnsupportedOperationException();
     }
 
@@ -46,18 +49,18 @@ public class JdbcSurgeryDao implements SurgeryDao {
              ResultSet resultSet = query.executeQuery(SELECT_FROM_SURGERIES)) {
 
             while (resultSet.next()) {
-                result.add(getSurgeryFromResultSet(resultSet));
+                result.add(getEntityFromResultSet(resultSet));
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new AppException(Errors.SQL_ERROR, e);
         }
         return result;
     }
 
-    private Surgery getSurgeryFromResultSet(ResultSet resultSet) throws SQLException {
+    private Surgery getEntityFromResultSet(ResultSet rs) throws SQLException {
         Surgery surgery = new Surgery();
-        surgery.setId(resultSet.getInt(ID));
-        surgery.setName(resultSet.getString(NAME));
+        surgery.setId(rs.getInt(ID));
+        surgery.setName(rs.getString(NAME));
         return surgery;
     }
 

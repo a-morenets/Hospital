@@ -11,5 +11,5 @@ import javax.servlet.http.HttpServletResponse;
  * Created by alexey.morenets@gmail.com on 23.01.2017.
  */
 public interface Command {
-    String execute(HttpServletRequest request, HttpServletResponse httpServletResponse) throws ServletException, IOException;
+    String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
 }

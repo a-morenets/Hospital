@@ -6,7 +6,7 @@ package view;
  */
 public final class Paths {
 
-    public static final String REDIRECT = "REDIRECT";
+    public static final String REDIRECTED = "REDIRECTED";
 
     /* JSP */
     private static final String PREFIX = "/WEB-INF/view";
@@ -37,7 +37,7 @@ public final class Paths {
     public static final String ADD_ASSIGNATIONS_DRUGS = "/add_assignations_drugs";
     public static final String SHOW_ADD_ASSIGNATIONS_PROCEDURES_FORM = "/show_add_assignations_procedures_form";
     public static final String ADD_ASSIGNATIONS_PROCEDURES = "/add_assignations_procedures";
-    public static final String SHOW_ADD_ASSIGNATIONS_SURGERIES_FORM = "/show_add_assignations_drugs_surgeries";
+    public static final String SHOW_ADD_ASSIGNATIONS_SURGERIES_FORM = "/show_add_assignations_surgeries";
     public static final String ADD_ASSIGNATIONS_SURGERIES = "/add_assignations_surgeries";
 
     /* REST */
@@ -45,4 +45,6 @@ public final class Paths {
     public static final String REST_HOME = REST + HOME;
     public static final String REST_SHOW_PATIENTS = REST + SHOW_PATIENTS;
     public static final String REST_SHOW_PATIENT_INFO = REST + SHOW_PATIENT_INFO;
+    public static final String REST_SHOW_ASSIGNATIONS = REST + SHOW_ASSIGNATIONS;
+
 }

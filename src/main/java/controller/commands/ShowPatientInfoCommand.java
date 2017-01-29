@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * ShowPatientInfoCommand
@@ -22,18 +23,19 @@ import java.util.List;
 public class ShowPatientInfoCommand implements Command {
 
     private static final Logger LOGGER = Logger.getLogger(ShowPatientInfoCommand.class);
+    public static final String TITLE_PATIENT_INFO = "title.patient.info";
 
     private PatientService patientService = PatientService.getInstance();
     private DiagnosisHistoryService diagnosisHistoryService = DiagnosisHistoryService.getInstance();
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse httpServletResponse)
+    public String execute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        int id = Integer.parseInt(request.getParameter(Parameters.ID));//todo if not null + validation \\d+
+        int id = Integer.parseInt(request.getParameter(Parameters.ID)); //todo if not null + validation \\d+
 
-        Patient patient = patientService.getPatientById(id);
-        request.getSession().setAttribute(Attributes.PATIENT, patient);//todo setsAttr patient_ID into request
+        Optional<Patient> patient = patientService.getPatientById(id);
+        patient.ifPresent(patientConsumer -> request.getSession().setAttribute(Attributes.PATIENT, patientConsumer));
 
         List<DiagnosisHistory> diagnosisHistoryList = diagnosisHistoryService.getDiagnosisHistoryByPatient(id);
         request.getSession().setAttribute(Attributes.DIAGNOSIS_HISTORY_LIST, diagnosisHistoryList);
@@ -41,7 +43,7 @@ public class ShowPatientInfoCommand implements Command {
         boolean isPatientOnCure = patientService.isPatientOnCure(id);
         request.setAttribute(Attributes.ATTR_IS_PATIENT_ON_CURE, isPatientOnCure);
 
-        request.setAttribute(Attributes.PAGE_TITLE, "title.patient.info");
+        request.setAttribute(Attributes.PAGE_TITLE, TITLE_PATIENT_INFO);
         return Paths.PATIENT_INFO_JSP;
     }
 

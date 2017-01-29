@@ -1,12 +1,15 @@
 package model.dao.jdbc;
 
+import controller.exception.AppException;
 import model.dao.PatientDao;
 import model.entities.Patient;
 import model.entities.DiagnosisType;
+import view.Errors;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * JdbcPatientDao
@@ -45,19 +48,19 @@ public class JdbcPatientDao implements PatientDao {
     }
 
     @Override
-    public Patient find(int id) {
-        // TODO use Optional
-        Patient patient = null;
+    public Optional<Patient> find(int id) {
+        Optional<Patient> result = null;
         try (PreparedStatement query = connection.prepareStatement(SELECT_PATIENT_BY_ID)) {
             query.setString(1, String.valueOf(id));
             ResultSet resultSet = query.executeQuery();
             if (resultSet.next()) {
-                patient = getPatientFromResultSet(resultSet);
+                Patient patient = getEntityFromResultSet(resultSet);
+                result = Optional.of(patient);
             }
-        } catch (SQLException ex) {
-            throw new RuntimeException(ex);
+        } catch (SQLException e) {
+            throw new AppException(Errors.SQL_ERROR, e);
         }
-        return patient;
+        return result;
     }
 
     @Override
@@ -68,20 +71,20 @@ public class JdbcPatientDao implements PatientDao {
              ResultSet resultSet = query.executeQuery(SELECT_FROM_PATIENTS)) {
 
             while (resultSet.next()) {
-                result.add(getPatientFromResultSet(resultSet));
+                result.add(getEntityFromResultSet(resultSet));
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new AppException(Errors.SQL_ERROR, e);
         }
         return result;
     }
 
-    private Patient getPatientFromResultSet(ResultSet resultSet) throws SQLException {
+    private Patient getEntityFromResultSet(ResultSet rs) throws SQLException {
         return new Patient.Builder()
-                .setId(resultSet.getInt(ID))
-                .setFirstName(resultSet.getString(FIRSTNAME))
-                .setLastName(resultSet.getString(LASTNAME))
-                .setSurName(resultSet.getString(SURNAME))
+                .setId(rs.getInt(ID))
+                .setFirstName(rs.getString(FIRSTNAME))
+                .setLastName(rs.getString(LASTNAME))
+                .setSurName(rs.getString(SURNAME))
                 .build();
     }
 
@@ -100,7 +103,7 @@ public class JdbcPatientDao implements PatientDao {
                 patient.setId(keys.getInt(1));
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new AppException(Errors.SQL_ERROR, e);
         }
     }
 
@@ -125,7 +128,7 @@ public class JdbcPatientDao implements PatientDao {
                 result = DiagnosisType.valueOf(resultSet.getString(DIAGNOSIS_TYPE));
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new AppException(Errors.SQL_ERROR, e);
         }
         return result;
     }

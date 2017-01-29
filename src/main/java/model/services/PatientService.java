@@ -7,6 +7,7 @@ import model.entities.DiagnosisType;
 import model.entities.Patient;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * PatientService
@@ -40,7 +41,7 @@ public class PatientService {
         }
     }
 
-    public Patient getPatientById(int id) {
+    public Optional<Patient> getPatientById(int id) {
         try (DaoConnection connection = daoFactory.getConnection()) {
             PatientDao patientDao = daoFactory.createPatientDao(connection);
             return patientDao.find(id);

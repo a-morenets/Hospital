@@ -1,8 +1,11 @@
 package model.dao.jdbc;
 
+import controller.exception.AppException;
 import model.dao.*;
+import view.Errors;
 
 import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import java.sql.Connection;
@@ -16,12 +19,12 @@ public class JdbcDaoFactory extends DaoFactory {
 
     private DataSource dataSource;
 
-    public JdbcDaoFactory() throws SQLException {
+    public JdbcDaoFactory() {
         try {
             InitialContext ic = new InitialContext();
             dataSource = (DataSource) ic.lookup("java:comp/env/jdbc/hospital");
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        } catch (NamingException e) {
+            throw new AppException(Errors.NAMING_EXCEPTION, e);
         }
     }
 
@@ -30,7 +33,7 @@ public class JdbcDaoFactory extends DaoFactory {
         try {
             return new JdbcDaoConnection(dataSource.getConnection());
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new AppException(Errors.SQL_ERROR, e);
         }
     }
 

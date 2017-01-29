@@ -2,7 +2,7 @@
 
 <%@ include file="/WEB-INF/view/includes/header.jsp" %>
 <div align="center">
-    <h2>${patient.lastName} ${patient.firstName} ${patient.surName}</h2>
+    <h2>${patientId.lastName} ${patientId.firstName} ${patientId.surName}</h2>
     <form method="post" action=".${Paths.ADD_DIAGNOSIS}">
 
         <select name="diagnosisId" required>

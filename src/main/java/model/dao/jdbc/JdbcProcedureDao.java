@@ -1,7 +1,9 @@
 package model.dao.jdbc;
 
+import controller.exception.AppException;
 import model.dao.ProcedureDao;
 import model.entities.Procedure;
+import view.Errors;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -9,6 +11,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by alexey.morenets@gmail.com on 26.01.2017.
@@ -33,7 +36,7 @@ public class JdbcProcedureDao implements ProcedureDao {
     }
 
     @Override
-    public Procedure find(int id) {
+    public Optional<Procedure> find(int id) {
         throw new UnsupportedOperationException();
     }
 
@@ -45,18 +48,18 @@ public class JdbcProcedureDao implements ProcedureDao {
              ResultSet resultSet = query.executeQuery(SELECT_FROM_PROCEDURES)) {
 
             while (resultSet.next()) {
-                result.add(getProcedureFromResultSet(resultSet));
+                result.add(getEntityFromResultSet(resultSet));
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new AppException(Errors.SQL_ERROR, e);
         }
         return result;
     }
 
-    private Procedure getProcedureFromResultSet(ResultSet resultSet) throws SQLException {
+    private Procedure getEntityFromResultSet(ResultSet rs) throws SQLException {
         Procedure procedure = new Procedure();
-        procedure.setId(resultSet.getInt(ID));
-        procedure.setName(resultSet.getString(NAME));
+        procedure.setId(rs.getInt(ID));
+        procedure.setName(rs.getString(NAME));
         return procedure;
     }
 

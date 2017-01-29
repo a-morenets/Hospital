@@ -3,6 +3,7 @@
 <%@ include file="/WEB-INF/view/includes/header.jsp" %>
 <div align="center">
     <form method="post" action=".${Paths.ADD_ASSIGNATIONS_PROCEDURES}">
+        <input type="hidden" name="${Parameters.DIAGNOSIS_HISTORY_ID}" value="${diagnosisHistoryId}">
         <table>
             <c:forEach var="i" items="${proceduresList}">
                 <tr>

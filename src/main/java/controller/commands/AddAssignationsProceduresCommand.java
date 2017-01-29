@@ -26,23 +26,24 @@ public class AddAssignationsProceduresCommand implements Command {
     private static final Logger LOGGER = Logger.getLogger(AddAssignationsProceduresCommand.class);
 
     private static final String NUM_DAYS = "procedureNumDays";
+    private static final String TITLE_ASSIGNATIONS_PROCEDURES_ADD = "title.assignations.procedures.add";
 
     private AssignationsProceduresService assignationsProceduresService = AssignationsProceduresService.getInstance();
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse httpServletResponse)
+    public String execute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        int diagnosisHistoryId = (int) request.getSession().getAttribute(Attributes.DIAGNOSIS_HISTORY_ID);
+        int diagnosisHistoryId = Integer.parseInt(request.getParameter(Parameters.DIAGNOSIS_HISTORY_ID));
 
         List<AssignationsProcedures> assignationsProceduresList = getProceduresAssignationsFromRequest(request, diagnosisHistoryId);
         LOGGER.debug(assignationsProceduresList);
         assignationsProceduresService.createAssignationsProcedures(assignationsProceduresList);
 
-        int patientId = ((Patient) request.getSession().getAttribute(Attributes.PATIENT)).getId();
+        request.setAttribute(Attributes.PAGE_TITLE, TITLE_ASSIGNATIONS_PROCEDURES_ADD);
 
-        request.setAttribute(Attributes.PAGE_TITLE, "title.assignations.procedures");
-        return Paths.REST_SHOW_PATIENT_INFO + Parameters._ID + patientId;
+        response.sendRedirect(Paths.REST_SHOW_ASSIGNATIONS + Parameters._DIAGNOSIS_HISTORY_ID + diagnosisHistoryId);
+        return Paths.REDIRECTED;
     }
 
     private List<AssignationsProcedures> getProceduresAssignationsFromRequest(HttpServletRequest request, int diagnosisHistoryId) {
@@ -51,22 +52,18 @@ public class AddAssignationsProceduresCommand implements Command {
 
         while (params.hasMoreElements()) {
             String paramName = params.nextElement();
-            String[] paramParts = paramName.split("_");
-            String fieldName = paramParts[0];
 
-            int procedureId = 0;
-            try {
-                procedureId = Integer.parseInt(paramParts[1]);
-            } catch (NumberFormatException e) {
-                LOGGER.warn(e);
-            }
+            if (paramName.startsWith(NUM_DAYS)) {
+                int procedureId = 0;
+                try {
+                    procedureId = Integer.parseInt(paramName.replaceAll(".*\\_", ""));
+                } catch (NumberFormatException e) {
+                }
 
-            if (fieldName.equals(NUM_DAYS)) {
                 int numDays = 0;
                 try {
                     numDays = Integer.parseInt(request.getParameter(paramName));
                 } catch (NumberFormatException e) {
-                    LOGGER.warn(e);
                 }
 
                 if (numDays > 0) {

@@ -1,7 +1,9 @@
 package model.dao.jdbc;
 
+import controller.exception.AppException;
 import model.dao.DrugDao;
 import model.entities.Drug;
+import view.Errors;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -9,6 +11,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * JdbcDrugDao
@@ -34,7 +37,7 @@ public class JdbcDrugDao implements DrugDao {
     }
 
     @Override
-    public Drug find(int id) {
+    public Optional<Drug> find(int id) {
         throw new UnsupportedOperationException();
     }
 
@@ -46,18 +49,18 @@ public class JdbcDrugDao implements DrugDao {
              ResultSet resultSet = query.executeQuery(SELECT_FROM_DRUGS)) {
 
             while (resultSet.next()) {
-                result.add(getDrugFromResultSet(resultSet));
+                result.add(getEntityFromResultSet(resultSet));
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new AppException(Errors.SQL_ERROR, e);
         }
         return result;
     }
 
-    private Drug getDrugFromResultSet(ResultSet resultSet) throws SQLException {
+    private Drug getEntityFromResultSet(ResultSet rs) throws SQLException {
         Drug drug = new Drug();
-        drug.setId(resultSet.getInt(ID));
-        drug.setName(resultSet.getString(NAME));
+        drug.setId(rs.getInt(ID));
+        drug.setName(rs.getString(NAME));
         return drug;
     }
 

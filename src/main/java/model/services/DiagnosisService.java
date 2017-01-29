@@ -6,6 +6,7 @@ import model.dao.DiagnosisDao;
 import model.entities.Diagnosis;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * DiagnosisService
@@ -25,7 +26,7 @@ public class DiagnosisService {
 
     /* Service methods */
 
-    public Diagnosis getDiagnosisById(int id) {
+    public Optional<Diagnosis> getDiagnosisById(int id) {
         try (DaoConnection connection = daoFactory.getConnection()) {
             DiagnosisDao diagnosisDao = daoFactory.createDiagnosisDao(connection);
             return diagnosisDao.find(id);

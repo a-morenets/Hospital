@@ -10,6 +10,6 @@
         </c:forEach>
     </table>
     <br>
-    <a href=".${Paths.SHOW_ADD_PATIENT_FORM}"><fmt:message key="patient.new"/></a>
+    <a href=".${Paths.SHOW_ADD_PATIENT_FORM}"><fmt:message key="title.patient.add"/></a>
 </div>
 <%@ include file="/WEB-INF/view/includes/footer.jsp" %>

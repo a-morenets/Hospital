@@ -31,13 +31,14 @@ public class LocaleFilter implements Filter {
         HttpServletRequest req = ((HttpServletRequest) request);
         HttpSession session = req.getSession();
 
-        changeUserLocaleByRequestParameter(req);
         if (req.getSession().getAttribute(Attributes.BUNDLE_FILE) == null) {
             req.getSession().setAttribute(Attributes.BUNDLE_FILE, HospitalConfig.MESSAGES);
         }
 
+        changeUserLocaleByRequestParameter(req);
+
         if (session.getAttribute(Attributes.USER_LOCALE) == null) {
-            initialSetUpOfUserLocale(req);
+            setupUserLocale(req);
         }
 
         chain.doFilter(request, response);
@@ -57,7 +58,7 @@ public class LocaleFilter implements Filter {
         }
     }
 
-    private void initialSetUpOfUserLocale(HttpServletRequest request) {
+    private void setupUserLocale(HttpServletRequest request) {
         HttpSession session = request.getSession();
         Locale locale = null;
         Locale requestLocale = request.getLocale();

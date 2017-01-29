@@ -20,12 +20,13 @@ import java.util.List;
  */
 public class SetDiagnosisCommand implements Command {
 
+    private static final String TITLE_DIAGNOSIS_SET = "title.diagnosis.set";
     private static Logger LOGGER = Logger.getLogger(SetDiagnosisCommand.class);
 
     private DiagnosisService diagnosisService = DiagnosisService.getInstance();
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse httpServletResponse)
+    public String execute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         DiagnosisType diagnosisType = DiagnosisType.valueOf(request.getParameter(Parameters.DIAGNOSIS_TYPE));
@@ -34,7 +35,7 @@ public class SetDiagnosisCommand implements Command {
         List<Diagnosis> diagnosesList = diagnosisService.getAllDiagnoses();
         request.setAttribute(Attributes.DIAGNOSES_LIST, diagnosesList);
 
-        request.setAttribute(Attributes.PAGE_TITLE, "diagnosis.set");
+        request.setAttribute(Attributes.PAGE_TITLE, TITLE_DIAGNOSIS_SET);
         return Paths.DIAGNOSES_JSP;
     }
 

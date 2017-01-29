@@ -16,13 +16,13 @@ import java.io.IOException;
 public class HomeCommand implements Command {
 
     private static final Logger LOGGER = Logger.getLogger(HomeCommand.class);
+    private static final String TITLE_HOME = "title.home";
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse httpServletResponse)
+    public String execute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        request.setAttribute(Attributes.PAGE_TITLE, "title.home");
-
+        request.setAttribute(Attributes.PAGE_TITLE, TITLE_HOME);
         return Paths.HOME_JSP;
     }
 

@@ -20,12 +20,13 @@ import java.util.Date;
  */
 public class AddDiagnosisCommand implements Command {
 
+    private static final String TITLE_DIAGNOSIS_ADD = "title.diagnosis.add";
     private static Logger LOGGER = Logger.getLogger(AddDiagnosisCommand.class);
 
     private DiagnosisHistoryService diagnosisHistoryService = DiagnosisHistoryService.getInstance();
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse httpServletResponse)
+    public String execute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         DiagnosisType diagnosisType = (DiagnosisType)(request.getSession().getAttribute(Parameters.DIAGNOSIS_TYPE));
@@ -40,15 +41,18 @@ public class AddDiagnosisCommand implements Command {
 
         DiagnosisHistory diagnosisHistory = new DiagnosisHistory.Builder()
                 .setDate(new Timestamp(new Date().getTime()))
-                .setPatient(patient)
+                .setPatientId(patientId)
                 .setStaff(staff)
                 .setDiagnosis(diagnosis)
                 .setDiagnosisType(diagnosisType)
                 .build();
         diagnosisHistoryService.createDiagnosisHistory(diagnosisHistory);
 
-        request.setAttribute(Attributes.PAGE_TITLE, "title.diagnosis.add");
-        return Paths.REST_SHOW_PATIENT_INFO + Parameters._ID + patientId;
+        request.setAttribute(Attributes.PAGE_TITLE, TITLE_DIAGNOSIS_ADD);
+
+        response.sendRedirect(Paths.REST_SHOW_PATIENT_INFO + Parameters._ID + patientId);
+        return Paths.REDIRECTED;
+//        return Paths.REST_SHOW_PATIENT_INFO + Parameters._ID + patientId;
     }
 
 }

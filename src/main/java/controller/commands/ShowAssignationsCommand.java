@@ -23,6 +23,7 @@ import java.util.List;
  */
 public class ShowAssignationsCommand implements Command {
 
+    public static final String TITLE_ASSIGNATIONS_SHOW = "title.assignations.show";
     private static Logger LOGGER = Logger.getLogger(ShowAssignationsCommand.class);
 
     private static final String ATTR_ASSIGNATION_DRUGS_LIST = "assignationDrugsList";
@@ -34,7 +35,7 @@ public class ShowAssignationsCommand implements Command {
     private AssignationsSurgeriesService assignationsSurgeriesService = AssignationsSurgeriesService.getInstance();
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse httpServletResponse)
+    public String execute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         int diagnosisHistoryId = Integer.parseInt(request.getParameter(Parameters.DIAGNOSIS_HISTORY_ID));
@@ -46,12 +47,12 @@ public class ShowAssignationsCommand implements Command {
         List<AssignationsSurgeries> assignationSurgeriesList =
                 assignationsSurgeriesService.getAssignationSurgeriesByDiagnosisHistoryIdList(diagnosisHistoryId);
 
-        request.getSession().setAttribute(Attributes.DIAGNOSIS_HISTORY_ID, diagnosisHistoryId);
+        request.setAttribute(Attributes.DIAGNOSIS_HISTORY_ID, diagnosisHistoryId);
         request.setAttribute(ATTR_ASSIGNATION_DRUGS_LIST, assignationDrugsList);
         request.setAttribute(ATTR_ASSIGNATION_PROCEDURES_LIST, assignationProceduresList);
         request.setAttribute(ATTR_ASSIGNATION_SURGERIES_LIST, assignationSurgeriesList);
 
-        request.setAttribute(Attributes.PAGE_TITLE, "title.assignations.show");
+        request.setAttribute(Attributes.PAGE_TITLE, TITLE_ASSIGNATIONS_SHOW);
         return Paths.ASSIGNATIONS_JSP;
     }
 

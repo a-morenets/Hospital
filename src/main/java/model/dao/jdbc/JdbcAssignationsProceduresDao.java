@@ -1,13 +1,16 @@
 package model.dao.jdbc;
 
+import controller.exception.AppException;
 import model.dao.AssignationsProceduresDao;
 import model.entities.AssignationsProcedures;
 import model.entities.Procedure;
 import org.apache.log4j.Logger;
+import view.Errors;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 /**
@@ -20,7 +23,7 @@ public class JdbcAssignationsProceduresDao implements AssignationsProceduresDao 
 
     /* SQL */
     private static final String SELECT_FROM_ASSIGNATIONS_PROCEDURES =
-            "SELECT ap.id, diagnosis_history_id, procedure_id, num_days, p.id id_procedure, name\n" +
+            "SELECT ap.id, diagnosis_history_id, procedure_id, num_days, name procedure_name\n" +
                     "FROM assignations_procedures ap JOIN procedures p\n" +
                     "ON ap.procedure_id = p.id\n" +
                     "WHERE ap.diagnosis_history_id = ?";
@@ -35,8 +38,8 @@ public class JdbcAssignationsProceduresDao implements AssignationsProceduresDao 
     private static final String NUM_DAYS = "num_days";
 
     /* Fields for procedures */
-    private static final String ID_PROCEDURE = "id_procedure";
-    private static final String NAME = "name";
+    private static final String PROCEDURE_ID = "procedure_id";
+    private static final String PROCEDURE_NAME = "procedure_name";
 
     private Connection connection;
 
@@ -54,28 +57,28 @@ public class JdbcAssignationsProceduresDao implements AssignationsProceduresDao 
             query.setString(1, String.valueOf(diagnosisHistoryId));
             ResultSet resultSet = query.executeQuery();
             while (resultSet.next()) {
-                result.add(getAssignationProcedureFromResultSet(resultSet));
+                result.add(getEntityFromResultSet(resultSet));
             }
         } catch (SQLException ex) {
-            throw new RuntimeException(ex);
+            throw new AppException(Errors.SQL_ERROR, ex);
         }
         return result;
     }
 
-    private AssignationsProcedures getAssignationProcedureFromResultSet(ResultSet resultSet) throws SQLException {
+    private AssignationsProcedures getEntityFromResultSet(ResultSet rs) throws SQLException {
         Procedure procedure = new Procedure();
-        procedure.setId(resultSet.getInt(ID_PROCEDURE));
-        procedure.setName(resultSet.getString(NAME));
+        procedure.setId(rs.getInt(PROCEDURE_ID));
+        procedure.setName(rs.getString(PROCEDURE_NAME));
         return new AssignationsProcedures.Builder()
-                .setId(resultSet.getInt(ID))
-                .setDiagnosisHistoryId(resultSet.getInt(DIAGNOSIS_HISTORY_ID))
+                .setId(rs.getInt(ID))
+                .setDiagnosisHistoryId(rs.getInt(DIAGNOSIS_HISTORY_ID))
                 .setProcedure(procedure)
-                .setNumDays(resultSet.getInt(NUM_DAYS))
+                .setNumDays(rs.getInt(NUM_DAYS))
                 .build();
     }
 
     @Override
-    public AssignationsProcedures find(int id) {
+    public Optional<AssignationsProcedures> find(int id) {
         throw new UnsupportedOperationException();
     }
 
@@ -100,7 +103,7 @@ public class JdbcAssignationsProceduresDao implements AssignationsProceduresDao 
                 assignationsProcedures.setId(keys.getInt(1));
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new AppException(Errors.SQL_ERROR, e);
         }
     }
 

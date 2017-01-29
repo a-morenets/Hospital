@@ -1,8 +1,10 @@
 <%@ page import="view.Paths" %>
+<%@ page import="view.Parameters" %>
 
 <%@ include file="/WEB-INF/view/includes/header.jsp" %>
 <div align="center">
     <form method="post" action=".${Paths.ADD_ASSIGNATIONS_DRUGS}">
+        <input type="hidden" name="${Parameters.DIAGNOSIS_HISTORY_ID}" value="${diagnosisHistoryId}">
         <table>
             <c:forEach var="i" items="${drugsList}">
                 <tr>
@@ -13,7 +15,6 @@
                 </tr>
             </c:forEach>
         </table>
-
         <input type="submit">
     </form>
 </div>

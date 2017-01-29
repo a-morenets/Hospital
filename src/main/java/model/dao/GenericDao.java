@@ -1,6 +1,9 @@
 package model.dao;
 
+import model.entities.Staff;
+
 import java.util.List;
+import java.util.Optional;
 
 /**
  * interface GenericDao
@@ -8,7 +11,7 @@ import java.util.List;
  */
 public interface GenericDao<T> {
 	
-    T find(int id);
+    Optional<T> find(int id);
 
     List<T> findAll();
 

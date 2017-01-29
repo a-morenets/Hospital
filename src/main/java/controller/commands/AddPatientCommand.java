@@ -20,11 +20,12 @@ public class AddPatientCommand implements Command {
     private static final String PARAM_LASTNAME = "lastname";
     private static final String PARAM_FIRSTNAME = "firstname";
     private static final String PARAM_SURNAME = "surname";
+    private static final String PATIENT_ADD = "patient.add";
 
     private PatientService patientService = PatientService.getInstance();
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse httpServletResponse) throws ServletException, IOException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String lastName = request.getParameter(PARAM_LASTNAME);
         String firstName = request.getParameter(PARAM_FIRSTNAME);
         String surName = request.getParameter(PARAM_SURNAME);
@@ -36,8 +37,10 @@ public class AddPatientCommand implements Command {
                 .build();
         patientService.createPatient(patient);
 
-        request.setAttribute(Attributes.PAGE_TITLE, "patient.add");
-        return Paths.REST_SHOW_PATIENTS;
+        request.setAttribute(Attributes.PAGE_TITLE, PATIENT_ADD);
+
+        response.sendRedirect(Paths.REST_SHOW_PATIENTS);
+        return Paths.REDIRECTED;
     }
 
 }

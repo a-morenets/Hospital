@@ -1,11 +1,14 @@
 package model.dao.jdbc;
 
+import controller.exception.AppException;
 import model.dao.DiagnosisDao;
 import model.entities.Diagnosis;
+import view.Errors;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * JdbcDiagnosisDao
@@ -32,18 +35,19 @@ public class JdbcDiagnosisDao implements DiagnosisDao {
     }
 
     @Override
-    public Diagnosis find(int id) {
-        Diagnosis diagnosis = null;
+    public Optional<Diagnosis> find(int id) {
+        Optional<Diagnosis> result = null;
         try (PreparedStatement query = connection.prepareStatement(SELECT_FROM_DIAGNOSIS_BY_ID)) {
             query.setString(1, String.valueOf(id));
             ResultSet resultSet = query.executeQuery();
             if (resultSet.next()) {
-                diagnosis = getDiagnosisFromResultSet(resultSet);
+                Diagnosis diagnosis = getEntityFromResultSet(resultSet);
+                result = Optional.of(diagnosis);
             }
-        } catch (SQLException ex) {
-            throw new RuntimeException(ex);
+        } catch (SQLException e) {
+            throw new AppException(Errors.SQL_ERROR, e);
         }
-        return diagnosis;
+        return result;
     }
 
     @Override
@@ -54,18 +58,18 @@ public class JdbcDiagnosisDao implements DiagnosisDao {
              ResultSet resultSet = query.executeQuery(SELECT_FROM_DIAGNOSIS)) {
 
             while (resultSet.next()) {
-                result.add(getDiagnosisFromResultSet(resultSet));
+                result.add(getEntityFromResultSet(resultSet));
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new AppException(Errors.SQL_ERROR, e);
         }
         return result;
     }
 
-    private Diagnosis getDiagnosisFromResultSet(ResultSet resultSet) throws SQLException {
+    private Diagnosis getEntityFromResultSet(ResultSet rs) throws SQLException {
         Diagnosis diagnosis = new Diagnosis();
-        diagnosis.setId(resultSet.getInt(ID));
-        diagnosis.setName(resultSet.getString(NAME));
+        diagnosis.setId(rs.getInt(ID));
+        diagnosis.setName(rs.getString(NAME));
         return diagnosis;
     }
 

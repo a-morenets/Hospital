@@ -14,11 +14,13 @@ import java.io.IOException;
  */
 public class ShowAddPatientFormCommand implements Command {
 
+    public static final String TITLE_PATIENT_ADD_FORM = "title.patient.add.form";
+
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse httpServletResponse)
+    public String execute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        request.setAttribute(Attributes.PAGE_TITLE, "title.patient.add");
+        request.setAttribute(Attributes.PAGE_TITLE, TITLE_PATIENT_ADD_FORM);
         return Paths.ADD_PATIENT_FORM_JSP;
     }
 
