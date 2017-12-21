@@ -109,7 +109,7 @@ public class JdbcDiagnosisHistoryDao implements DiagnosisHistoryDao {
     }
 
     @Override
-    public List<DiagnosisHistory> getDiagnosisHistoryByPatientIdList(int patientId) {
+    public List<DiagnosisHistory> getDiagnosisHistoryByPatientId(int patientId) {
         List<DiagnosisHistory> result = new ArrayList<>();
         try (PreparedStatement query = connection.prepareStatement(SELECT_FROM_DIAGNOSIS_HISTORY)) {
             query.setString(1, String.valueOf(patientId));

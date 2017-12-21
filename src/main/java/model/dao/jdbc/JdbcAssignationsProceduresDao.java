@@ -78,16 +78,6 @@ public class JdbcAssignationsProceduresDao implements AssignationsProceduresDao 
     }
 
     @Override
-    public Optional<AssignationsProcedures> find(int id) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public List<AssignationsProcedures> findAll() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
     public void create(AssignationsProcedures assignationsProcedures) {
         try (PreparedStatement query =
                      connection.prepareStatement(INSERT_INTO_ASSIGNATIONS_PROCEDURES, Statement.RETURN_GENERATED_KEYS)) {
@@ -105,6 +95,16 @@ public class JdbcAssignationsProceduresDao implements AssignationsProceduresDao 
         } catch (SQLException e) {
             throw new AppException(Errors.SQL_ERROR, e);
         }
+    }
+
+    @Override
+    public Optional<AssignationsProcedures> find(int id) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public List<AssignationsProcedures> findAll() {
+        throw new UnsupportedOperationException();
     }
 
     @Override

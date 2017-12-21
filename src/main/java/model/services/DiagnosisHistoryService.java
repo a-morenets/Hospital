@@ -28,7 +28,7 @@ public class DiagnosisHistoryService {
     public List<DiagnosisHistory> getDiagnosisHistoryByPatient(int id) {
         try (DaoConnection connection = daoFactory.getConnection()) {
             DiagnosisHistoryDao diagnosisHistoryDao = daoFactory.createDiagnosisHistoryDao(connection);
-            return diagnosisHistoryDao.getDiagnosisHistoryByPatientIdList(id);
+            return diagnosisHistoryDao.getDiagnosisHistoryByPatientId(id);
         }
     }
 

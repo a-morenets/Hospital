@@ -78,16 +78,6 @@ public class JdbcAssignationsDrugsDao implements AssignationsDrugsDao {
     }
 
     @Override
-    public Optional<AssignationsDrugs> find(int id) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public List<AssignationsDrugs> findAll() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
     public void create(AssignationsDrugs assignationsDrugs) {
         try (PreparedStatement query =
                      connection.prepareStatement(INSERT_INTO_ASSIGNATIONS_DRUGS, Statement.RETURN_GENERATED_KEYS)) {
@@ -107,6 +97,16 @@ public class JdbcAssignationsDrugsDao implements AssignationsDrugsDao {
         } catch (SQLException e) {
             throw new AppException(Errors.SQL_ERROR, e);
         }
+    }
+
+    @Override
+    public Optional<AssignationsDrugs> find(int id) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public List<AssignationsDrugs> findAll() {
+        throw new UnsupportedOperationException();
     }
 
     @Override
