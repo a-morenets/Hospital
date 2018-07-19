@@ -36,7 +36,7 @@ public class JdbcDiagnosisDao implements DiagnosisDao {
 
     @Override
     public Optional<Diagnosis> find(int id) {
-        Optional<Diagnosis> result = null;
+        Optional<Diagnosis> result = Optional.empty();
         try (PreparedStatement query = connection.prepareStatement(SELECT_FROM_DIAGNOSIS_BY_ID)) {
             query.setString(1, String.valueOf(id));
             ResultSet resultSet = query.executeQuery();

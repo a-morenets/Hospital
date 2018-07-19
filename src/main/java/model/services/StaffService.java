@@ -28,7 +28,8 @@ public class StaffService {
     public Optional<Staff> login(String email, String password) {
         try (DaoConnection connection = daoFactory.getConnection()) {
             StaffDao staffDao = daoFactory.createStaffDao(connection);
-            return staffDao.getStaffByEmail(email).filter(staff -> password.equals(staff.getPassword()));
+            return staffDao.getStaffByEmail(email)
+                    .filter(staff -> password.equals(staff.getPassword()));
         }
     }
 

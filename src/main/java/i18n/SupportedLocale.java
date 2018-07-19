@@ -11,9 +11,9 @@ public enum SupportedLocale {
     EN (new Locale("en", "EN"), "en"),
     RU (new Locale("ru", "RU"), "ru");
 
-    final private Locale locale;
-    final private String param;
-    final static private SupportedLocale defaultLocale = EN;
+    private final Locale locale;
+    private final String param;
+    private static final SupportedLocale DEFAULT_LOCALE = EN;
 
     SupportedLocale(Locale locale, String param) {
         this.locale = locale;
@@ -29,7 +29,7 @@ public enum SupportedLocale {
     }
 
     public static Locale getDefault() {
-        return defaultLocale.getLocale();
+        return DEFAULT_LOCALE.getLocale();
     }
 
 }
