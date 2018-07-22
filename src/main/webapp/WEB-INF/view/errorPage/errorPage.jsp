@@ -2,7 +2,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="org.apache.log4j.Logger" %>
-<%! private static final Logger logger = Logger.getLogger("JSP ERROR HANDLER PAGE"); %>
+
+<%! private static final Logger logger = Logger.getLogger("JSP Error Handler Page"); %>
 <% logger.error(pageContext.getException());
 %>
 
