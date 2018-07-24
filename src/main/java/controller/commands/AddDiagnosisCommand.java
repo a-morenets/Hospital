@@ -48,7 +48,8 @@ public class AddDiagnosisCommand extends CommandWrapper {
         diagnosisHistoryService.createDiagnosisHistory(diagnosisHistory);
 
         request.setAttribute(Attributes.PAGE_TITLE, TITLE_DIAGNOSIS_ADD);
-        response.sendRedirect(Paths.REST_SHOW_PATIENT_INFO + Parameters._ID + patientId);
+        String contextPath = request.getContextPath();
+        response.sendRedirect(contextPath + Paths.REST_SHOW_PATIENT_INFO + Parameters._ID + patientId);
         return Paths.REDIRECTED;
     }
 

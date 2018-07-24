@@ -38,7 +38,8 @@ public class AddAssignationsDrugsCommand extends CommandWrapper {
         assignationsDrugsService.createAssignationDrug(assignationsDrugsList);
 
         request.setAttribute(Attributes.PAGE_TITLE, TITLE_ASSIGNATIONS_DRUGS_ADD);
-        response.sendRedirect(Paths.REST_SHOW_ASSIGNATIONS + Parameters._DIAGNOSIS_HISTORY_ID + diagnosisHistoryId);
+        String contextPath = request.getContextPath();
+        response.sendRedirect(contextPath + Paths.REST_SHOW_ASSIGNATIONS + Parameters._DIAGNOSIS_HISTORY_ID + diagnosisHistoryId);
         return Paths.REDIRECTED;
     }
 

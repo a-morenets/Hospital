@@ -40,7 +40,8 @@ public class AddAssignationsSurgeriesCommand extends CommandWrapper {
         assignationsSurgeriesService.createAssignationsSurgeries(assignationsProceduresList);
 
         request.setAttribute(Attributes.PAGE_TITLE, TITLE_ASSIGNATIONS_SURGERIES_ADD);
-        response.sendRedirect(Paths.REST_SHOW_ASSIGNATIONS + Parameters._DIAGNOSIS_HISTORY_ID + diagnosisHistoryId);
+        String contextPath = request.getContextPath();
+        response.sendRedirect(contextPath + Paths.REST_SHOW_ASSIGNATIONS + Parameters._DIAGNOSIS_HISTORY_ID + diagnosisHistoryId);
         return Paths.REDIRECTED;
     }
 

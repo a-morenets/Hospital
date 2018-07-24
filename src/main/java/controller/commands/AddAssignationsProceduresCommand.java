@@ -38,7 +38,8 @@ public class AddAssignationsProceduresCommand extends CommandWrapper {
         assignationsProceduresService.createAssignationsProcedures(assignationsProceduresList);
 
         request.setAttribute(Attributes.PAGE_TITLE, TITLE_ASSIGNATIONS_PROCEDURES_ADD);
-        response.sendRedirect(Paths.REST_SHOW_ASSIGNATIONS + Parameters._DIAGNOSIS_HISTORY_ID + diagnosisHistoryId);
+        String contextPath = request.getContextPath();
+        response.sendRedirect(contextPath + Paths.REST_SHOW_ASSIGNATIONS + Parameters._DIAGNOSIS_HISTORY_ID + diagnosisHistoryId);
         return Paths.REDIRECTED;
     }
 

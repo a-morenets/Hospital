@@ -35,7 +35,8 @@ public class AddPatientCommand extends CommandWrapper {
         patientService.createPatient(patient);
 
         request.setAttribute(Attributes.PAGE_TITLE, PATIENT_ADD);
-        response.sendRedirect(Paths.REST_SHOW_PATIENTS);
+        String contextPath = request.getContextPath();
+        response.sendRedirect(contextPath + Paths.REST_SHOW_PATIENTS);
         return Paths.REDIRECTED;
     }
 
