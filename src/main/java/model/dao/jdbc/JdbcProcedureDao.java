@@ -31,9 +31,9 @@ public class JdbcProcedureDao implements ProcedureDao {
         this.connection = connection;
     }
 
-    public void setConnection(Connection connection) {
-        this.connection = connection;
-    }
+//    public void setConnection(Connection connection) {
+//        this.connection = connection;
+//    }
 
     @Override
     public Optional<Procedure> find(int id) {

@@ -39,9 +39,9 @@ public class JdbcStaffDao implements StaffDao {
         this.connection = connection;
     }
 
-    public void setConnection(Connection connection) {
-        this.connection = connection;
-    }
+//    public void setConnection(Connection connection) {
+//        this.connection = connection;
+//    }
 
     @Override
     public Optional<Staff> find(int id) {

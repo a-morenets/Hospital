@@ -46,7 +46,7 @@ public class AddAssignationsDrugsCommand extends CommandWrapper {
     private List<AssignationsDrugs> getDrugsAssignationsFromRequest(HttpServletRequest request, int diagnosisHistoryId) {
         List<AssignationsDrugs> assignationsDrugsList = new ArrayList<>();
         Enumeration<String> params = request.getParameterNames();
-//todo refactor
+//todo refactor - https://www.java4s.com/java-servlet-tutorials/example-on-getparametervalues-method-of-servlet-request/
         while (params.hasMoreElements()) {
             String paramName = params.nextElement();
 

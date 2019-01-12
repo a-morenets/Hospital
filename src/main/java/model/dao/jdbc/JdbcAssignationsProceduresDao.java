@@ -47,9 +47,9 @@ public class JdbcAssignationsProceduresDao implements AssignationsProceduresDao 
         this.connection = connection;
     }
 
-    public void setConnection(Connection connection) {
-        this.connection = connection;
-    }
+//    public void setConnection(Connection connection) {
+//        this.connection = connection;
+//    }
 
     public List<AssignationsProcedures> findByDiagnosisHistoryId(int diagnosisHistoryId) {
         List<AssignationsProcedures> result = new ArrayList<>();

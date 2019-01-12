@@ -35,7 +35,7 @@ public class JdbcPatientDao implements PatientDao {
     private static final String LASTNAME = "lastname";
     private static final String FIRSTNAME = "firstname";
     private static final String SURNAME = "surname";
-    public static final String DIAGNOSIS_TYPE = "type";
+    private static final String DIAGNOSIS_TYPE = "type";
 
     private Connection connection;
 
@@ -43,13 +43,13 @@ public class JdbcPatientDao implements PatientDao {
         this.connection = connection;
     }
 
-    public void setConnection(Connection connection) {
-        this.connection = connection;
-    }
+//    public void setConnection(Connection connection) {
+//        this.connection = connection;
+//    }
 
     @Override
     public Optional<Patient> find(int id) {
-        Optional<Patient> result = null;
+        Optional<Patient> result = Optional.empty();
         try (PreparedStatement query = connection.prepareStatement(SELECT_PATIENT_BY_ID)) {
             query.setString(1, String.valueOf(id));
             ResultSet resultSet = query.executeQuery();

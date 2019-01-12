@@ -62,9 +62,9 @@ public class JdbcDiagnosisHistoryDao implements DiagnosisHistoryDao {
         this.connection = connection;
     }
 
-    public void setConnection(Connection connection) {
-        this.connection = connection;
-    }
+//    public void setConnection(Connection connection) {
+//        this.connection = connection;
+//    }
 
     @Override
     public Optional<DiagnosisHistory> find(int id) {

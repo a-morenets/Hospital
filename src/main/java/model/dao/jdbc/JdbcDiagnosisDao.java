@@ -30,9 +30,9 @@ public class JdbcDiagnosisDao implements DiagnosisDao {
         this.connection = connection;
     }
 
-    public void setConnection(Connection connection) {
-        this.connection = connection;
-    }
+//    public void setConnection(Connection connection) {
+//        this.connection = connection;
+//    }
 
     @Override
     public Optional<Diagnosis> find(int id) {

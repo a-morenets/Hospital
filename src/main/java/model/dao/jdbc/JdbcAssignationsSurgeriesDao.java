@@ -42,9 +42,9 @@ public class JdbcAssignationsSurgeriesDao implements AssignationsSurgeriesDao {
         this.connection = connection;
     }
 
-    public void setConnection(Connection connection) {
-        this.connection = connection;
-    }
+//    public void setConnection(Connection connection) {
+//        this.connection = connection;
+//    }
 
     public List<AssignationsSurgeries> findByDiagnosisHistoryId(int diagnosisHistoryId) {
         List<AssignationsSurgeries> result = new ArrayList<>();

@@ -95,8 +95,8 @@ public class Staff {
 		return firstName;
 	}
 
-	public void setFirstName(String firstNname) {
-		this.firstName = firstNname;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
 	public String getSurName() {

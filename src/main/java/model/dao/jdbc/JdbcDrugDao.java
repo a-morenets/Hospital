@@ -32,9 +32,9 @@ public class JdbcDrugDao implements DrugDao {
         this.connection = connection;
     }
 
-    public void setConnection(Connection connection) {
-        this.connection = connection;
-    }
+//    public void setConnection(Connection connection) {
+//        this.connection = connection;
+//    }
 
     @Override
     public Optional<Drug> find(int id) {

@@ -45,9 +45,9 @@ public class JdbcAssignationsDrugsDao implements AssignationsDrugsDao {
         this.connection = connection;
     }
 
-    public void setConnection(Connection connection) {
-        this.connection = connection;
-    }
+//    public void setConnection(Connection connection) {
+//        this.connection = connection;
+//    }
 
     public List<AssignationsDrugs> findByDiagnosisHistoryId(int diagnosisHistoryId) {
         List<AssignationsDrugs> result = new ArrayList<>();

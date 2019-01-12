@@ -32,9 +32,9 @@ public class JdbcSurgeryDao implements SurgeryDao {
         this.connection = connection;
     }
 
-    public void setConnection(Connection connection) {
-        this.connection = connection;
-    }
+//    public void setConnection(Connection connection) {
+//        this.connection = connection;
+//    }
 
     @Override
     public Optional<Surgery> find(int id) {
